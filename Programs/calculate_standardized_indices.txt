@@ -1,0 +1,166 @@
+# -*- coding: utf-8 -*-
+"""
+Spyder Editor
+
+This is a temporary script file.
+
+Changed source code to address the following warning:
+    
+C:/Users/leasor.4/Anaconda3/envs/geo2/lib/site-packages/standard_precip/base_sp.py:216: 
+FutureWarning: Series.dt.weekofyear and Series.dt.week have been deprecated. Please use Series.dt.isocalendar().week instead.
+self._df_copy[self.freq_col] = self._df_copy[date_col].dt.week
+
+https://github.com/e-baumer/standard_precip/blob/master/examples/example_use.ipynb
+rainfall_data = pd.read_csv('monthly_data.csv')#sample data in directory
+"""
+
+import numpy as np
+from standard_precip.spi import SPI
+import pandas as pd
+import datetime as datetime
+import matplotlib.pyplot as plt
+from sklearn.metrics import mean_squared_error
+from scipy.stats import norm
+# #nClimDiv 1-Month SPI Data
+# spi_gamma_01_RefFileName = 'C:/Users/leasor.4/Documents/DocumentsOSU/NSF/NASA_Drought_Data/nClimGridAsClimDiv/ClimDiv_spi_gamma_01_18950205To20210727.npz'
+# spi_gamma_01_RefObject = np.load(spi_gamma_01_RefFileName)
+# spi_gamma_01_YYYYMMDD_Of_RefArray = spi_gamma_01_RefObject['spi_gamma_01_YYYYMMDD_Of_RefArray']
+# spi_gamma_01_RefArray = spi_gamma_01_RefObject['spi_gamma_01_RefArray']
+# del(spi_gamma_01_RefFileName,spi_gamma_01_RefObject)
+# #nClimDiv 1-Month Precipitation Data
+# prcp_01_RefFileName = 'C:/Users/leasor.4/Documents/DocumentsOSU/NSF/NASA_Drought_Data/nClimGridAsClimDiv/ClimDiv_prcp_01_18950205To20210727.npz'
+# prcp_01_RefObject = np.load(prcp_01_RefFileName)
+# prcp_01_YYYYMMDD_Of_RefArray = prcp_01_RefObject['prcp_01_YYYYMMDD_Of_RefArray']
+# prcp_01_RefArray = prcp_01_RefObject['prcp_01_RefArray']
+# del(prcp_01_RefFileName,prcp_01_RefObject)
+
+# NewArrayDate = []
+# for i in range(0,len(prcp_01_YYYYMMDD_Of_RefArray)):
+#     mydate = datetime.datetime.strptime(str(prcp_01_YYYYMMDD_Of_RefArray[i][0]), '%Y%m%d')
+#     NewArrayDate.append(mydate.strftime('%Y-%m-%d'))
+
+# del i,mydate
+# spi1=[]
+# droughtdata_as_dataframe=pd.DataFrame(data=NewArrayDate,columns=['date'])
+# for i in range(0,1):#len(prcp_01_RefArray[0])):
+#     droughtdata_as_dataframe=droughtdata_as_dataframe.assign(data=prcp_01_RefArray[:,i]) 
+#     df_spi = SPI().calculate(droughtdata_as_dataframe,'date','data',freq="W",scale=1,fit_type="lmom",dist_type="gam")
+#     spi1.append(np.array(df_spi['data_calculated_index']))
+#     del df_spi
+#     print(i)
+    
+# del i#, NewArrayDate
+
+#Plot comparing different calculations
+# date_time = pd.to_datetime(NewArrayDate[5600:])
+# fig, ax = plt.subplots()
+# ax.plot(date_time,spi1[0][5600:])
+# ax.plot(date_time,spi_gamma_01_RefArray[5600:,0])
+# ax.set_title('1-Month SPI (Gamma) for Clim Div 101: Northern Valley, Alabama')
+# ax.set_xlabel('Date')
+# ax.set_ylabel('SPI')
+# fig.legend(['Calculated SPI','NCEI SPI'],loc='lower right', ncol=2, borderaxespad=4)
+# print (mean_squared_error(spi_gamma_01_RefArray[5600:,0],spi1[0][5600:],squared=False))#RMSE
+
+#NLDAS Top 1-m soil moisture
+Noah_1MSM_RefFileName = 'C:/Users/leasor.4/Documents/DocumentsOSU/NSF/NASA_Drought_Data/NLDAS-2_daily/ClimDiv_Noah_1MSM_19800101To20210831.npz'
+Noah_1MSM_RefObject = np.load(Noah_1MSM_RefFileName)
+Noah_1MSM_YYYYMMDD_Of_RefArray = Noah_1MSM_RefObject['Noah_1MSM_YYYYMMDD_Of_RefArray']
+Noah_1MSM_RefArray = Noah_1MSM_RefObject['Noah_1MSM_RefArray']
+del(Noah_1MSM_RefFileName,Noah_1MSM_RefObject)
+#NLDAS Streamflow
+Noah_STRM_H04_RefFileName='C:/Users/leasor.4/Documents/DocumentsOSU/NSF/NASA_Drought_Data/NLDAS-2_daily/ClimDiv_Noah_STRM_H04_19800101To20210831.npz'
+Noah_STRM_H04_RefObject=np.load(Noah_STRM_H04_RefFileName)
+Noah_STRM_H04_YYYYMMDD_Of_RefArray = Noah_STRM_H04_RefObject['Noah_STRM_H04_YYYYMMDD_Of_RefArray']
+Noah_STRM_H04_RefArray=Noah_STRM_H04_RefObject['Noah_STRM_H04_RefArray']
+del(Noah_STRM_H04_RefFileName,Noah_STRM_H04_RefObject)
+#VegDRI
+VegDRI_RefFileName = 'C:/Users/leasor.4/Documents/DocumentsOSU/NSF/NASA_Drought_Data/DRIs/ClimDiv_VegDRI_20090428To20200804.npz'
+VegDRI_RefObject = np.load(VegDRI_RefFileName)
+VegDRI_YYYYMMDD_Of_RefArray = VegDRI_RefObject['VegDRI_YYYYMMDD_Of_RefArray']
+VegDRI_RefArray = VegDRI_RefObject['VegDRI_RefArray']
+del(VegDRI_RefFileName, VegDRI_RefObject)
+
+NewArrayDate_NLDAS = []#dates for soil moisture and streamflow are equivalent
+for i in range(0,len(Noah_1MSM_YYYYMMDD_Of_RefArray)):
+    mydate = datetime.datetime.strptime(str(Noah_1MSM_YYYYMMDD_Of_RefArray[i][0]), '%Y%m%d')
+    NewArrayDate_NLDAS.append(mydate.strftime('%Y-%m-%d'))
+   
+del i,mydate
+NewArrayDate_VegDRI = []
+for i in range(0,len(VegDRI_YYYYMMDD_Of_RefArray)):
+    mydate = datetime.datetime.strptime(str(VegDRI_YYYYMMDD_Of_RefArray[i][0]), '%Y%m%d')
+    NewArrayDate_VegDRI.append(mydate.strftime('%Y-%m-%d'))
+
+del i,mydate
+
+Noah_1MSM,Noah_STRM_H04,VegDRI=([] for i in range(3))
+Noah_1MSM_as_dataframe=pd.DataFrame(data=NewArrayDate_NLDAS,columns=['date'])
+Noah_STRM_H04_as_dataframe=pd.DataFrame(data=NewArrayDate_NLDAS,columns=['date'])
+VegDRI_as_dataframe=pd.DataFrame(data=NewArrayDate_VegDRI,columns=['date'])
+
+for i in range(0,len(Noah_1MSM_RefArray[0])):
+    Noah_1MSM_as_dataframe=Noah_1MSM_as_dataframe.assign(data=Noah_1MSM_RefArray[:,i]) 
+    df_ssmi = SPI().calculate(Noah_1MSM_as_dataframe,'date','data',freq="W",scale=1,fit_type="lmom",dist_type="gam")
+    Noah_1MSM.append(np.array(df_ssmi['data_calculated_index']))
+    print(i)
+    
+del i  
+Noah_1MSM=np.transpose(np.array(Noah_1MSM))
+print('SM Complete')  
+for i in range(0,len(Noah_STRM_H04_RefArray[0])):
+    Noah_STRM_H04_as_dataframe=Noah_STRM_H04_as_dataframe.assign(data=Noah_STRM_H04_RefArray[:,i]) 
+    df_ssi = SPI().calculate(Noah_STRM_H04_as_dataframe,'date','data',freq="W",scale=1,fit_type="lmom",dist_type="gam")
+    Noah_STRM_H04.append(np.array(df_ssi['data_calculated_index']))
+    print(i)
+    
+del i  
+Noah_STRM_H04=np.transpose(np.array(Noah_STRM_H04))
+print('Streamflow Complete')  
+##############################NEED TO FIGURE OUT HOW TO DEAL WITH NAN##########
+# for i in range(0,len(VegDRI_RefArray[0])):
+#     VegDRI_as_dataframe=VegDRI_as_dataframe.assign(data=VegDRI_RefArray[:,i]) 
+#     df_vegdri = SPI().calculate(VegDRI_as_dataframe,'date','data',freq="W",scale=1,fit_type="lmom",dist_type="gam")
+#     VegDRI.append(np.array(df_vegdri['data_calculated_index']))
+#     print(i)
+    
+# del i  
+# VegDRI=np.transpose(np.array(VegDRI))
+# print('VegDRI Complete')  
+# # del i#, NewArrayDate_NLDAS, NewArrayDate_VegDRI
+##############################NEED TO FIGURE OUT HOW TO DEAL WITH NAN##########
+# #Export for testing
+# output=np.zeros((2175,4))
+# output[:,0]=Noah_1MSM_RefArray[:,0]
+# output[:,1]=Noah_1MSM[:,0]
+# output[:,2]=Noah_STRM_H04_RefArray[:,0]
+# output[:,3]=Noah_STRM_H04[:,0]
+# np.savetxt('test_transformation.csv',output,fmt='%1.6f',delimiter=",",header='SM,SSM,Streamflow,SS')
+
+def droughtfrequency_standardized_indices(droughtdataset,dfreq):
+    for i in range(0,344):
+        for j in range(0,len(droughtdataset)):
+            if droughtdataset[j,i]<=-0.5 and droughtdataset[j,i]>-0.8:
+                dfreq[i,0]=dfreq[i,0]+1
+            elif droughtdataset[j,i]<=-0.8 and droughtdataset[j,i]>-1.3:
+                dfreq[i,1]=dfreq[i,1]+1
+            elif droughtdataset[j,i]<=-1.3 and droughtdataset[j,i]>-1.6:
+                dfreq[i,2]=dfreq[i,2]+1
+            elif droughtdataset[j,i]<=-1.6 and droughtdataset[j,i]>-2.0:
+                dfreq[i,3]=dfreq[i,3]+1
+            elif droughtdataset[j,i]<=-2.0:
+                dfreq[i,4]=dfreq[i,4]+1
+    
+    dfreq[:,0]=dfreq[:,0]/((norm.cdf(-0.5)-norm.cdf(-0.8))*len(droughtdataset))
+    dfreq[:,1]=dfreq[:,1]/((norm.cdf(-0.8)-norm.cdf(-1.3))*len(droughtdataset))
+    dfreq[:,2]=dfreq[:,2]/((norm.cdf(-1.3)-norm.cdf(-1.6))*len(droughtdataset))
+    dfreq[:,3]=dfreq[:,3]/((norm.cdf(-1.6)-norm.cdf(-2.0))*len(droughtdataset))
+    dfreq[:,4]=dfreq[:,4]/(norm.cdf(-2.0)*len(droughtdataset))
+    
+dfreq_sm=np.zeros((344,5))#preallocate the data
+droughtfrequency_standardized_indices(Noah_1MSM,dfreq_sm)
+dfreq_streamflow=np.zeros((344,5))#preallocate the data
+droughtfrequency_standardized_indices(Noah_STRM_H04,dfreq_streamflow)    
+
+np.savetxt('dfreq_sm.csv', dfreq_sm, delimiter=',',fmt='%f')
+np.savetxt('dfreq_streamflow.csv', dfreq_streamflow, delimiter=',',fmt='%f')
