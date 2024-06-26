@@ -86,8 +86,8 @@ def main():
   """
 
   # Replace 'data_folder' with the actual path to your folder containing data files
-  data_folder = r'C:\Users\thoma\Documents\GitHub\Drought-Research\Programs\Data QC Samples\Mesonet'
-  output_filename = r'C:\Users\thoma\Documents\GitHub\Drought-Research\Programs\Data QC Samples\Mesonet\data_summary.txt'
+  data_folder = r'C:\Users\thoma\Documents\GitHub\Drought-Research\Precip Data\Dataset B\Daily'
+  output_filename = r'C:\Users\thoma\Documents\GitHub\Drought-Research\Precip Data\Dataset B\Daily\data_summary.txt'
 
   with open(output_filename, 'w') as output_file:
     output_file.write("Data Summary\n\n")
@@ -100,7 +100,6 @@ def main():
           output_file.write(f"File: {filename}\n")
           output_file.write(f"First Date: {first_date.strftime('%Y-%m-%d')}\n")
           output_file.write(f"Last Date: {last_date.strftime('%Y-%m-%d')}\n")
-          output_file.write(f"Highest Value")
           output_file.write(f"Highest Value: {highest:.2f}\n")  # Format with 2 decimal places 
           output_file.write(f"Lowest Value: {lowest:.2f}\n")
 

@@ -1,13 +1,3 @@
-
-University of Missouri Commercial Agriculture Extension Program	
-Missouri Historical Agricultural
-Weather Database
-University of Missouri Extension
-Weather Station:	Cameron, DeKalb County, MO
-Weather Description:	Grindstone Reservoir ( 4 miles northwest of Cameron )
-Starting Period:	January 1, 2000
-Ending Period:	May 31, 2024
-DeKalb County
    MONTH       DAY      YEAR     TOTAL  
                                 PRECIP  
                                 INCHES  
