@@ -110,6 +110,9 @@ def main():
               output_file.write(f"- {date.strftime('%Y-%m-%d')}\n")
           output_file.write("\n")  # Add a blank line between file summaries
 
+        elif filename == "data_summary.txt":
+          output_file.write("")
+  
         else:
           output_file.write(f"Error processing file: {filename}\n\n")
 
