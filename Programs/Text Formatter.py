@@ -1,8 +1,8 @@
 import os
 
 # Define input and output directories
-input_dir = r"C:\Users\tpsqmd\Desktop\Monthly Old"
-output_dir = r"C:\Users\tpsqmd\Desktop\Monthly New"
+input_dir = r"C:\Users\thoma\Documents\GitHub\Drought-Research\Precip Data\Dataset B\Monthly Tot Unformatted"
+output_dir = r"C:\Users\thoma\Documents\GitHub\Drought-Research\Precip Data\Dataset B\Monthly Tot Formatted"
 
 # Loop through files in the input directory
 for filename in os.listdir(input_dir):
