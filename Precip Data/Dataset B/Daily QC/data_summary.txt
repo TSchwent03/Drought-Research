@@ -2,8 +2,8 @@ Data Summary
 
 File: Albany, Gentry County, MO.txt
 First Date: 2000-01-01
-Last Date: 2008-10-24
-Highest Value: 6.55
+Last Date: 2024-05-31
+Highest Value: 6.89
 Lowest Value: 0.00
 
 File: Alley Spring, Shannon County, MO.txt
