@@ -22,7 +22,7 @@ def convert_text_to_numbers(filename):
     wb.save(filename)
 
 # Define the directory containing your files
-data_dir = r"C:\Users\thoma\Documents\GitHub\Drought-Research\Precip Data\Dataset B\Monthly Tot SPI w Drgt Stats Excel"
+data_dir = r"C:\Users\thoma\Documents\GitHub\Drought-Research\Precip Data\Dataset B-a\Monthly Tot SPI w Drgt Stats Excel"
 
 # Loop through all Excel files in the directory
 for filename in os.listdir(data_dir):

@@ -1,0 +1,232 @@
+National Drought Mitigation Center - UNL SPI Generator 1.7.6.0 Error Information
+Event Time:  8/21/2024 6:06:45 PM
+
+========================================================================================
+C:\Users\thoma\Documents\GitHub\Drought-Research\Precip Data\Dataset B-a\Monthly Tot Formatted\Albany, Gentry County, MO_totals.txt
+Message:  An item with the same key has already been added.
+Source:  mscorlib
+Stack Trace:
+   at System.ThrowHelper.ThrowArgumentException(ExceptionResource resource)
+   at System.Collections.Generic.Dictionary`2.Insert(TKey key, TValue value, Boolean add)
+   at NationalDroughtMitigationCenter.SPICollection.ParseInputFileColumnDates(String[] FileLines, String delimiter) in C:\ndmc-unl\droughtriskatlas\code\spi_dll_c#\spi_standalone\spicollection.vb:line 775
+   at NationalDroughtMitigationCenter.SPICollection.ParseInputFile(String FilePath, String delimiter) in C:\ndmc-unl\droughtriskatlas\code\spi_dll_c#\spi_standalone\spicollection.vb:line 172
+   at NationalDroughtMitigationCenter.SPICollection.ParseInputFileData(String FilePath, Delimiter delimiter) in C:\ndmc-unl\droughtriskatlas\code\spi_dll_c#\spi_standalone\spicollection.vb:line 92
+   at NationalDroughtMitigationCenter.frmProgressbar.ComputeFile(SPIArguments inputs) in C:\ndmc-unl\droughtriskatlas\code\spi_dll_c#\spi_standalone\frmProgressbar.vb:line 89
+
+========================================================================================
+C:\Users\thoma\Documents\GitHub\Drought-Research\Precip Data\Dataset B-a\Monthly Tot Formatted\Auxvasse, Audrain County, MO_totals.txt
+Message:  An item with the same key has already been added.
+Source:  mscorlib
+Stack Trace:
+   at System.ThrowHelper.ThrowArgumentException(ExceptionResource resource)
+   at System.Collections.Generic.Dictionary`2.Insert(TKey key, TValue value, Boolean add)
+   at NationalDroughtMitigationCenter.SPICollection.ParseInputFileColumnDates(String[] FileLines, String delimiter) in C:\ndmc-unl\droughtriskatlas\code\spi_dll_c#\spi_standalone\spicollection.vb:line 775
+   at NationalDroughtMitigationCenter.SPICollection.ParseInputFile(String FilePath, String delimiter) in C:\ndmc-unl\droughtriskatlas\code\spi_dll_c#\spi_standalone\spicollection.vb:line 172
+   at NationalDroughtMitigationCenter.SPICollection.ParseInputFileData(String FilePath, Delimiter delimiter) in C:\ndmc-unl\droughtriskatlas\code\spi_dll_c#\spi_standalone\spicollection.vb:line 92
+   at NationalDroughtMitigationCenter.frmProgressbar.ComputeFile(SPIArguments inputs) in C:\ndmc-unl\droughtriskatlas\code\spi_dll_c#\spi_standalone\frmProgressbar.vb:line 89
+
+========================================================================================
+C:\Users\thoma\Documents\GitHub\Drought-Research\Precip Data\Dataset B-a\Monthly Tot Formatted\Brunswick, Carroll County, MO_totals.txt
+Message:  An item with the same key has already been added.
+Source:  mscorlib
+Stack Trace:
+   at System.ThrowHelper.ThrowArgumentException(ExceptionResource resource)
+   at System.Collections.Generic.Dictionary`2.Insert(TKey key, TValue value, Boolean add)
+   at NationalDroughtMitigationCenter.SPICollection.ParseInputFileColumnDates(String[] FileLines, String delimiter) in C:\ndmc-unl\droughtriskatlas\code\spi_dll_c#\spi_standalone\spicollection.vb:line 775
+   at NationalDroughtMitigationCenter.SPICollection.ParseInputFile(String FilePath, String delimiter) in C:\ndmc-unl\droughtriskatlas\code\spi_dll_c#\spi_standalone\spicollection.vb:line 172
+   at NationalDroughtMitigationCenter.SPICollection.ParseInputFileData(String FilePath, Delimiter delimiter) in C:\ndmc-unl\droughtriskatlas\code\spi_dll_c#\spi_standalone\spicollection.vb:line 92
+   at NationalDroughtMitigationCenter.frmProgressbar.ComputeFile(SPIArguments inputs) in C:\ndmc-unl\droughtriskatlas\code\spi_dll_c#\spi_standalone\frmProgressbar.vb:line 89
+
+========================================================================================
+C:\Users\thoma\Documents\GitHub\Drought-Research\Precip Data\Dataset B-a\Monthly Tot Formatted\Cardwell, Dunklin County, MO_totals.txt
+Message:  An item with the same key has already been added.
+Source:  mscorlib
+Stack Trace:
+   at System.ThrowHelper.ThrowArgumentException(ExceptionResource resource)
+   at System.Collections.Generic.Dictionary`2.Insert(TKey key, TValue value, Boolean add)
+   at NationalDroughtMitigationCenter.SPICollection.ParseInputFileColumnDates(String[] FileLines, String delimiter) in C:\ndmc-unl\droughtriskatlas\code\spi_dll_c#\spi_standalone\spicollection.vb:line 775
+   at NationalDroughtMitigationCenter.SPICollection.ParseInputFile(String FilePath, String delimiter) in C:\ndmc-unl\droughtriskatlas\code\spi_dll_c#\spi_standalone\spicollection.vb:line 172
+   at NationalDroughtMitigationCenter.SPICollection.ParseInputFileData(String FilePath, Delimiter delimiter) in C:\ndmc-unl\droughtriskatlas\code\spi_dll_c#\spi_standalone\spicollection.vb:line 92
+   at NationalDroughtMitigationCenter.frmProgressbar.ComputeFile(SPIArguments inputs) in C:\ndmc-unl\droughtriskatlas\code\spi_dll_c#\spi_standalone\frmProgressbar.vb:line 89
+
+========================================================================================
+C:\Users\thoma\Documents\GitHub\Drought-Research\Precip Data\Dataset B-a\Monthly Tot Formatted\Charleston, Mississippi County, MO_totals.txt
+Message:  An item with the same key has already been added.
+Source:  mscorlib
+Stack Trace:
+   at System.ThrowHelper.ThrowArgumentException(ExceptionResource resource)
+   at System.Collections.Generic.Dictionary`2.Insert(TKey key, TValue value, Boolean add)
+   at NationalDroughtMitigationCenter.SPICollection.ParseInputFileColumnDates(String[] FileLines, String delimiter) in C:\ndmc-unl\droughtriskatlas\code\spi_dll_c#\spi_standalone\spicollection.vb:line 775
+   at NationalDroughtMitigationCenter.SPICollection.ParseInputFile(String FilePath, String delimiter) in C:\ndmc-unl\droughtriskatlas\code\spi_dll_c#\spi_standalone\spicollection.vb:line 172
+   at NationalDroughtMitigationCenter.SPICollection.ParseInputFileData(String FilePath, Delimiter delimiter) in C:\ndmc-unl\droughtriskatlas\code\spi_dll_c#\spi_standalone\spicollection.vb:line 92
+   at NationalDroughtMitigationCenter.frmProgressbar.ComputeFile(SPIArguments inputs) in C:\ndmc-unl\droughtriskatlas\code\spi_dll_c#\spi_standalone\frmProgressbar.vb:line 89
+
+========================================================================================
+C:\Users\thoma\Documents\GitHub\Drought-Research\Precip Data\Dataset B-a\Monthly Tot Formatted\Clarkton, Dunklin County, MO_totals.txt
+Message:  An item with the same key has already been added.
+Source:  mscorlib
+Stack Trace:
+   at System.ThrowHelper.ThrowArgumentException(ExceptionResource resource)
+   at System.Collections.Generic.Dictionary`2.Insert(TKey key, TValue value, Boolean add)
+   at NationalDroughtMitigationCenter.SPICollection.ParseInputFileColumnDates(String[] FileLines, String delimiter) in C:\ndmc-unl\droughtriskatlas\code\spi_dll_c#\spi_standalone\spicollection.vb:line 775
+   at NationalDroughtMitigationCenter.SPICollection.ParseInputFile(String FilePath, String delimiter) in C:\ndmc-unl\droughtriskatlas\code\spi_dll_c#\spi_standalone\spicollection.vb:line 172
+   at NationalDroughtMitigationCenter.SPICollection.ParseInputFileData(String FilePath, Delimiter delimiter) in C:\ndmc-unl\droughtriskatlas\code\spi_dll_c#\spi_standalone\spicollection.vb:line 92
+   at NationalDroughtMitigationCenter.frmProgressbar.ComputeFile(SPIArguments inputs) in C:\ndmc-unl\droughtriskatlas\code\spi_dll_c#\spi_standalone\frmProgressbar.vb:line 89
+
+========================================================================================
+C:\Users\thoma\Documents\GitHub\Drought-Research\Precip Data\Dataset B-a\Monthly Tot Formatted\Columbia-Sanborn Field, Boone County, MO_totals.txt
+Message:  An item with the same key has already been added.
+Source:  mscorlib
+Stack Trace:
+   at System.ThrowHelper.ThrowArgumentException(ExceptionResource resource)
+   at System.Collections.Generic.Dictionary`2.Insert(TKey key, TValue value, Boolean add)
+   at NationalDroughtMitigationCenter.SPICollection.ParseInputFileColumnDates(String[] FileLines, String delimiter) in C:\ndmc-unl\droughtriskatlas\code\spi_dll_c#\spi_standalone\spicollection.vb:line 775
+   at NationalDroughtMitigationCenter.SPICollection.ParseInputFile(String FilePath, String delimiter) in C:\ndmc-unl\droughtriskatlas\code\spi_dll_c#\spi_standalone\spicollection.vb:line 172
+   at NationalDroughtMitigationCenter.SPICollection.ParseInputFileData(String FilePath, Delimiter delimiter) in C:\ndmc-unl\droughtriskatlas\code\spi_dll_c#\spi_standalone\spicollection.vb:line 92
+   at NationalDroughtMitigationCenter.frmProgressbar.ComputeFile(SPIArguments inputs) in C:\ndmc-unl\droughtriskatlas\code\spi_dll_c#\spi_standalone\frmProgressbar.vb:line 89
+
+========================================================================================
+C:\Users\thoma\Documents\GitHub\Drought-Research\Precip Data\Dataset B-a\Monthly Tot Formatted\Columbia-South Farms, Boone County, MO_totals.txt
+Message:  An item with the same key has already been added.
+Source:  mscorlib
+Stack Trace:
+   at System.ThrowHelper.ThrowArgumentException(ExceptionResource resource)
+   at System.Collections.Generic.Dictionary`2.Insert(TKey key, TValue value, Boolean add)
+   at NationalDroughtMitigationCenter.SPICollection.ParseInputFileColumnDates(String[] FileLines, String delimiter) in C:\ndmc-unl\droughtriskatlas\code\spi_dll_c#\spi_standalone\spicollection.vb:line 775
+   at NationalDroughtMitigationCenter.SPICollection.ParseInputFile(String FilePath, String delimiter) in C:\ndmc-unl\droughtriskatlas\code\spi_dll_c#\spi_standalone\spicollection.vb:line 172
+   at NationalDroughtMitigationCenter.SPICollection.ParseInputFileData(String FilePath, Delimiter delimiter) in C:\ndmc-unl\droughtriskatlas\code\spi_dll_c#\spi_standalone\spicollection.vb:line 92
+   at NationalDroughtMitigationCenter.frmProgressbar.ComputeFile(SPIArguments inputs) in C:\ndmc-unl\droughtriskatlas\code\spi_dll_c#\spi_standalone\frmProgressbar.vb:line 89
+
+========================================================================================
+C:\Users\thoma\Documents\GitHub\Drought-Research\Precip Data\Dataset B-a\Monthly Tot Formatted\Cook Station, Crawford County, MO_totals.txt
+Message:  An item with the same key has already been added.
+Source:  mscorlib
+Stack Trace:
+   at System.ThrowHelper.ThrowArgumentException(ExceptionResource resource)
+   at System.Collections.Generic.Dictionary`2.Insert(TKey key, TValue value, Boolean add)
+   at NationalDroughtMitigationCenter.SPICollection.ParseInputFileColumnDates(String[] FileLines, String delimiter) in C:\ndmc-unl\droughtriskatlas\code\spi_dll_c#\spi_standalone\spicollection.vb:line 775
+   at NationalDroughtMitigationCenter.SPICollection.ParseInputFile(String FilePath, String delimiter) in C:\ndmc-unl\droughtriskatlas\code\spi_dll_c#\spi_standalone\spicollection.vb:line 172
+   at NationalDroughtMitigationCenter.SPICollection.ParseInputFileData(String FilePath, Delimiter delimiter) in C:\ndmc-unl\droughtriskatlas\code\spi_dll_c#\spi_standalone\spicollection.vb:line 92
+   at NationalDroughtMitigationCenter.frmProgressbar.ComputeFile(SPIArguments inputs) in C:\ndmc-unl\droughtriskatlas\code\spi_dll_c#\spi_standalone\frmProgressbar.vb:line 89
+
+========================================================================================
+C:\Users\thoma\Documents\GitHub\Drought-Research\Precip Data\Dataset B-a\Monthly Tot Formatted\Corning, Atchison County, MO_totals.txt
+Message:  An item with the same key has already been added.
+Source:  mscorlib
+Stack Trace:
+   at System.ThrowHelper.ThrowArgumentException(ExceptionResource resource)
+   at System.Collections.Generic.Dictionary`2.Insert(TKey key, TValue value, Boolean add)
+   at NationalDroughtMitigationCenter.SPICollection.ParseInputFileColumnDates(String[] FileLines, String delimiter) in C:\ndmc-unl\droughtriskatlas\code\spi_dll_c#\spi_standalone\spicollection.vb:line 775
+   at NationalDroughtMitigationCenter.SPICollection.ParseInputFile(String FilePath, String delimiter) in C:\ndmc-unl\droughtriskatlas\code\spi_dll_c#\spi_standalone\spicollection.vb:line 172
+   at NationalDroughtMitigationCenter.SPICollection.ParseInputFileData(String FilePath, Delimiter delimiter) in C:\ndmc-unl\droughtriskatlas\code\spi_dll_c#\spi_standalone\spicollection.vb:line 92
+   at NationalDroughtMitigationCenter.frmProgressbar.ComputeFile(SPIArguments inputs) in C:\ndmc-unl\droughtriskatlas\code\spi_dll_c#\spi_standalone\frmProgressbar.vb:line 89
+
+========================================================================================
+C:\Users\thoma\Documents\GitHub\Drought-Research\Precip Data\Dataset B-a\Monthly Tot Formatted\Delta, Cape Girardeau County, MO_totals.txt
+Message:  An item with the same key has already been added.
+Source:  mscorlib
+Stack Trace:
+   at System.ThrowHelper.ThrowArgumentException(ExceptionResource resource)
+   at System.Collections.Generic.Dictionary`2.Insert(TKey key, TValue value, Boolean add)
+   at NationalDroughtMitigationCenter.SPICollection.ParseInputFileColumnDates(String[] FileLines, String delimiter) in C:\ndmc-unl\droughtriskatlas\code\spi_dll_c#\spi_standalone\spicollection.vb:line 775
+   at NationalDroughtMitigationCenter.SPICollection.ParseInputFile(String FilePath, String delimiter) in C:\ndmc-unl\droughtriskatlas\code\spi_dll_c#\spi_standalone\spicollection.vb:line 172
+   at NationalDroughtMitigationCenter.SPICollection.ParseInputFileData(String FilePath, Delimiter delimiter) in C:\ndmc-unl\droughtriskatlas\code\spi_dll_c#\spi_standalone\spicollection.vb:line 92
+   at NationalDroughtMitigationCenter.frmProgressbar.ComputeFile(SPIArguments inputs) in C:\ndmc-unl\droughtriskatlas\code\spi_dll_c#\spi_standalone\frmProgressbar.vb:line 89
+
+========================================================================================
+C:\Users\thoma\Documents\GitHub\Drought-Research\Precip Data\Dataset B-a\Monthly Tot Formatted\Glennonville, Dunklin County, MO_totals.txt
+Message:  An item with the same key has already been added.
+Source:  mscorlib
+Stack Trace:
+   at System.ThrowHelper.ThrowArgumentException(ExceptionResource resource)
+   at System.Collections.Generic.Dictionary`2.Insert(TKey key, TValue value, Boolean add)
+   at NationalDroughtMitigationCenter.SPICollection.ParseInputFileColumnDates(String[] FileLines, String delimiter) in C:\ndmc-unl\droughtriskatlas\code\spi_dll_c#\spi_standalone\spicollection.vb:line 775
+   at NationalDroughtMitigationCenter.SPICollection.ParseInputFile(String FilePath, String delimiter) in C:\ndmc-unl\droughtriskatlas\code\spi_dll_c#\spi_standalone\spicollection.vb:line 172
+   at NationalDroughtMitigationCenter.SPICollection.ParseInputFileData(String FilePath, Delimiter delimiter) in C:\ndmc-unl\droughtriskatlas\code\spi_dll_c#\spi_standalone\spicollection.vb:line 92
+   at NationalDroughtMitigationCenter.frmProgressbar.ComputeFile(SPIArguments inputs) in C:\ndmc-unl\droughtriskatlas\code\spi_dll_c#\spi_standalone\frmProgressbar.vb:line 89
+
+========================================================================================
+C:\Users\thoma\Documents\GitHub\Drought-Research\Precip Data\Dataset B-a\Monthly Tot Formatted\Hayward, Pemiscot County, MO_totals.txt
+Message:  An item with the same key has already been added.
+Source:  mscorlib
+Stack Trace:
+   at System.ThrowHelper.ThrowArgumentException(ExceptionResource resource)
+   at System.Collections.Generic.Dictionary`2.Insert(TKey key, TValue value, Boolean add)
+   at NationalDroughtMitigationCenter.SPICollection.ParseInputFileColumnDates(String[] FileLines, String delimiter) in C:\ndmc-unl\droughtriskatlas\code\spi_dll_c#\spi_standalone\spicollection.vb:line 775
+   at NationalDroughtMitigationCenter.SPICollection.ParseInputFile(String FilePath, String delimiter) in C:\ndmc-unl\droughtriskatlas\code\spi_dll_c#\spi_standalone\spicollection.vb:line 172
+   at NationalDroughtMitigationCenter.SPICollection.ParseInputFileData(String FilePath, Delimiter delimiter) in C:\ndmc-unl\droughtriskatlas\code\spi_dll_c#\spi_standalone\spicollection.vb:line 92
+   at NationalDroughtMitigationCenter.frmProgressbar.ComputeFile(SPIArguments inputs) in C:\ndmc-unl\droughtriskatlas\code\spi_dll_c#\spi_standalone\frmProgressbar.vb:line 89
+
+========================================================================================
+C:\Users\thoma\Documents\GitHub\Drought-Research\Precip Data\Dataset B-a\Monthly Tot Formatted\Lamar, Barton County, MO_totals.txt
+Message:  An item with the same key has already been added.
+Source:  mscorlib
+Stack Trace:
+   at System.ThrowHelper.ThrowArgumentException(ExceptionResource resource)
+   at System.Collections.Generic.Dictionary`2.Insert(TKey key, TValue value, Boolean add)
+   at NationalDroughtMitigationCenter.SPICollection.ParseInputFileColumnDates(String[] FileLines, String delimiter) in C:\ndmc-unl\droughtriskatlas\code\spi_dll_c#\spi_standalone\spicollection.vb:line 775
+   at NationalDroughtMitigationCenter.SPICollection.ParseInputFile(String FilePath, String delimiter) in C:\ndmc-unl\droughtriskatlas\code\spi_dll_c#\spi_standalone\spicollection.vb:line 172
+   at NationalDroughtMitigationCenter.SPICollection.ParseInputFileData(String FilePath, Delimiter delimiter) in C:\ndmc-unl\droughtriskatlas\code\spi_dll_c#\spi_standalone\spicollection.vb:line 92
+   at NationalDroughtMitigationCenter.frmProgressbar.ComputeFile(SPIArguments inputs) in C:\ndmc-unl\droughtriskatlas\code\spi_dll_c#\spi_standalone\frmProgressbar.vb:line 89
+
+========================================================================================
+C:\Users\thoma\Documents\GitHub\Drought-Research\Precip Data\Dataset B-a\Monthly Tot Formatted\Linneus, Linn County, MO_totals.txt
+Message:  An item with the same key has already been added.
+Source:  mscorlib
+Stack Trace:
+   at System.ThrowHelper.ThrowArgumentException(ExceptionResource resource)
+   at System.Collections.Generic.Dictionary`2.Insert(TKey key, TValue value, Boolean add)
+   at NationalDroughtMitigationCenter.SPICollection.ParseInputFileColumnDates(String[] FileLines, String delimiter) in C:\ndmc-unl\droughtriskatlas\code\spi_dll_c#\spi_standalone\spicollection.vb:line 775
+   at NationalDroughtMitigationCenter.SPICollection.ParseInputFile(String FilePath, String delimiter) in C:\ndmc-unl\droughtriskatlas\code\spi_dll_c#\spi_standalone\spicollection.vb:line 172
+   at NationalDroughtMitigationCenter.SPICollection.ParseInputFileData(String FilePath, Delimiter delimiter) in C:\ndmc-unl\droughtriskatlas\code\spi_dll_c#\spi_standalone\spicollection.vb:line 92
+   at NationalDroughtMitigationCenter.frmProgressbar.ComputeFile(SPIArguments inputs) in C:\ndmc-unl\droughtriskatlas\code\spi_dll_c#\spi_standalone\frmProgressbar.vb:line 89
+
+========================================================================================
+C:\Users\thoma\Documents\GitHub\Drought-Research\Precip Data\Dataset B-a\Monthly Tot Formatted\Monroe City, Monroe County, MO_totals.txt
+Message:  An item with the same key has already been added.
+Source:  mscorlib
+Stack Trace:
+   at System.ThrowHelper.ThrowArgumentException(ExceptionResource resource)
+   at System.Collections.Generic.Dictionary`2.Insert(TKey key, TValue value, Boolean add)
+   at NationalDroughtMitigationCenter.SPICollection.ParseInputFileColumnDates(String[] FileLines, String delimiter) in C:\ndmc-unl\droughtriskatlas\code\spi_dll_c#\spi_standalone\spicollection.vb:line 775
+   at NationalDroughtMitigationCenter.SPICollection.ParseInputFile(String FilePath, String delimiter) in C:\ndmc-unl\droughtriskatlas\code\spi_dll_c#\spi_standalone\spicollection.vb:line 172
+   at NationalDroughtMitigationCenter.SPICollection.ParseInputFileData(String FilePath, Delimiter delimiter) in C:\ndmc-unl\droughtriskatlas\code\spi_dll_c#\spi_standalone\spicollection.vb:line 92
+   at NationalDroughtMitigationCenter.frmProgressbar.ComputeFile(SPIArguments inputs) in C:\ndmc-unl\droughtriskatlas\code\spi_dll_c#\spi_standalone\frmProgressbar.vb:line 89
+
+========================================================================================
+C:\Users\thoma\Documents\GitHub\Drought-Research\Precip Data\Dataset B-a\Monthly Tot Formatted\Novelty, Knox County, MO_totals.txt
+Message:  An item with the same key has already been added.
+Source:  mscorlib
+Stack Trace:
+   at System.ThrowHelper.ThrowArgumentException(ExceptionResource resource)
+   at System.Collections.Generic.Dictionary`2.Insert(TKey key, TValue value, Boolean add)
+   at NationalDroughtMitigationCenter.SPICollection.ParseInputFileColumnDates(String[] FileLines, String delimiter) in C:\ndmc-unl\droughtriskatlas\code\spi_dll_c#\spi_standalone\spicollection.vb:line 775
+   at NationalDroughtMitigationCenter.SPICollection.ParseInputFile(String FilePath, String delimiter) in C:\ndmc-unl\droughtriskatlas\code\spi_dll_c#\spi_standalone\spicollection.vb:line 172
+   at NationalDroughtMitigationCenter.SPICollection.ParseInputFileData(String FilePath, Delimiter delimiter) in C:\ndmc-unl\droughtriskatlas\code\spi_dll_c#\spi_standalone\spicollection.vb:line 92
+   at NationalDroughtMitigationCenter.frmProgressbar.ComputeFile(SPIArguments inputs) in C:\ndmc-unl\droughtriskatlas\code\spi_dll_c#\spi_standalone\frmProgressbar.vb:line 89
+
+========================================================================================
+C:\Users\thoma\Documents\GitHub\Drought-Research\Precip Data\Dataset B-a\Monthly Tot Formatted\Portageville, Pemiscot County, MO_totals.txt
+Message:  An item with the same key has already been added.
+Source:  mscorlib
+Stack Trace:
+   at System.ThrowHelper.ThrowArgumentException(ExceptionResource resource)
+   at System.Collections.Generic.Dictionary`2.Insert(TKey key, TValue value, Boolean add)
+   at NationalDroughtMitigationCenter.SPICollection.ParseInputFileColumnDates(String[] FileLines, String delimiter) in C:\ndmc-unl\droughtriskatlas\code\spi_dll_c#\spi_standalone\spicollection.vb:line 775
+   at NationalDroughtMitigationCenter.SPICollection.ParseInputFile(String FilePath, String delimiter) in C:\ndmc-unl\droughtriskatlas\code\spi_dll_c#\spi_standalone\spicollection.vb:line 172
+   at NationalDroughtMitigationCenter.SPICollection.ParseInputFileData(String FilePath, Delimiter delimiter) in C:\ndmc-unl\droughtriskatlas\code\spi_dll_c#\spi_standalone\spicollection.vb:line 92
+   at NationalDroughtMitigationCenter.frmProgressbar.ComputeFile(SPIArguments inputs) in C:\ndmc-unl\droughtriskatlas\code\spi_dll_c#\spi_standalone\frmProgressbar.vb:line 89
+
+========================================================================================
+C:\Users\thoma\Documents\GitHub\Drought-Research\Precip Data\Dataset B-a\Monthly Tot Formatted\St. Joseph, Buchanan County, MO_totals.txt
+Message:  An item with the same key has already been added.
+Source:  mscorlib
+Stack Trace:
+   at System.ThrowHelper.ThrowArgumentException(ExceptionResource resource)
+   at System.Collections.Generic.Dictionary`2.Insert(TKey key, TValue value, Boolean add)
+   at NationalDroughtMitigationCenter.SPICollection.ParseInputFileColumnDates(String[] FileLines, String delimiter) in C:\ndmc-unl\droughtriskatlas\code\spi_dll_c#\spi_standalone\spicollection.vb:line 775
+   at NationalDroughtMitigationCenter.SPICollection.ParseInputFile(String FilePath, String delimiter) in C:\ndmc-unl\droughtriskatlas\code\spi_dll_c#\spi_standalone\spicollection.vb:line 172
+   at NationalDroughtMitigationCenter.SPICollection.ParseInputFileData(String FilePath, Delimiter delimiter) in C:\ndmc-unl\droughtriskatlas\code\spi_dll_c#\spi_standalone\spicollection.vb:line 92
+   at NationalDroughtMitigationCenter.frmProgressbar.ComputeFile(SPIArguments inputs) in C:\ndmc-unl\droughtriskatlas\code\spi_dll_c#\spi_standalone\frmProgressbar.vb:line 89
+
+

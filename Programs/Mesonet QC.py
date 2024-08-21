@@ -86,8 +86,8 @@ def main():
   """
 
   # Replace 'data_folder' with the actual path to your folder containing data files
-  data_folder = r'C:\Users\thoma\Documents\GitHub\Drought-Research\Precip Data\Dataset B\Daily Raw'
-  output_filename = r'C:\Users\thoma\Documents\GitHub\Drought-Research\Precip Data\Dataset B\Daily QC\data_summary.txt'
+  data_folder = r'C:\Users\thoma\Documents\GitHub\Drought-Research\Precip Data\Dataset B-a\Daily Raw'
+  output_filename = r'C:\Users\thoma\Documents\GitHub\Drought-Research\Precip Data\Dataset B-a\Daily QC\data_summary.txt'
 
   with open(output_filename, 'w') as output_file:
     output_file.write("Data Summary\n\n")

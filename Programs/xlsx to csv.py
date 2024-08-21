@@ -21,6 +21,6 @@ def convert_excel_to_csv(input_folder, output_folder):
         print(f"Error processing file {file}: {e}")
 
 # Example usage:
-input_folder = r'C:\Users\thoma\Documents\GitHub\Drought-Research\Precip Data\Dataset B\Monthly Tot SPI w Drgt Stats Excel'
-output_folder = r'C:\Users\thoma\Documents\GitHub\Drought-Research\Precip Data\Dataset B\Monthly Tot SPI w Drgt Stats CSV'
+input_folder = r'C:\Users\thoma\Documents\GitHub\Drought-Research\Precip Data\Dataset B-a\Monthly Tot SPI w Drgt Stats Excel'
+output_folder = r'C:\Users\thoma\Documents\GitHub\Drought-Research\Precip Data\Dataset B-a\Monthly Tot SPI w Drgt Stats CSV'
 convert_excel_to_csv(input_folder, output_folder)

@@ -57,5 +57,5 @@ def process_folder(folder_path):
       print(f"Finished processing: {file_path}")
 
 # Modify the path to the folder you want to read
-folder_path = r"C:\Users\thoma\Documents\GitHub\Drought-Research\Precip Data\Dataset B\Daily"
+folder_path = r"C:\Users\thoma\Documents\GitHub\Drought-Research\Precip Data\Dataset B-a\Daily Raw"
 process_folder(folder_path)

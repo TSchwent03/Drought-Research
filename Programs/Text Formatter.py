@@ -1,8 +1,8 @@
 import os
 
 # Define input and output directories
-input_dir = r"C:\Users\thoma\Documents\GitHub\Drought-Research\Precip Data\Dataset B\Monthly Tot Unformatted"
-output_dir = r"C:\Users\thoma\Documents\GitHub\Drought-Research\Precip Data\Dataset B\Monthly Tot Formatted"
+input_dir = r"C:\Users\thoma\Documents\GitHub\Drought-Research\Precip Data\Dataset B-a\Monthly Tot Unformatted"
+output_dir = r"C:\Users\thoma\Documents\GitHub\Drought-Research\Precip Data\Dataset B-a\Monthly Tot Formatted"
 
 # Loop through files in the input directory
 for filename in os.listdir(input_dir):
@@ -16,6 +16,8 @@ for filename in os.listdir(input_dir):
             data = f.readlines()[1:]
 
         # Process data as before
+        with open(output_path, "a") as f:
+            f.write("\n")
         lines = [line.strip() for line in data]
         for line in lines:
             year, month, average = line.split()
