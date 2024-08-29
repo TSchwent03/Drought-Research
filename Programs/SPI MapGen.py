@@ -1,20 +1,25 @@
-import geopandas as gpd
-import matplotlib.pyplot as plt
+import numpy as np 
+import matplotlib.pyplot as plt 
+import pandas as pd 
+import contextily as ctx 
+import geopandas as gpd 
+import os 
+from mpl_toolkits.axes_grid1 import make_axes_locatable
 
-def plot_missouri_map(shapefile_path):
-  """Plots a map of Missouri from the specified shapefile."""
+path = r"C:\Users\thoma\Documents\GitHub\Drought-Research\tl_2023_us_state.shp"
 
-  # Load the US states shapefile
-  us_states = gpd.read_file(shapefile_path)
+# Load the shapefile with the specified CRS (if known)
+df = gpd.read_file(path, crs="EPSG:4326")  # Replace with the correct CRS
 
-  # Filter for Missouri (assuming 'STUSPS' is the state abbreviation column)
-  missouri = us_states[us_states['FIPS'] == 'MO']
+# If CRS is not defined in the shapefile, set it manually
+if df.crs is None:
+    df = df.set_crs("EPSG:4326")
 
-  # Plot the Missouri map with white fill and black outline
-  missouri.plot(color='white', edgecolor='black', figsize=(8, 6))
-  plt.title('Map of Missouri')
-  plt.show()
+# Check the CRS
+print(df.crs)
+print(df.columns)
 
-if __name__ == "__main__":
-  shapefile_path = r"C:\Users\thoma\Documents\GitHub\Drought-Research\tl_2023_us_state.shp"
-  plot_missouri_map(shapefile_path)
+# Plot the entire shapefile
+df.plot(color='white', edgecolor='black')
+plt.title('Map of the United States')
+plt.show()
