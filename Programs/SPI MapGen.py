@@ -5,28 +5,68 @@ import contextily as ctx  # Optional for basemap
 import geopandas as gpd
 import os
 from mpl_toolkits.axes_grid1 import make_axes_locatable
+from geopy.geocoders import Nominatim
+import googlemaps
+
+
 
 path = r"C:\Users\thoma\Documents\GitHub\Drought-Research\MO_County_Boundaries.shp"
 input_dir = r"C:\Users\thoma\Documents\GitHub\Drought-Research\Precip Data\Dataset B-a\Monthly Tot SPI w Drgt Stats CSV"
+api_key = "***REMOVED***"
+# Create a Google Maps client
+gmaps = googlemaps.Client(key=api_key)
+
 
 def spi_map_plot():
 
     # Load shapefile
     shapefile_path = r"C:\Users\thoma\Documents\GitHub\Drought-Research\MO_County_Boundaries.shp"
     counties = gpd.read_file(shapefile_path)
+    counties_crs = counties.to_crs("EPSG:3857")
+    test_df = create_spi_dataframe(input_dir, '03', '07/01/2001')
+    geoloc = geocode_locations(test_df)
+    # Extract latitude and longitude from the latlon column
+    geoloc_gdf = gpd.GeoDataFrame(geoloc, geometry=gpd.points_from_xy(geoloc['longitude'], geoloc['latitude']))
+    
+    # Join DataFrames based on a common identifier (e.g., location name)
+    merged_df = counties_crs.join(geoloc_gdf.set_index('location'), on='COUNTYNAME', lsuffix='_county', rsuffix='_geoloc')
 
-    # Create GeoDataFrame from your data
-    df = create_spi_dataframe(input_dir, '03', '12/01/2000')
-
-    gdf = gpd.GeoDataFrame(df, geometry=gpd.points_from_xy(df['longitude'], df['latitude']))
-
-    # Join with shapefile (assuming a common column like 'county_name')
-    merged_df = counties.join(gdf.set_index('location'), on='name')
-
-    # Create choropleth map
-    merged_df.plot(column='value', cmap='YlGnBu', legend=True)
-    plt.title('Distribution of Values in Missouri')
+    # Plot the map
+    merged_df.plot(column='spi', cmap='YlGnBu', legend=True)
+    plt.title('SPI Values in Missouri')
     plt.show()
+
+
+def geocode_locations(df):
+    """
+    Geocodes locations in a DataFrame using Nominatim.
+
+    Args:
+        df: The DataFrame containing location names.
+
+    Returns:
+        A DataFrame with added latitude and longitude columns.
+    """
+
+    def geocode_location(location):
+        try:
+            geocode_result = gmaps.geocode(location)
+            if geocode_result:
+                latitude = geocode_result[0]['geometry']['location']['lat']
+                longitude = geocode_result[0]['geometry']['location']['lng']
+                return latitude, longitude
+            else:
+                print(f"Geocoding failed for {location}")
+                return None, None
+        except Exception as e:
+            print(f"Error geocoding {location}: {e}")
+            return None, None
+
+    df['latlon'] = df['location'].apply(geocode_location)
+    # Extract latitude and longitude from the latlon column
+    df[['latitude', 'longitude']] = pd.DataFrame(df['latlon'].tolist(), index=df.index)
+
+    return df
 
 def create_spi_dataframe(input_dir, spi_time, month_key):
     """
@@ -73,3 +113,5 @@ def create_spi_dataframe(input_dir, spi_time, month_key):
     spi_df = pd.DataFrame(spi_data)
 
     return spi_df
+
+spi_map_plot()
