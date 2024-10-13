@@ -7,6 +7,7 @@ import os
 from mpl_toolkits.axes_grid1 import make_axes_locatable
 from geopy.geocoders import Nominatim
 import googlemaps
+import re
 
 
 
@@ -17,24 +18,39 @@ api_key = "***REMOVED***"
 gmaps = googlemaps.Client(key=api_key)
 
 
-def spi_map_plot():
+def spi_map_plot(month, spi_time):
 
     # Load shapefile
+    directory_path = r"C:\\Users\\thoma\\Documents\\GitHub\\Drought-Research\\Maps\\SPI Maps\\12M"
     shapefile_path = r"C:\Users\thoma\Documents\GitHub\Drought-Research\MO_County_Boundaries.shp"
     counties = gpd.read_file(shapefile_path)
-    counties_crs = counties.to_crs("EPSG:3857")
-    test_df = create_spi_dataframe(input_dir, '03', '07/01/2001')
-    geoloc = geocode_locations(test_df)
+    counties_crs = counties.to_crs("EPSG:4326")
+    spi_df = create_spi_dataframe(input_dir, spi_time, month)
+    geoloc = geocode_locations(spi_df)
+    geoloc['county_name'] = geoloc['location'].apply(lambda x: re.sub(r' County$', '', x.split(',')[1]).strip())
     # Extract latitude and longitude from the latlon column
     geoloc_gdf = gpd.GeoDataFrame(geoloc, geometry=gpd.points_from_xy(geoloc['longitude'], geoloc['latitude']))
-    
-    # Join DataFrames based on a common identifier (e.g., location name)
-    merged_df = counties_crs.join(geoloc_gdf.set_index('location'), on='COUNTYNAME', lsuffix='_county', rsuffix='_geoloc')
+
+    # Create figure and axes
+    fig, ax = plt.subplots()
 
     # Plot the map
-    merged_df.plot(column='spi', cmap='YlGnBu', legend=True)
-    plt.title('SPI Values in Missouri')
-    plt.show()
+    counties_crs.plot(ax=ax, color='lightgray', edgecolor='black')
+    geoloc_gdf.plot(ax=ax ,column='spi', cmap='BrBG', vmin=-4, vmax=4, legend=True, markersize=75, edgecolor='black', linewidth=1)
+    plt.xlabel("Longitude")
+    plt.ylabel("Latitude")
+    plt.title(f'SPI Values in Missouri (Month: {month}, SPI Time: {spi_time})')
+
+    # Replace forward slashes with hyphens in the month
+    month_formatted = re.sub('/', '-', month)
+
+    # Create the filename
+    filename = os.path.join(directory_path, f"spi_map_{month_formatted}_{spi_time}.jpg")
+
+    # Save the plot
+    plt.savefig(filename)
+    plt.close()
+
 
 
 def geocode_locations(df):
@@ -86,8 +102,8 @@ def create_spi_dataframe(input_dir, spi_time, month_key):
         spi_row = '2'
     elif spi_time == '06':
         spi_row = '3'
-    else:
-        spi_row = '2'
+    elif spi_time == '12':
+        spi_row = '4'
 
     spi_data = []
     for filename in os.listdir(input_dir):
@@ -114,4 +130,16 @@ def create_spi_dataframe(input_dir, spi_time, month_key):
 
     return spi_df
 
-spi_map_plot()
+def spi_map_loop():
+    # Create a date range from 01/01/2000 to 05/01/2024
+    start_date = pd.to_datetime('01/01/2000')
+    end_date = pd.to_datetime('05/01/2024')
+
+    # Iterate through the date range
+    for current_date in pd.date_range(start_date, end_date, freq='MS'):
+        month = current_date.month
+        year = current_date.year
+        spi_time = 1  # Adjust SPI time as needed
+        month_key = f"{month:02d}/01/{year}"
+        # Call the spi_map_plot function
+        spi_map_plot(month_key, '12')
