@@ -108,7 +108,7 @@ def geocode_locations(df):
 
 def create_spi_dataframe(input_dir, spi_time, month_key):
     """
-    Creates a DataFrame of SPI values for January 2000 from CSV files.
+    Creates a DataFrame of SPI values for month_key from CSV files.
 
     Args:
         input_dir: The directory containing the CSV files.
@@ -139,10 +139,10 @@ def create_spi_dataframe(input_dir, spi_time, month_key):
             df = pd.read_csv(file_path)
            
             # Filter for January 2000 data
-            january_2000_data = df[(df['0'] == month_key) & (df[spi_row].notnull())]
+            data = df[(df['0'] == month_key) & (df[spi_row].notnull())]
 
             # Extract SPI value
-            spi_value = january_2000_data[spi_row].iloc[0]
+            spi_value = data[spi_row].iloc[0]
 
             # Append data to list
             spi_data.append({'location': location, 'spi': spi_value})

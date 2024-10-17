@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from matplotlib import pyplot as plt, colors as clr, cm
 import matplotlib.colors as mcolors
 from matplotlib.patches import Patch
 import pandas as pd
@@ -16,18 +17,16 @@ api_key = "***REMOVED***"
 gmaps = googlemaps.Client(key=api_key)
 geoloc = pd.read_csv(r"C:\Users\thoma\Documents\GitHub\Drought-Research\output.csv")
 
-def spi_map_plot(month, spi_time):
+def frequency_map_plot(frequency_key, spi_time):
 
-    # Replace forward slashes with hyphens in the month
-    month_formatted = re.sub('/', '-', month)
     # Load shapefile
     directory_path = rf"C:\Users\thoma\Documents\GitHub\Drought-Research\Maps\SPI Maps - V1\Categorical\\{spi_time}M"
     shapefile_path = r"C:\Users\thoma\Documents\GitHub\Drought-Research\MO_County_Boundaries.shp"
     counties = gpd.read_file(shapefile_path)
     counties_crs = counties.to_crs("EPSG:4326")
-    spi_df = create_spi_dataframe(input_dir, spi_time, month)
-    geoloc_call = pd.concat([spi_df, geoloc['latitude'], geoloc['longitude']], axis=1, join='outer')
-    geoloc_call['county_name'] = spi_df['location'].apply(lambda x: re.sub(r' County$', '', x.split(',')[1]).strip())
+    frequency_df = create_frequency_dataframe(input_dir, spi_time, frequency_key)
+    geoloc_call = pd.concat([frequency_df, geoloc['latitude'], geoloc['longitude']], axis=1, join='outer')
+    geoloc_call['county_name'] = frequency_df['location'].apply(lambda x: re.sub(r' County$', '', x.split(',')[1]).strip())
     # Extract latitude and longitude from the latlon column
     geoloc_gdf = gpd.GeoDataFrame(geoloc_call, geometry=gpd.points_from_xy(geoloc_call['longitude'], geoloc_call['latitude']))
 
@@ -36,39 +35,33 @@ def spi_map_plot(month, spi_time):
 
     # Plot the map
     counties_crs.plot(ax=ax, color='lightgray', edgecolor='black')
-    # Plots Graduated Color Mapping
-    #geoloc_gdf.plot(ax=ax ,column='spi', cmap='BrBG', vmin=-2, vmax=2, legend=True, markersize=75, edgecolor='black', linewidth=1)
 
-    # Plots Categorical Color Mapping
-    # Define thresholds and corresponding hex codes
-    ranges = [(-np.inf, -2), (-1.99, -1.6), (-1.59, -1.3), (-1.29, -0.8), (-0.79, -0.5), (-0.49, 0.49), (0.5, 0.79), (0.8, 1.29), (1.3, 1.59), (1.6, 1.99), (2, np.inf)]
-    hex_codes = ['#730000', '#E60000', '#E69800', '#FED37F', '#FEFE00', '#FFFFFF', '#AAF596', '#4CE600', '#38A800', '#145A00', '#002673']
-    # Create a ListedColormap from the ranges, hex codes, and labels
-    cmap = mcolors.ListedColormap(hex_codes, N=len(ranges))
-    # Plot the map with the custom colormap
-    geoloc_gdf.plot(ax=ax, column='spi', marker='o', cmap=cmap, vmin=-2, vmax=2, markersize=75, edgecolor='black', linewidth=1)
-    legend_elements = [Patch(edgecolor='black', label='D4', facecolor='#730000'), 
-                       Patch(edgecolor='black', label='D3', facecolor='#E60000'), 
-                       Patch(edgecolor='black', label='D2', facecolor='#E69800'), 
-                       Patch(edgecolor='black', label='D1', facecolor='#FED37F'), 
-                       Patch(edgecolor='black', label='D0', facecolor='#FEFE00'), 
-                       Patch(edgecolor='black', label='N', facecolor='#FFFFFF'), 
-                       Patch(edgecolor='black', label='W0', facecolor='#AAF596'), 
-                       Patch(edgecolor='black', label='W1', facecolor='#4CE600'), 
-                       Patch(edgecolor='black', label='W2', facecolor='#38A800'), 
-                       Patch(edgecolor='black', label='W3', facecolor='#145A00'), 
-                       Patch(edgecolor='black', label='W4', facecolor='#002673')]
+    # Get the minimum and maximum values
+    min_freq = geoloc_gdf['frequency'].min()
+    max_freq = geoloc_gdf['frequency'].max()
 
+    # Create a list of integers from min_freq to max_freq
+    frequency_range = range(min_freq, max_freq + 1)
 
-    ax.legend(handles=legend_elements, bbox_to_anchor=(1, 1), loc='upper left')
+    # Create a colormap with the same number of colors as unique values
+    cmap = mcolors.ListedColormap(plt.cm.cividis(np.linspace(0, 1, len(frequency_range))))
+
+    # Plot the map
+    geoloc_gdf.plot(ax=ax, column='frequency', cmap=cmap, marker='o', markersize=75, edgecolor='black', linewidth=1)
+
+    # Create a custom colorbar
+    colorbar = plt.colorbar(map=cmap, ax=ax, ticks=frequency_range, boundaries=frequency_range + [len(frequency_range)])
+
+    # Center the colorbar ticks
+    colorbar.ax.set_yticklabels([f'{label}' for label in frequency_range], ha='center')
 
     # Add custom legend labels
     plt.xlabel("Longitude")
     plt.ylabel("Latitude")
-    plt.title(f'SPI Values in Missouri (Month: {month}, SPI Time: {spi_time})', fontsize= 11)
+    plt.title(f'SPI Frequency Values in Missouri (SPI: {frequency_key}, SPI Time: {spi_time})', fontsize= 11)
 
     # Create the filename
-    filename = os.path.join(directory_path, f"spi_map_{month_formatted}_{spi_time}.jpg")
+    filename = os.path.join(directory_path, f"frequency_map_{frequency_key}_{spi_time}.jpg")
 
     # Save the plot
     #plt.savefig(filename)
@@ -77,7 +70,7 @@ def spi_map_plot(month, spi_time):
 
 def create_frequency_dataframe(input_dir, spi_time, frequency_key):
     """
-    Creates a DataFrame of SPI values for January 2000 from CSV files.
+    Creates a DataFrame of Frequency values for spi_key from CSV files.
 
     Args:
         input_dir: The directory containing the CSV files.
@@ -86,9 +79,9 @@ def create_frequency_dataframe(input_dir, spi_time, frequency_key):
         A Pandas DataFrame with columns for location, year, month, and SPI value.
     """
 
-    frequency_data_r = []
+    frequency_data = []
     for filename in os.listdir(input_dir):
-        if filename.endswith(f"SPI_Frequency_{spi_time}_M.csv"):
+        if filename.endswith(f"_totals_SPI_Frequency_{spi_time}_M.csv"):
             file_path = os.path.join(input_dir, filename)
 
             # Extract location from filename (adjust as needed)
@@ -96,20 +89,22 @@ def create_frequency_dataframe(input_dir, spi_time, frequency_key):
 
             # Read CSV data
             df = pd.read_csv(file_path)
-           
+
             # Filter for frequency key
-            frequency_data = df[(df['0'] == frequency_key) & (df['1'].notnull())]
-            if frequency_data.empty:
+            data = df[(df['0'] == frequency_key) & (df['1'].notnull())]
+            
+
+            if data.empty:
                     continue  # Skip this file if frequency_data is empty
 
             # Extract frequency value value
-            frequency_value = frequency_data['1'].iloc[0]
+            frequency_value = data['1'].iloc[0]
 
             # Append data to list
-            frequency_data_r.append({'location': location, 'SPI': frequency_key, 'frequency': frequency_value})
+            frequency_data.append({'location': location, 'SPI': frequency_key, 'frequency': frequency_value})
 
     # Create DataFrame
-    frequency_df = pd.DataFrame(frequency_data_r)
+    frequency_df = pd.DataFrame(frequency_data)
 
     return frequency_df
 
@@ -126,5 +121,4 @@ def spi_map_loop(SPI_time):
         # Call the spi_map_plot function
         spi_map_plot(month_key, SPI_time)
 
-df_test = create_frequency_dataframe(input_dir, '01', '-1.1')
-print(df_test)
+frequency_map_plot(0.4, '06')
