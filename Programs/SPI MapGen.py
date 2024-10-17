@@ -1,8 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
+from matplotlib.patches import Patch
 import pandas as pd
-import contextily as ctx  # Optional for basemap
 import geopandas as gpd
 import os
 from mpl_toolkits.axes_grid1 import make_axes_locatable
@@ -18,8 +18,10 @@ geoloc = pd.read_csv(r"C:\Users\thoma\Documents\GitHub\Drought-Research\output.c
 
 def spi_map_plot(month, spi_time):
 
+    # Replace forward slashes with hyphens in the month
+    month_formatted = re.sub('/', '-', month)
     # Load shapefile
-    directory_path = rf"C:\Users\thoma\Documents\GitHub\Drought-Research\Maps\SPI Maps - V1\Categorical\\{month}"
+    directory_path = rf"C:\Users\thoma\Documents\GitHub\Drought-Research\Maps\SPI Maps - V1\Categorical\\{spi_time}M"
     shapefile_path = r"C:\Users\thoma\Documents\GitHub\Drought-Research\MO_County_Boundaries.shp"
     counties = gpd.read_file(shapefile_path)
     counties_crs = counties.to_crs("EPSG:4326")
@@ -30,7 +32,7 @@ def spi_map_plot(month, spi_time):
     geoloc_gdf = gpd.GeoDataFrame(geoloc_call, geometry=gpd.points_from_xy(geoloc_call['longitude'], geoloc_call['latitude']))
 
     # Create figure and axes
-    fig, ax = plt.subplots()
+    fig, ax = plt.subplots(figsize=(10, 6))
 
     # Plot the map
     counties_crs.plot(ax=ax, color='lightgray', edgecolor='black')
@@ -41,19 +43,29 @@ def spi_map_plot(month, spi_time):
     # Define thresholds and corresponding hex codes
     ranges = [(-np.inf, -2), (-1.99, -1.6), (-1.59, -1.3), (-1.29, -0.8), (-0.79, -0.5), (-0.49, 0.49), (0.5, 0.79), (0.8, 1.29), (1.3, 1.59), (1.6, 1.99), (2, np.inf)]
     hex_codes = ['#730000', '#E60000', '#E69800', '#FED37F', '#FEFE00', '#FFFFFF', '#AAF596', '#4CE600', '#38A800', '#145A00', '#002673']
-    labels = ['D4', 'D3', 'D2', 'D1', 'D0', 'N', 'W0', 'W1', 'W2', 'W3', 'W4']
     # Create a ListedColormap from the ranges, hex codes, and labels
     cmap = mcolors.ListedColormap(hex_codes, N=len(ranges))
     # Plot the map with the custom colormap
-    geoloc_gdf.plot(ax=ax, column='spi', cmap=cmap, vmin=-2, vmax=2, markersize=75, edgecolor='black', linewidth=1)
+    geoloc_gdf.plot(ax=ax, column='spi', marker='o', cmap=cmap, vmin=-2, vmax=2, markersize=75, edgecolor='black', linewidth=1)
+    legend_elements = [Patch(edgecolor='black', label='D4', facecolor='#730000'), 
+                       Patch(edgecolor='black', label='D3', facecolor='#E60000'), 
+                       Patch(edgecolor='black', label='D2', facecolor='#E69800'), 
+                       Patch(edgecolor='black', label='D1', facecolor='#FED37F'), 
+                       Patch(edgecolor='black', label='D0', facecolor='#FEFE00'), 
+                       Patch(edgecolor='black', label='N', facecolor='#FFFFFF'), 
+                       Patch(edgecolor='black', label='W0', facecolor='#AAF596'), 
+                       Patch(edgecolor='black', label='W1', facecolor='#4CE600'), 
+                       Patch(edgecolor='black', label='W2', facecolor='#38A800'), 
+                       Patch(edgecolor='black', label='W3', facecolor='#145A00'), 
+                       Patch(edgecolor='black', label='W4', facecolor='#002673')]
+
+
+    ax.legend(handles=legend_elements, bbox_to_anchor=(1, 1), loc='upper left')
+
     # Add custom legend labels
-    plt.legend(labels = labels, loc='upper left', bbox_to_anchor=(1.05, 1))
     plt.xlabel("Longitude")
     plt.ylabel("Latitude")
     plt.title(f'SPI Values in Missouri (Month: {month}, SPI Time: {spi_time})', fontsize= 11)
-
-    # Replace forward slashes with hyphens in the month
-    month_formatted = re.sub('/', '-', month)
 
     # Create the filename
     filename = os.path.join(directory_path, f"spi_map_{month_formatted}_{spi_time}.jpg")
@@ -149,7 +161,6 @@ def spi_map_loop(SPI_time):
     for current_date in pd.date_range(start_date, end_date, freq='MS'):
         month = current_date.month
         year = current_date.year
-        spi_time = 1  # Adjust SPI time as needed
         month_key = f"{month:02d}/01/{year}"
         # Call the spi_map_plot function
         spi_map_plot(month_key, SPI_time)
@@ -159,5 +170,3 @@ def spi_map_loop(SPI_time):
 #geoloc = geocode_locations(locations_df)
 #geoloc_out = pd.concat([geoloc['latitude'], geoloc['longitude']], axis = 1, join = 'outer')
 #geoloc_out.to_csv(r'C:\Users\thoma\Documents\GitHub\Drought-Research\output.csv', index=False)
-
-spi_map_plot('01/01/2024', '12')

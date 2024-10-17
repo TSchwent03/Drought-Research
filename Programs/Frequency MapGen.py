@@ -1,0 +1,130 @@
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.colors as mcolors
+from matplotlib.patches import Patch
+import pandas as pd
+import geopandas as gpd
+import os
+from mpl_toolkits.axes_grid1 import make_axes_locatable
+import googlemaps
+import re
+
+path = r"C:\Users\thoma\Documents\GitHub\Drought-Research\MO_County_Boundaries.shp"
+input_dir = r"C:\Users\thoma\Documents\GitHub\Drought-Research\Precip Data\Dataset B-a\Monthly Tot SPI w Drgt Stats CSV"
+api_key = "***REMOVED***"
+# Create a Google Maps client
+gmaps = googlemaps.Client(key=api_key)
+geoloc = pd.read_csv(r"C:\Users\thoma\Documents\GitHub\Drought-Research\output.csv")
+
+def spi_map_plot(month, spi_time):
+
+    # Replace forward slashes with hyphens in the month
+    month_formatted = re.sub('/', '-', month)
+    # Load shapefile
+    directory_path = rf"C:\Users\thoma\Documents\GitHub\Drought-Research\Maps\SPI Maps - V1\Categorical\\{spi_time}M"
+    shapefile_path = r"C:\Users\thoma\Documents\GitHub\Drought-Research\MO_County_Boundaries.shp"
+    counties = gpd.read_file(shapefile_path)
+    counties_crs = counties.to_crs("EPSG:4326")
+    spi_df = create_spi_dataframe(input_dir, spi_time, month)
+    geoloc_call = pd.concat([spi_df, geoloc['latitude'], geoloc['longitude']], axis=1, join='outer')
+    geoloc_call['county_name'] = spi_df['location'].apply(lambda x: re.sub(r' County$', '', x.split(',')[1]).strip())
+    # Extract latitude and longitude from the latlon column
+    geoloc_gdf = gpd.GeoDataFrame(geoloc_call, geometry=gpd.points_from_xy(geoloc_call['longitude'], geoloc_call['latitude']))
+
+    # Create figure and axes
+    fig, ax = plt.subplots(figsize=(10, 6))
+
+    # Plot the map
+    counties_crs.plot(ax=ax, color='lightgray', edgecolor='black')
+    # Plots Graduated Color Mapping
+    #geoloc_gdf.plot(ax=ax ,column='spi', cmap='BrBG', vmin=-2, vmax=2, legend=True, markersize=75, edgecolor='black', linewidth=1)
+
+    # Plots Categorical Color Mapping
+    # Define thresholds and corresponding hex codes
+    ranges = [(-np.inf, -2), (-1.99, -1.6), (-1.59, -1.3), (-1.29, -0.8), (-0.79, -0.5), (-0.49, 0.49), (0.5, 0.79), (0.8, 1.29), (1.3, 1.59), (1.6, 1.99), (2, np.inf)]
+    hex_codes = ['#730000', '#E60000', '#E69800', '#FED37F', '#FEFE00', '#FFFFFF', '#AAF596', '#4CE600', '#38A800', '#145A00', '#002673']
+    # Create a ListedColormap from the ranges, hex codes, and labels
+    cmap = mcolors.ListedColormap(hex_codes, N=len(ranges))
+    # Plot the map with the custom colormap
+    geoloc_gdf.plot(ax=ax, column='spi', marker='o', cmap=cmap, vmin=-2, vmax=2, markersize=75, edgecolor='black', linewidth=1)
+    legend_elements = [Patch(edgecolor='black', label='D4', facecolor='#730000'), 
+                       Patch(edgecolor='black', label='D3', facecolor='#E60000'), 
+                       Patch(edgecolor='black', label='D2', facecolor='#E69800'), 
+                       Patch(edgecolor='black', label='D1', facecolor='#FED37F'), 
+                       Patch(edgecolor='black', label='D0', facecolor='#FEFE00'), 
+                       Patch(edgecolor='black', label='N', facecolor='#FFFFFF'), 
+                       Patch(edgecolor='black', label='W0', facecolor='#AAF596'), 
+                       Patch(edgecolor='black', label='W1', facecolor='#4CE600'), 
+                       Patch(edgecolor='black', label='W2', facecolor='#38A800'), 
+                       Patch(edgecolor='black', label='W3', facecolor='#145A00'), 
+                       Patch(edgecolor='black', label='W4', facecolor='#002673')]
+
+
+    ax.legend(handles=legend_elements, bbox_to_anchor=(1, 1), loc='upper left')
+
+    # Add custom legend labels
+    plt.xlabel("Longitude")
+    plt.ylabel("Latitude")
+    plt.title(f'SPI Values in Missouri (Month: {month}, SPI Time: {spi_time})', fontsize= 11)
+
+    # Create the filename
+    filename = os.path.join(directory_path, f"spi_map_{month_formatted}_{spi_time}.jpg")
+
+    # Save the plot
+    #plt.savefig(filename)
+    #plt.close()
+    plt.show()
+
+def create_frequency_dataframe(input_dir, spi_time, frequency_key):
+    """
+    Creates a DataFrame of SPI values for January 2000 from CSV files.
+
+    Args:
+        input_dir: The directory containing the CSV files.
+
+    Returns:
+        A Pandas DataFrame with columns for location, year, month, and SPI value.
+    """
+
+    frequency_data_r = []
+    for filename in os.listdir(input_dir):
+        if filename.endswith(f"SPI_Frequency_{spi_time}_M.csv"):
+            file_path = os.path.join(input_dir, filename)
+
+            # Extract location from filename (adjust as needed)
+            location = filename.split("_")[0]  # Assuming location is in the first part of the filename
+
+            # Read CSV data
+            df = pd.read_csv(file_path)
+           
+            # Filter for frequency key
+            frequency_data = df[(df['0'] == frequency_key) & (df['1'].notnull())]
+            if frequency_data.empty:
+                    continue  # Skip this file if frequency_data is empty
+
+            # Extract frequency value value
+            frequency_value = frequency_data['1'].iloc[0]
+
+            # Append data to list
+            frequency_data_r.append({'location': location, 'SPI': frequency_key, 'frequency': frequency_value})
+
+    # Create DataFrame
+    frequency_df = pd.DataFrame(frequency_data_r)
+
+    return frequency_df
+
+def spi_map_loop(SPI_time):
+    # Create a date range from 01/01/2000 to 05/01/2024
+    start_date = pd.to_datetime('01/01/2000')
+    end_date = pd.to_datetime('05/01/2024')
+
+    # Iterate through the date range
+    for current_date in pd.date_range(start_date, end_date, freq='MS'):
+        month = current_date.month
+        year = current_date.year
+        month_key = f"{month:02d}/01/{year}"
+        # Call the spi_map_plot function
+        spi_map_plot(month_key, SPI_time)
+
+df_test = create_frequency_dataframe(input_dir, '01', '-1.1')
+print(df_test)
