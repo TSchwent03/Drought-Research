@@ -20,7 +20,7 @@ geoloc = pd.read_csv(r"C:\Users\thoma\Documents\GitHub\Drought-Research\output.c
 def frequency_map_plot(frequency_key, spi_time):
 
     # Load shapefile
-    directory_path = rf"C:\Users\thoma\Documents\GitHub\Drought-Research\Maps\SPI Maps - V1\Categorical\\{spi_time}M"
+    directory_path = rf"C:\Users\thoma\Documents\GitHub\Drought-Research\Maps\SPI Maps - V1\Frequency Raw\\{spi_time}M"
     shapefile_path = r"C:\Users\thoma\Documents\GitHub\Drought-Research\MO_County_Boundaries.shp"
     counties = gpd.read_file(shapefile_path)
     counties_crs = counties.to_crs("EPSG:4326")
@@ -47,15 +47,9 @@ def frequency_map_plot(frequency_key, spi_time):
     cmap = mcolors.ListedColormap(plt.cm.cividis(np.linspace(0, 1, len(frequency_range))))
 
     # Plot the map
-    geoloc_gdf.plot(ax=ax, column='frequency', cmap=cmap, marker='o', markersize=75, edgecolor='black', linewidth=1)
+    geoloc_gdf.plot(ax=ax, column='frequency', cmap=cmap, marker='o', vmin=min_freq-0.5, vmax=max_freq+0.5, markersize=75, edgecolor='black', linewidth=1, legend=True, legend_kwds={'ticks': frequency_range})
 
-    # Create a custom colorbar
-    colorbar = plt.colorbar(map=cmap, ax=ax, ticks=frequency_range, boundaries=frequency_range + [len(frequency_range)])
-
-    # Center the colorbar ticks
-    colorbar.ax.set_yticklabels([f'{label}' for label in frequency_range], ha='center')
-
-    # Add custom legend labels
+    # Add custom legend labels\
     plt.xlabel("Longitude")
     plt.ylabel("Latitude")
     plt.title(f'SPI Frequency Values in Missouri (SPI: {frequency_key}, SPI Time: {spi_time})', fontsize= 11)
@@ -64,9 +58,9 @@ def frequency_map_plot(frequency_key, spi_time):
     filename = os.path.join(directory_path, f"frequency_map_{frequency_key}_{spi_time}.jpg")
 
     # Save the plot
-    #plt.savefig(filename)
-    #plt.close()
-    plt.show()
+    plt.savefig(filename)
+    plt.close()
+    #plt.show()
 
 def create_frequency_dataframe(input_dir, spi_time, frequency_key):
     """
@@ -95,7 +89,8 @@ def create_frequency_dataframe(input_dir, spi_time, frequency_key):
             
 
             if data.empty:
-                    continue  # Skip this file if frequency_data is empty
+                    frequency_data.append({'location': location, 'SPI': frequency_key, 'frequency': 0})
+                    continue
 
             # Extract frequency value value
             frequency_value = data['1'].iloc[0]
@@ -108,17 +103,16 @@ def create_frequency_dataframe(input_dir, spi_time, frequency_key):
 
     return frequency_df
 
-def spi_map_loop(SPI_time):
-    # Create a date range from 01/01/2000 to 05/01/2024
-    start_date = pd.to_datetime('01/01/2000')
-    end_date = pd.to_datetime('05/01/2024')
+def frequency_map_loop(SPI_time):
+    f_key = 50
 
-    # Iterate through the date range
-    for current_date in pd.date_range(start_date, end_date, freq='MS'):
-        month = current_date.month
-        year = current_date.year
-        month_key = f"{month:02d}/01/{year}"
-        # Call the spi_map_plot function
-        spi_map_plot(month_key, SPI_time)
+    # Iterate through possible SPI values
+    while f_key != -51:
+        # Call the frequency_map_plot function
+        frequency_map_plot(f_key/10, SPI_time)
+        f_key -= 1
 
-frequency_map_plot(0.4, '06')
+frequency_map_loop('01')
+frequency_map_loop('03')
+frequency_map_loop('06')
+frequency_map_loop('12')
