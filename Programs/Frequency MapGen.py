@@ -20,7 +20,7 @@ geoloc = pd.read_csv(r"C:\Users\thoma\Documents\GitHub\Drought-Research\output.c
 def frequency_map_plot(frequency_key, spi_time):
 
     # Load shapefile
-    directory_path = rf"C:\Users\thoma\Documents\GitHub\Drought-Research\Maps\SPI Maps - V1\Frequency Raw\\{spi_time}M"
+    directory_path = rf"C:\Users\thoma\Documents\GitHub\Drought-Research\Maps\SPI Maps - V1\Frequency Cumulative\\{spi_time}M"
     shapefile_path = r"C:\Users\thoma\Documents\GitHub\Drought-Research\MO_County_Boundaries.shp"
     counties = gpd.read_file(shapefile_path)
     counties_crs = counties.to_crs("EPSG:4326")
@@ -47,12 +47,12 @@ def frequency_map_plot(frequency_key, spi_time):
     cmap = mcolors.ListedColormap(plt.cm.cividis(np.linspace(0, 1, len(frequency_range))))
 
     # Plot the map
-    geoloc_gdf.plot(ax=ax, column='frequency', cmap=cmap, marker='o', vmin=min_freq-0.5, vmax=max_freq+0.5, markersize=75, edgecolor='black', linewidth=1, legend=True, legend_kwds={'ticks': frequency_range})
+    geoloc_gdf.plot(ax=ax, column='frequency', cmap=cmap, marker='o', vmin=min_freq-0.5, vmax=max_freq+0.5, markersize=85, edgecolor='black', linewidth=1, legend=True, legend_kwds={'ticks': frequency_range})
 
     # Add custom legend labels\
-    plt.xlabel("Longitude")
-    plt.ylabel("Latitude")
-    plt.title(f'SPI Frequency Values in Missouri (SPI: {frequency_key}, SPI Time: {spi_time})', fontsize= 11)
+    plt.xlabel("Longitude", fontsize= 11)
+    plt.ylabel("Latitude", fontsize= 11)
+    plt.title(f'SPI Frequency Values in Missouri (SPI: {frequency_key}, SPI Time: {spi_time})', fontsize= 13)
 
     # Create the filename
     filename = os.path.join(directory_path, f"frequency_map_{frequency_key}_{spi_time}.jpg")
@@ -85,15 +85,15 @@ def create_frequency_dataframe(input_dir, spi_time, frequency_key):
             df = pd.read_csv(file_path)
 
             # Filter for frequency key
-            data = df[(df['0'] == frequency_key) & (df['1'].notnull())]
+            data = df[(df['0'] <= frequency_key) & (df['0'] != -99) & (df['1'].notnull())]
             
 
-            if data.empty:
-                    frequency_data.append({'location': location, 'SPI': frequency_key, 'frequency': 0})
-                    continue
+            #if data.empty:
+                    #frequency_data.append({'location': location, 'SPI': frequency_key, 'frequency': 0})
+                    #continue
 
             # Extract frequency value value
-            frequency_value = data['1'].iloc[0]
+            frequency_value = data['1'].sum()
 
             # Append data to list
             frequency_data.append({'location': location, 'SPI': frequency_key, 'frequency': frequency_value})
@@ -104,7 +104,7 @@ def create_frequency_dataframe(input_dir, spi_time, frequency_key):
     return frequency_df
 
 def frequency_map_loop(SPI_time):
-    f_key = 50
+    f_key = 00
 
     # Iterate through possible SPI values
     while f_key != -51:
