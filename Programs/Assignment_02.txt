@@ -1,0 +1,108 @@
+# -*- coding: utf-8 -*-
+"""
+Spyder Editor
+
+This is a temporary script file.
+"""
+import numpy as np
+# import pandas as pd
+#############################Columbus##########################################
+# Ref_Columbus=np.load('C:/Users/leasor.4/Documents/DocumentsOSU/NSF/DroughtClass/Assignments/DroughtData/Group4_Columbus/spi_gamma_06_Columbus.npz')
+# dates_spi_Columbus =Ref_Columbus['dates']
+# spi_Columbus = Ref_Columbus['data']
+# dates_spi2_Columbus=([date[0] for date in dates_spi_Columbus])# match size of spei numpy array
+# del(dates_spi_Columbus)
+# drought=spi_Columbus[5009:]
+# drought_dates=dates_spi2_Columbus[5009:]
+#Changing the code to D0 (-0.5) allowed me to replicate their results
+# #df=pd.DataFrame({'Dates':dates_spei2,'SPEI':spei})
+# #df.to_csv('spei.csv',index=False)
+#############################Desert SW#########################################
+# Ref_DesertSW=np.load('C:/Users/leasor.4/Documents/DocumentsOSU/NSF/DroughtClass/Assignments/DroughtData/Group1_DesertSW/spi_gamma_12_DesertSW.npz')
+# dates_spi_DesertSW =Ref_DesertSW['dates']
+# spi_DesertSW = Ref_DesertSW['data']
+# dates_spi2_DesertSW=([date[0] for date in dates_spi_DesertSW])# match size of spei numpy array
+# del(dates_spi_DesertSW)
+# drought=spi_DesertSW[4905:]#30 years
+# drought_dates=dates_spi2_DesertSW[4905:]#30 years
+# drought=spi_DesertSW[5710:6471]#USDM period
+# drought_dates=dates_spi2_DesertSW[5710:6471]#USDM period
+#############################Great Lakes#######################################
+# Ref_GreatLakes=np.load('C:/Users/leasor.4/Documents/DocumentsOSU/NSF/DroughtClass/Assignments/DroughtData/Group3_GreatLakes/spi_gamma_06_GreatLakes.npz')
+# dates_spi_GreatLakes =Ref_GreatLakes['dates']
+# spi_GreatLakes = Ref_GreatLakes['data']
+# dates_spi2_GreatLakes=([date[0] for date in dates_spi_GreatLakes])# match size of spei numpy array
+# del(dates_spi_GreatLakes)
+# drought=spi_GreatLakes[4931:]#30 years
+# drought_dates=dates_spi2_GreatLakes[4931:]#30 years
+# drought=spi_GreatLakes[5710:6471]#USDM period
+# drought_dates=dates_spi2_GreatLakes[5710:6471]#USDM period
+#############################Iowa##############################################
+# Ref_Iowa=np.load('C:/Users/leasor.4/Documents/DocumentsOSU/NSF/DroughtClass/Assignments/DroughtData/Group2_Iowa/spi_gamma_06_Iowa.npz')
+# dates_spi_Iowa =Ref_Iowa['dates']
+# spi_Iowa = Ref_Iowa['data']
+# dates_spi2_Iowa=([date[0] for date in dates_spi_Iowa])# match size of spei numpy array
+# del(dates_spi_Iowa)
+# drought=spi_Iowa[4931:6549]#30 years
+# drought_dates=dates_spi2_Iowa[4931:6549]#30 years
+# drought=spi_Iowa[5710:6471]#USDM period
+# drought_dates=dates_spi2_Iowa[5710:6471]#USDM period
+#############################SmokyMts##########################################
+Ref_SmokyMts=np.load('C:/Users/leasor.4/Documents/DocumentsOSU/NSF/DroughtClass/Assignments/DroughtData/Group5_SmokyMts/spi_gamma_01_SmokyMts.npz')
+dates_spi_SmokyMts =Ref_SmokyMts['dates']
+spi_SmokyMts = Ref_SmokyMts['data']
+dates_spi2_SmokyMts=([date[0] for date in dates_spi_SmokyMts])# match size of spei numpy array
+del(dates_spi_SmokyMts)
+drought=spi_SmokyMts[4430:6570]#30 years
+drought_dates=dates_spi2_SmokyMts[4430:6570]#30 years
+# drought=spi_SmokyMts[5710:6471]#USDM period
+# drought_dates=dates_spi2_SmokyMts[5710:6471]#USDM period
+
+
+
+def droughtclimatology_spi_spei(droughtdataset,dataset_dates):
+    drought=0;#0=no drought, 1=drought
+    dcount=0
+    dlen=[]
+    dmax=[]
+    dstartdays=[]
+    for i in range(0,len(droughtdataset)):
+        if drought==0:
+            if droughtdataset[i]<=-0.8:
+                drought=1
+                dcount=dcount+1
+                dstartday=dataset_dates[i]
+                dstartdays.append(dstartday)
+                length=1
+                dsev=[]
+                dsev.append(droughtdataset[i])           
+        elif drought==1:
+            if droughtdataset[i]>-0.8:
+                drought=0
+                dlen.append(length)
+                dmax.append(min(dsev))
+                del(dsev,length)
+            elif droughtdataset[i]<=-0.8:
+                length=length+1
+                dsev.append(droughtdataset[i])
+        # if i==len(droughtdataset)-1 and drought==1:#dataset edge effects we will ignore
+        #     dlen.append(length)
+        #     dmax.append(min(dsev))
+    
+        del(i)
+    print(dcount)
+    meanlength=np.mean(np.array(dlen))
+    print(meanlength)
+    longest=max(dlen)
+    print(longest)
+    print(min(droughtdataset))
+    #D4 occurences
+    D4=np.where(droughtdataset <= -2.0)
+    D4=list(D4[0][:])
+    D4_dates=[]
+    for j in range(0,len(D4)):
+        D4_dates.append(dataset_dates[D4[j]])
+            
+    print('D4: ' + str(len(D4)))
+
+droughtclimatology_spi_spei(drought,drought_dates)
