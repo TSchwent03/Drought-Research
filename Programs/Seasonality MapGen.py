@@ -69,11 +69,23 @@ def create_seasonality_dataframe(input_dir, spi_time, drought_threshold):
 
     # Create DataFrame
     duration_df = pd.DataFrame(duration_data)
-    
-    # Group the DataFrame by location and calculate the average duration
-    cumulative_durations = duration_df.groupby('location')['start_date'].mean().reset_index()
 
-    return cumulative_durations
+    # Extract the month from the 'start_date' column
+    duration_df['start_month'] = duration_df['start_date'].dt.month
+
+    # Group the DataFrame by location and calculate the average duration
+    mean_start_month = duration_df.groupby('location')['start_month'].mean().reset_index()
+    median_start_month = duration_df.groupby('location')['start_month'].median().reset_index()
+    mode_start_month = duration_df.groupby('location')['start_month'].agg(lambda x: list(x.mode())).reset_index()
+
+    # Merge the DataFrames
+    merged_df = mean_start_month.merge(median_start_month, on='location')
+    merged_df = merged_df.merge(mode_start_month, on='location')
+
+    # Rename columns for clarity
+    merged_df.columns = ['location', 'mean_onset_month', 'median_onset_month', 'mode_onset_month']
+
+    print(merged_df)
 
 
 
@@ -90,7 +102,34 @@ def seasonality_table_loop(SPI_time):
     except:
         return None
 
-print(create_seasonality_dataframe(input_dir, '03', -0.3))
+def determine_most_frequent_season(drought_start_dates):
+    """
+    Determines the most frequent season of drought onset.
+
+    Args:
+        drought_start_dates: A list of datetime objects representing drought start dates.
+
+    Returns:
+        The most frequent season (Winter, Spring, Summer, or Fall).
+    """
+
+    season_counts = {'Winter': 0, 'Spring': 0, 'Summer': 0, 'Fall': 0}
+    for date in drought_start_dates:
+        month = date.month
+        if month in [12, 1, 2]:
+            season_counts['Winter'] += 1
+        elif month in [3, 4, 5]:
+            season_counts['Spring'] += 1
+        elif month in [6, 7, 8]:
+            season_counts['Summer'] += 1
+        else:
+            season_counts['Fall'] += 1
+
+    return season_counts
+
+seasonality_df = create_seasonality_dataframe(input_dir, '03', -0.3)
+
+print(seasonality_df)
 
 #seasonality_table_loop('01')
 #seasonality_table_loop('03')
