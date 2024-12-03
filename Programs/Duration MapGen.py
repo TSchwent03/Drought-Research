@@ -74,7 +74,7 @@ def create_duration_dataframe(input_dir, spi_time, drought_threshold):
     duration_df = pd.DataFrame(duration_data)
 
     # Group the DataFrame by location and calculate the average duration
-    cumulative_durations = duration_df.groupby('location')['duration'].min().reset_index()
+    cumulative_durations = duration_df.groupby('location')['duration'].mean().reset_index()
 
     return cumulative_durations
 
@@ -124,7 +124,20 @@ def duration_map_loop(SPI_time):
     except:
         return None
 
-duration_map_loop('01')
-duration_map_loop('03')
-duration_map_loop('06')
-duration_map_loop('12')
+def duration_table_loop(SPI_time):
+    spi_key = 00
+
+    try:
+        # Iterate through possible SPI values
+        while spi_key != -51:
+            # Call the frequency_map_plot function
+            dfcsv = create_duration_dataframe(input_dir, SPI_time, spi_key/10)
+            spi_key -= 1
+            dfcsv.to_csv(rf'C:\Users\thoma\Documents\GitHub\Drought-Research\Tabular Data\Average Duration\{SPI_time}M\{spi_key/10}_{SPI_time}M_mean_duration.csv', index=False)
+    except:
+        return None
+
+duration_table_loop('01')
+duration_table_loop('03')
+duration_table_loop('06')
+duration_table_loop('12')

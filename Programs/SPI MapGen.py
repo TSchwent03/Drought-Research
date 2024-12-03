@@ -170,3 +170,4 @@ def spi_map_loop(SPI_time):
 #geoloc = geocode_locations(locations_df)
 #geoloc_out = pd.concat([geoloc['latitude'], geoloc['longitude']], axis = 1, join = 'outer')
 #geoloc_out.to_csv(r'C:\Users\thoma\Documents\GitHub\Drought-Research\output.csv', index=False)
+
