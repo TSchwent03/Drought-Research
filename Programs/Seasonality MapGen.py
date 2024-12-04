@@ -85,7 +85,7 @@ def create_seasonality_dataframe(input_dir, spi_time, drought_threshold):
     # Rename columns for clarity
     merged_df.columns = ['location', 'mean_onset_month', 'median_onset_month', 'mode_onset_month']
 
-    print(merged_df)
+    return duration_df
 
 
 
@@ -96,42 +96,51 @@ def seasonality_table_loop(SPI_time):
         # Iterate through possible SPI values
         while spi_key != -51:
             # Call the frequency_map_plot function
-            dfcsv = create_seasonality_dataframe(input_dir, SPI_time, spi_key/10)
+            dfcsv = determine_most_frequent_season_by_location(create_seasonality_dataframe(input_dir, SPI_time, spi_key/10))
             spi_key -= 1
-            dfcsv.to_csv(rf'C:\Users\thoma\Documents\GitHub\Drought-Research\Tabular Data\Raw Seasonality\{SPI_time}M\{spi_key/10}_{SPI_time}M_raw_seasonality.csv', index=False)
+            dfcsv.to_csv(rf'C:\Users\thoma\Documents\GitHub\Drought-Research\Tabular Data\Seasonality\{SPI_time}M\{spi_key/10}_{SPI_time}M_seasonality.csv', index=False)
     except:
         return None
 
-def determine_most_frequent_season(drought_start_dates):
+def determine_most_frequent_season_by_location(df):
     """
-    Determines the most frequent season of drought onset.
+    Determines the most frequent season of drought onset for each location.
 
     Args:
-        drought_start_dates: A list of datetime objects representing drought start dates.
+        df: A DataFrame with 'location' and 'start_date' columns.
 
     Returns:
-        The most frequent season (Winter, Spring, Summer, or Fall).
+        A DataFrame with 'location' and 'most_frequent_season' columns.
     """
 
-    season_counts = {'Winter': 0, 'Spring': 0, 'Summer': 0, 'Fall': 0}
-    for date in drought_start_dates:
-        month = date.month
-        if month in [12, 1, 2]:
-            season_counts['Winter'] += 1
-        elif month in [3, 4, 5]:
-            season_counts['Spring'] += 1
-        elif month in [6, 7, 8]:
-            season_counts['Summer'] += 1
-        else:
-            season_counts['Fall'] += 1
+    def season_frequency(start_dates):
+        season_counts = {'Winter': 0, 'Spring': 0, 'Summer': 0, 'Fall': 0}
+        for date in start_dates:
+            month = date.month
+            if month in [12, 1, 2]:
+                season_counts['Winter'] += 1
+            elif month in [3, 4, 5]:
+                season_counts['Spring'] += 1
+            elif month in [6, 7, 8]:
+                season_counts['Summer'] += 1
+            else:
+                season_counts['Fall'] += 1
 
-    return season_counts
+        return season_counts
 
-seasonality_df = create_seasonality_dataframe(input_dir, '03', -0.3)
+    # Group the DataFrame by location and apply the function
+    seasonal_counts_df = df.groupby('location')['start_date'].apply(season_frequency).apply(pd.Series).reset_index()
+    df_pivoted = seasonal_counts_df.pivot_table(index='location', columns='level_1', values=0, aggfunc='sum')
+    df_pivoted['most_frequent_season'] = df_pivoted[['Winter', 'Spring', 'Summer', 'Fall']].idxmax(axis=1)
 
-print(seasonality_df)
+    return df_pivoted
 
-#seasonality_table_loop('01')
-#seasonality_table_loop('03')
-#seasonality_table_loop('06')
-#seasonality_table_loop('12')
+
+#seasonality_df = determine_most_frequent_season_by_location(create_seasonality_dataframe(input_dir, '03', -0.3))
+
+#print(seasonality_df)
+
+seasonality_table_loop('01')
+seasonality_table_loop('03')
+seasonality_table_loop('06')
+seasonality_table_loop('12')
