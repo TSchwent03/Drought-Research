@@ -8,6 +8,7 @@ import os
 from mpl_toolkits.axes_grid1 import make_axes_locatable
 import googlemaps
 import re
+import plotly.express as px
 
 path = r"C:\Users\thoma\Documents\GitHub\Drought-Research\MO_County_Boundaries.shp"
 input_dir = r"C:\Users\thoma\Documents\GitHub\Drought-Research\Precip Data\Dataset B-a\Monthly Tot SPI w Drgt Stats CSV"
@@ -71,19 +72,7 @@ def create_seasonality_dataframe(input_dir, spi_time, drought_threshold):
     duration_df = pd.DataFrame(duration_data)
 
     # Extract the month from the 'start_date' column
-    duration_df['start_month'] = duration_df['start_date'].dt.month
-
-    # Group the DataFrame by location and calculate the average duration
-    mean_start_month = duration_df.groupby('location')['start_month'].mean().reset_index()
-    median_start_month = duration_df.groupby('location')['start_month'].median().reset_index()
-    mode_start_month = duration_df.groupby('location')['start_month'].agg(lambda x: list(x.mode())).reset_index()
-
-    # Merge the DataFrames
-    merged_df = mean_start_month.merge(median_start_month, on='location')
-    merged_df = merged_df.merge(mode_start_month, on='location')
-
-    # Rename columns for clarity
-    merged_df.columns = ['location', 'mean_onset_month', 'median_onset_month', 'mode_onset_month']
+    duration_df['end_month'] = duration_df['end_date'].dt.month
 
     return duration_df
 
@@ -98,7 +87,7 @@ def seasonality_table_loop(SPI_time):
             # Call the frequency_map_plot function
             dfcsv = determine_most_frequent_season_by_location(create_seasonality_dataframe(input_dir, SPI_time, spi_key/10))
             spi_key -= 1
-            dfcsv.to_csv(rf'C:\Users\thoma\Documents\GitHub\Drought-Research\Tabular Data\Seasonality\{SPI_time}M\{spi_key/10}_{SPI_time}M_seasonality.csv', index=False)
+            dfcsv.to_csv(rf'C:\Users\thoma\Documents\GitHub\Drought-Research\Tabular Data\Relief Seasonality\{SPI_time}M\{spi_key/10}_{SPI_time}M_seasonality.csv', index=False)
     except:
         return None
 
@@ -113,9 +102,9 @@ def determine_most_frequent_season_by_location(df):
         A DataFrame with 'location' and 'most_frequent_season' columns.
     """
 
-    def season_frequency(start_dates):
+    def season_frequency(end_dates):
         season_counts = {'Winter': 0, 'Spring': 0, 'Summer': 0, 'Fall': 0}
-        for date in start_dates:
+        for date in end_dates:
             month = date.month
             if month in [12, 1, 2]:
                 season_counts['Winter'] += 1
@@ -127,20 +116,94 @@ def determine_most_frequent_season_by_location(df):
                 season_counts['Fall'] += 1
 
         return season_counts
+    
+    def check_row_max_equality(row):
+        """
+        Checks if any columns in a given row of a DataFrame have the same maximum value.
+
+        Args:
+            row: A pandas Series representing a row of the DataFrame.
+
+        Returns:
+            True if any columns have the same maximum value, False otherwise.
+        """
+
+        max_value = row[1:5].max()  # Consider columns 1 to 4 (inclusive)
+        return (row[1:5] == max_value).sum() > 1
+
 
     # Group the DataFrame by location and apply the function
     seasonal_counts_df = df.groupby('location')['start_date'].apply(season_frequency).apply(pd.Series).reset_index()
-    df_pivoted = seasonal_counts_df.pivot_table(index='location', columns='level_1', values=0, aggfunc='sum')
-    df_pivoted['most_frequent_season'] = df_pivoted[['Winter', 'Spring', 'Summer', 'Fall']].idxmax(axis=1)
+    df_pivoted = seasonal_counts_df.pivot_table(index='location', columns='level_1', values=0, aggfunc='sum').reset_index()
+    df_pivoted['most_frequent_season'] = df_pivoted[['Winter', 'Spring', 'Summer', 'Fall']].idxmax(axis=1)    
+    # Apply the function to each row
+    df_pivoted['has_equal_max_columns'] = df_pivoted.apply(check_row_max_equality, axis=1)
+    # Assign 'Tie' category to rows with multiple maximum values
+    df_pivoted['most_frequent_season'] = df_pivoted.apply(
+        lambda row: 'Tie' if row['has_equal_max_columns'] else row['most_frequent_season'], axis=1)
 
     return df_pivoted
+
+def seasonality_map_plot(spi_key, spi_time):
+
+    # Load shapefile
+    directory_path = rf"C:\Users\thoma\Documents\GitHub\Drought-Research\Maps\SPI Maps - V1\Categorical\\{spi_time}M"
+    shapefile_path = r"C:\Users\thoma\Documents\GitHub\Drought-Research\MO_County_Boundaries.shp"
+    counties = gpd.read_file(shapefile_path)
+    counties_crs = counties.to_crs("EPSG:4326")
+    seasonality_df = determine_most_frequent_season_by_location(create_seasonality_dataframe(input_dir, spi_time, spi_key))
+    geoloc_call = pd.concat([seasonality_df, geoloc['latitude'], geoloc['longitude']], axis=1, join='outer')
+    geoloc_call['county_name'] = seasonality_df['location'].apply(lambda x: re.sub(r' County$', '', x.split(',')[1]).strip())
+    # Extract latitude and longitude from the latlon column
+    geoloc_gdf = gpd.GeoDataFrame(geoloc_call, geometry=gpd.points_from_xy(geoloc_call['longitude'], geoloc_call['latitude']))
+
+    # Create figure and axes
+    fig, ax = plt.subplots(figsize=(10, 6))
+
+    # Plot the map
+    counties_crs.plot(ax=ax, color='lightgray', edgecolor='black')
+
+    season_to_int = {'Winter': 0, 'Spring': 1, 'Summer': 2, 'Fall': 3, 'Tie': 4}
+    geoloc_gdf['season_int'] = geoloc_gdf['most_frequent_season'].replace(season_to_int)
+
+
+    # Plots Categorical Color Mapping
+    colors = ['#4FA5ED', '#30D91C', '#F7DF1B', '#C62A03', '#6F6F6F']
+    cmap = mcolors.ListedColormap(colors)
+
+    # Plot the map with the custom colormap
+    geoloc_gdf.plot(ax=ax, column='season_int', marker='o', cmap=cmap, markersize=75, edgecolor='black', linewidth=1)
+    legend_elements = [Patch(edgecolor='black', label='Winter', facecolor='#4FA5ED'), 
+                       Patch(edgecolor='black', label='Spring', facecolor='#30D91C'), 
+                       Patch(edgecolor='black', label='Summer', facecolor='#F7DF1B'), 
+                       Patch(edgecolor='black', label='Fall', facecolor='#C62A03'), 
+                       Patch(edgecolor='black', label='Tie', facecolor='#6F6F6F') 
+                      ]
+
+
+    ax.legend(handles=legend_elements, bbox_to_anchor=(1, 1), loc='upper left')
+
+    # Add custom legend labels
+    plt.xlabel("Longitude")
+    plt.ylabel("Latitude")
+    plt.title(f'SPI Values in Missouri (Spi Key: {spi_key} , SPI Time: {spi_time})', fontsize= 11)
+
+    # Create the filename
+    filename = os.path.join(directory_path, f"spi_map_{spi_time}.jpg")
+
+    # Save the plot
+    #plt.savefig(filename)
+    #plt.close()
+    print(season_to_int['Tie'])
+    plt.show()
 
 
 #seasonality_df = determine_most_frequent_season_by_location(create_seasonality_dataframe(input_dir, '03', -0.3))
 
 #print(seasonality_df)
 
+#seasonality_map_plot(-1.0, '01')
 seasonality_table_loop('01')
-seasonality_table_loop('03')
-seasonality_table_loop('06')
-seasonality_table_loop('12')
+#seasonality_table_loop('03')
+#seasonality_table_loop('06')
+#seasonality_table_loop('12')
