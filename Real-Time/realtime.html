@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Missouri Mesonet Data</title>
+</head>
+<body>
+  <h1>Missouri Mesonet Data (Station BFD)</h1>
+  <table id="data-table">
+    </table>
+  <script>
+    async function fetchData() {
+      const url = 'http://agebb.missouri.edu/weather/history/report.asp?station_prefix=bfd&start_month=1&end_month=1&start_day=1&end_day=1&start_year=2000&end_year=2024&period_type=1&convert=1&field_elements=70';
+
+      try {
+        const response = await fetch(url);
+        const html = await response.text();
+
+        // Assuming a simple HTML table structure (modify selectors as needed)
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        const table = doc.querySelector('table');
+
+        if (!table) {
+          throw new Error('Data table not found in the response');
+        }
+
+        const rows = table.querySelectorAll('tr');
+        const data = [];
+        rows.forEach(row => {
+          const cells = row.querySelectorAll('td');
+          // Extract data from table cells (adjust based on actual structure)
+          const date = cells[0].textContent.trim();
+          const element1 = cells[1].textContent.trim();
+          // ... extract other data as needed
+          data.push({ date, element1 }); // Modify object properties based on data
+        });
+
+        const dataTable = document.getElementById('data-table');
+        const tableHeader = document.createElement('thead');
+        const tableBody = document.createElement('tbody');
+        dataTable.appendChild(tableHeader);
+        dataTable.appendChild(tableBody);
+
+        // Create table header (adjust column names as needed)
+        const headerRow = document.createElement('tr');
+        const dateHeader = document.createElement('th');
+        const element1Header = document.createElement('th');
+        dateHeader.textContent = 'Date';
+        element1Header.textContent = 'Element 1'; // Modify based on data
+        headerRow.appendChild(dateHeader);
+        headerRow.appendChild(element1Header);
+        tableHeader.appendChild(headerRow);
+
+        // Create table rows and populate with data
+        data.forEach(entry => {
+          const row = document.createElement('tr');
+          const dateCell = document.createElement('td');
+          const element1Cell = document.createElement('td');
+          dateCell.textContent = entry.date;
+          element1Cell.textContent = entry.element1; // Modify based on data
+          row.appendChild(dateCell);
+          row.appendChild(element1Cell);
+          tableBody.appendChild(row);
+        });
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        // You might want to display an error message to the user
+        const errorDiv = document.createElement('div');
+        errorDiv.textContent = 'Error fetching data: ' + error.message;
+        document.body.appendChild(errorDiv);
+      }
+    }
+
+    fetchData();
+  </script>
+</body>
+</html>
