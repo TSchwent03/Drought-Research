@@ -1,20 +1,20 @@
 location,Fall,Spring,Summer,Winter,most_frequent_season,has_equal_max_columns
-"Albany, Gentry County, MO",4,3,5,6,Winter,False
-"Auxvasse, Audrain County, MO",5,6,2,7,Winter,False
-"Brunswick, Carroll County, MO",6,5,3,5,Fall,False
-"Cardwell, Dunklin County, MO",5,7,3,3,Spring,False
-"Charleston, Mississippi County, MO",5,7,4,6,Spring,False
-"Clarkton, Dunklin County, MO",4,8,4,5,Spring,False
-"Columbia-Sanborn Field, Boone County, MO",4,6,3,8,Winter,False
-"Columbia-South Farms, Boone County, MO",3,6,6,5,Tie,True
+"Albany, Gentry County, MO",4,3,4,4,Tie,True
+"Auxvasse, Audrain County, MO",4,6,2,6,Tie,True
+"Brunswick, Carroll County, MO",6,5,2,5,Fall,False
+"Cardwell, Dunklin County, MO",4,6,4,3,Spring,False
+"Charleston, Mississippi County, MO",6,5,4,7,Winter,False
+"Clarkton, Dunklin County, MO",4,7,3,5,Spring,False
+"Columbia-Sanborn Field, Boone County, MO",3,4,4,8,Winter,False
+"Columbia-South Farms, Boone County, MO",4,5,3,5,Tie,True
 "Cook Station, Crawford County, MO",3,3,4,4,Tie,True
-"Corning, Atchison County, MO",5,4,6,7,Winter,False
-"Delta, Cape Girardeau County, MO",5,8,3,5,Spring,False
-"Glennonville, Dunklin County, MO",3,8,4,5,Spring,False
+"Corning, Atchison County, MO",5,3,7,7,Tie,True
+"Delta, Cape Girardeau County, MO",4,6,3,4,Spring,False
+"Glennonville, Dunklin County, MO",3,7,3,4,Spring,False
 "Hayward, Pemiscot County, MO",4,7,4,2,Spring,False
-"Lamar, Barton County, MO",5,6,4,4,Spring,False
-"Linneus, Linn County, MO",4,7,3,5,Spring,False
-"Monroe City, Monroe County, MO",5,6,4,7,Winter,False
-"Novelty, Knox County, MO",7,8,2,5,Spring,False
-"Portageville, Pemiscot County, MO",6,7,3,3,Spring,False
-"St. Joseph, Buchanan County, MO",7,4,6,7,Tie,True
+"Lamar, Barton County, MO",4,5,4,4,Spring,False
+"Linneus, Linn County, MO",4,6,3,4,Spring,False
+"Monroe City, Monroe County, MO",4,3,5,6,Winter,False
+"Novelty, Knox County, MO",6,9,2,2,Spring,False
+"Portageville, Pemiscot County, MO",4,7,2,4,Spring,False
+"St. Joseph, Buchanan County, MO",6,5,5,6,Tie,True

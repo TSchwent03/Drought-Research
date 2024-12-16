@@ -1,20 +1,20 @@
 location,Fall,Spring,Summer,Winter,most_frequent_season,has_equal_max_columns
-"Albany, Gentry County, MO",3,6,6,2,Tie,True
-"Auxvasse, Audrain County, MO",3,6,4,5,Spring,False
-"Brunswick, Carroll County, MO",1,5,3,4,Spring,False
-"Cardwell, Dunklin County, MO",4,5,2,5,Tie,True
-"Charleston, Mississippi County, MO",5,3,2,5,Tie,True
-"Clarkton, Dunklin County, MO",2,5,3,5,Tie,True
-"Columbia-Sanborn Field, Boone County, MO",2,6,4,3,Spring,False
-"Columbia-South Farms, Boone County, MO",4,6,4,2,Spring,False
-"Cook Station, Crawford County, MO",2,6,2,5,Spring,False
-"Corning, Atchison County, MO",5,4,4,3,Fall,False
-"Delta, Cape Girardeau County, MO",4,5,3,4,Spring,False
-"Glennonville, Dunklin County, MO",1,6,4,5,Spring,False
-"Hayward, Pemiscot County, MO",4,6,2,5,Spring,False
-"Lamar, Barton County, MO",5,2,3,1,Fall,False
-"Linneus, Linn County, MO",2,3,5,6,Winter,False
-"Monroe City, Monroe County, MO",2,5,7,4,Summer,False
-"Novelty, Knox County, MO",2,5,4,3,Spring,False
-"Portageville, Pemiscot County, MO",5,5,2,3,Tie,True
-"St. Joseph, Buchanan County, MO",2,5,5,2,Tie,True
+"Albany, Gentry County, MO",4,5,3,4,Spring,False
+"Auxvasse, Audrain County, MO",4,6,3,4,Spring,False
+"Brunswick, Carroll County, MO",1,5,2,4,Spring,False
+"Cardwell, Dunklin County, MO",4,3,3,4,Tie,True
+"Charleston, Mississippi County, MO",4,3,2,6,Winter,False
+"Clarkton, Dunklin County, MO",2,5,3,6,Winter,False
+"Columbia-Sanborn Field, Boone County, MO",1,4,6,4,Summer,False
+"Columbia-South Farms, Boone County, MO",3,4,7,4,Summer,False
+"Cook Station, Crawford County, MO",3,5,1,4,Spring,False
+"Corning, Atchison County, MO",4,3,2,5,Winter,False
+"Delta, Cape Girardeau County, MO",3,4,3,4,Tie,True
+"Glennonville, Dunklin County, MO",3,5,5,2,Tie,True
+"Hayward, Pemiscot County, MO",4,7,2,4,Spring,False
+"Lamar, Barton County, MO",3,4,0,2,Spring,False
+"Linneus, Linn County, MO",6,3,2,4,Fall,False
+"Monroe City, Monroe County, MO",2,6,4,3,Spring,False
+"Novelty, Knox County, MO",3,5,2,2,Spring,False
+"Portageville, Pemiscot County, MO",3,5,2,4,Spring,False
+"St. Joseph, Buchanan County, MO",2,4,4,4,Tie,True

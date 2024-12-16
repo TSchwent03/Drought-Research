@@ -1,10 +1,6 @@
 location,Fall,Spring,Summer,Winter,most_frequent_season,has_equal_max_columns
-"Albany, Gentry County, MO",0,1,0,0,Spring,False
-"Charleston, Mississippi County, MO",0,1,0,0,Spring,False
-"Columbia-South Farms, Boone County, MO",0,0,1,0,Summer,False
+"Albany, Gentry County, MO",0,1,1,0,Tie,True
 "Cook Station, Crawford County, MO",1,0,0,0,Fall,False
-"Hayward, Pemiscot County, MO",1,0,0,1,Tie,True
-"Lamar, Barton County, MO",0,2,0,0,Spring,False
-"Linneus, Linn County, MO",0,0,0,1,Winter,False
-"Novelty, Knox County, MO",0,0,0,1,Winter,False
-"St. Joseph, Buchanan County, MO",1,1,0,1,Tie,True
+"Lamar, Barton County, MO",0,1,0,0,Spring,False
+"Linneus, Linn County, MO",0,1,0,0,Spring,False
+"St. Joseph, Buchanan County, MO",0,1,0,0,Spring,False

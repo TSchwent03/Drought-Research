@@ -1,20 +1,19 @@
 location,Fall,Spring,Summer,Winter,most_frequent_season,has_equal_max_columns
-"Albany, Gentry County, MO",1,2,2,1,Tie,True
-"Auxvasse, Audrain County, MO",0,1,0,1,Tie,True
-"Brunswick, Carroll County, MO",1,1,2,1,Summer,False
-"Cardwell, Dunklin County, MO",1,2,0,1,Spring,False
-"Charleston, Mississippi County, MO",1,1,0,2,Winter,False
-"Clarkton, Dunklin County, MO",0,1,0,3,Winter,False
-"Columbia-Sanborn Field, Boone County, MO",1,1,0,1,Tie,True
-"Columbia-South Farms, Boone County, MO",0,3,0,0,Spring,False
-"Cook Station, Crawford County, MO",1,1,1,0,Tie,True
-"Corning, Atchison County, MO",1,2,0,0,Spring,False
-"Delta, Cape Girardeau County, MO",0,1,2,1,Summer,False
-"Glennonville, Dunklin County, MO",1,0,1,1,Tie,True
-"Hayward, Pemiscot County, MO",1,2,0,3,Winter,False
-"Lamar, Barton County, MO",1,0,2,2,Tie,True
-"Linneus, Linn County, MO",0,1,0,0,Spring,False
-"Monroe City, Monroe County, MO",1,0,0,2,Winter,False
-"Novelty, Knox County, MO",0,1,0,1,Tie,True
-"Portageville, Pemiscot County, MO",1,2,0,1,Spring,False
-"St. Joseph, Buchanan County, MO",1,2,0,1,Spring,False
+"Albany, Gentry County, MO",1,0,3,0,Summer,False
+"Brunswick, Carroll County, MO",1,1,1,0,Tie,True
+"Cardwell, Dunklin County, MO",3,0,1,1,Fall,False
+"Charleston, Mississippi County, MO",2,0,0,0,Fall,False
+"Clarkton, Dunklin County, MO",0,0,1,2,Winter,False
+"Columbia-Sanborn Field, Boone County, MO",0,1,1,1,Tie,True
+"Columbia-South Farms, Boone County, MO",0,0,2,0,Summer,False
+"Cook Station, Crawford County, MO",1,1,0,0,Tie,True
+"Corning, Atchison County, MO",1,0,2,0,Summer,False
+"Delta, Cape Girardeau County, MO",0,0,1,0,Summer,False
+"Glennonville, Dunklin County, MO",1,0,0,1,Tie,True
+"Hayward, Pemiscot County, MO",2,1,0,1,Fall,False
+"Lamar, Barton County, MO",1,1,0,0,Tie,True
+"Linneus, Linn County, MO",0,0,1,0,Summer,False
+"Monroe City, Monroe County, MO",1,1,0,0,Tie,True
+"Novelty, Knox County, MO",0,1,1,0,Tie,True
+"Portageville, Pemiscot County, MO",1,3,0,2,Spring,False
+"St. Joseph, Buchanan County, MO",0,2,2,1,Tie,True

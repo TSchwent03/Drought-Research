@@ -1,5 +1,3 @@
 location,Fall,Spring,Summer,Winter,most_frequent_season,has_equal_max_columns
-"Glennonville, Dunklin County, MO",0,0,2,0,Summer,False
-"Hayward, Pemiscot County, MO",0,0,1,0,Summer,False
-"Lamar, Barton County, MO",0,0,1,0,Summer,False
-"Linneus, Linn County, MO",0,0,1,0,Summer,False
+"Glennonville, Dunklin County, MO",1,0,0,0,Fall,False
+"Linneus, Linn County, MO",1,0,0,0,Fall,False

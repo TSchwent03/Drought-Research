@@ -1,20 +1,20 @@
 location,Fall,Spring,Summer,Winter,most_frequent_season,has_equal_max_columns
-"Albany, Gentry County, MO",1,4,4,3,Tie,True
-"Auxvasse, Audrain County, MO",3,4,2,3,Spring,False
-"Brunswick, Carroll County, MO",4,3,2,4,Tie,True
-"Cardwell, Dunklin County, MO",4,5,2,3,Spring,False
-"Charleston, Mississippi County, MO",4,5,3,4,Spring,False
-"Clarkton, Dunklin County, MO",3,5,4,4,Spring,False
-"Columbia-Sanborn Field, Boone County, MO",2,4,4,3,Tie,True
-"Columbia-South Farms, Boone County, MO",2,3,4,5,Winter,False
-"Cook Station, Crawford County, MO",2,3,4,4,Tie,True
-"Corning, Atchison County, MO",5,3,5,4,Tie,True
-"Delta, Cape Girardeau County, MO",4,4,3,1,Tie,True
-"Glennonville, Dunklin County, MO",2,6,2,5,Spring,False
-"Hayward, Pemiscot County, MO",4,6,3,2,Spring,False
-"Lamar, Barton County, MO",3,2,5,3,Summer,False
-"Linneus, Linn County, MO",3,4,2,2,Spring,False
-"Monroe City, Monroe County, MO",2,2,3,3,Tie,True
+"Albany, Gentry County, MO",1,4,3,1,Spring,False
+"Auxvasse, Audrain County, MO",3,3,3,3,Tie,True
+"Brunswick, Carroll County, MO",4,2,2,4,Tie,True
+"Cardwell, Dunklin County, MO",4,4,2,3,Tie,True
+"Charleston, Mississippi County, MO",4,5,3,2,Spring,False
+"Clarkton, Dunklin County, MO",3,5,4,2,Spring,False
+"Columbia-Sanborn Field, Boone County, MO",2,2,4,2,Summer,False
+"Columbia-South Farms, Boone County, MO",2,3,3,3,Tie,True
+"Cook Station, Crawford County, MO",2,3,3,3,Tie,True
+"Corning, Atchison County, MO",4,2,5,3,Summer,False
+"Delta, Cape Girardeau County, MO",4,3,3,1,Fall,False
+"Glennonville, Dunklin County, MO",3,5,2,4,Spring,False
+"Hayward, Pemiscot County, MO",3,4,1,1,Spring,False
+"Lamar, Barton County, MO",2,1,4,4,Tie,True
+"Linneus, Linn County, MO",2,5,2,2,Spring,False
+"Monroe City, Monroe County, MO",2,3,3,2,Tie,True
 "Novelty, Knox County, MO",3,2,3,2,Tie,True
-"Portageville, Pemiscot County, MO",3,7,3,3,Spring,False
-"St. Joseph, Buchanan County, MO",4,5,3,5,Tie,True
+"Portageville, Pemiscot County, MO",3,7,2,2,Spring,False
+"St. Joseph, Buchanan County, MO",3,5,3,4,Spring,False

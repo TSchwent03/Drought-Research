@@ -1,4 +1,2 @@
 location,Fall,Spring,Summer,Winter,most_frequent_season,has_equal_max_columns
-"Hayward, Pemiscot County, MO",1,0,0,0,Fall,False
-"Portageville, Pemiscot County, MO",0,0,1,0,Summer,False
 "St. Joseph, Buchanan County, MO",0,1,0,0,Spring,False

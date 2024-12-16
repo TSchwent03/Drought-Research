@@ -1,20 +1,20 @@
 location,Fall,Spring,Summer,Winter,most_frequent_season,has_equal_max_columns
-"Albany, Gentry County, MO",4,8,6,5,Spring,False
-"Auxvasse, Audrain County, MO",5,10,5,5,Spring,False
-"Brunswick, Carroll County, MO",3,7,6,9,Winter,False
-"Cardwell, Dunklin County, MO",4,7,2,5,Spring,False
-"Charleston, Mississippi County, MO",4,7,4,6,Spring,False
-"Clarkton, Dunklin County, MO",7,9,2,5,Spring,False
-"Columbia-Sanborn Field, Boone County, MO",2,8,5,6,Spring,False
-"Columbia-South Farms, Boone County, MO",2,6,6,5,Tie,True
-"Cook Station, Crawford County, MO",4,5,3,6,Winter,False
-"Corning, Atchison County, MO",5,6,7,9,Winter,False
-"Delta, Cape Girardeau County, MO",4,7,3,7,Tie,True
-"Glennonville, Dunklin County, MO",8,7,2,4,Fall,False
-"Hayward, Pemiscot County, MO",6,8,2,4,Spring,False
-"Lamar, Barton County, MO",5,10,2,5,Spring,False
-"Linneus, Linn County, MO",6,9,6,8,Spring,False
-"Monroe City, Monroe County, MO",5,9,1,7,Spring,False
-"Novelty, Knox County, MO",5,8,8,9,Winter,False
-"Portageville, Pemiscot County, MO",7,8,1,4,Spring,False
-"St. Joseph, Buchanan County, MO",2,7,6,8,Winter,False
+"Albany, Gentry County, MO",3,5,6,6,Tie,True
+"Auxvasse, Audrain County, MO",5,6,5,5,Spring,False
+"Brunswick, Carroll County, MO",4,7,4,8,Winter,False
+"Cardwell, Dunklin County, MO",5,7,2,4,Spring,False
+"Charleston, Mississippi County, MO",5,5,3,4,Tie,True
+"Clarkton, Dunklin County, MO",9,8,1,6,Fall,False
+"Columbia-Sanborn Field, Boone County, MO",2,6,5,6,Tie,True
+"Columbia-South Farms, Boone County, MO",2,7,5,5,Spring,False
+"Cook Station, Crawford County, MO",4,5,5,6,Winter,False
+"Corning, Atchison County, MO",4,7,6,10,Winter,False
+"Delta, Cape Girardeau County, MO",5,5,2,6,Winter,False
+"Glennonville, Dunklin County, MO",9,7,2,6,Fall,False
+"Hayward, Pemiscot County, MO",7,8,2,2,Spring,False
+"Lamar, Barton County, MO",4,9,2,5,Spring,False
+"Linneus, Linn County, MO",5,9,7,7,Spring,False
+"Monroe City, Monroe County, MO",4,8,3,8,Tie,True
+"Novelty, Knox County, MO",5,10,8,7,Spring,False
+"Portageville, Pemiscot County, MO",6,7,1,4,Spring,False
+"St. Joseph, Buchanan County, MO",2,7,6,7,Tie,True

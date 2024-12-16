@@ -72,6 +72,7 @@ def create_seasonality_dataframe(input_dir, spi_time, drought_threshold):
     duration_df = pd.DataFrame(duration_data)
 
     # Extract the month from the 'start_date' column
+    duration_df['start_month'] = duration_df['start_date'].dt.month
     duration_df['end_month'] = duration_df['end_date'].dt.month
 
     return duration_df
@@ -86,8 +87,8 @@ def seasonality_table_loop(SPI_time):
         while spi_key != -51:
             # Call the frequency_map_plot function
             dfcsv = determine_most_frequent_season_by_location(create_seasonality_dataframe(input_dir, SPI_time, spi_key/10))
-            spi_key -= 1
             dfcsv.to_csv(rf'C:\Users\thoma\Documents\GitHub\Drought-Research\Tabular Data\Relief Seasonality\{SPI_time}M\{spi_key/10}_{SPI_time}M_seasonality.csv', index=False)
+            spi_key -= 1     
     except:
         return None
 
@@ -102,9 +103,9 @@ def determine_most_frequent_season_by_location(df):
         A DataFrame with 'location' and 'most_frequent_season' columns.
     """
 
-    def season_frequency(end_dates):
+    def season_frequency(dates):
         season_counts = {'Winter': 0, 'Spring': 0, 'Summer': 0, 'Fall': 0}
-        for date in end_dates:
+        for date in dates:
             month = date.month
             if month in [12, 1, 2]:
                 season_counts['Winter'] += 1
@@ -133,7 +134,7 @@ def determine_most_frequent_season_by_location(df):
 
 
     # Group the DataFrame by location and apply the function
-    seasonal_counts_df = df.groupby('location')['start_date'].apply(season_frequency).apply(pd.Series).reset_index()
+    seasonal_counts_df = df.groupby('location')['end_date'].apply(season_frequency).apply(pd.Series).reset_index()
     df_pivoted = seasonal_counts_df.pivot_table(index='location', columns='level_1', values=0, aggfunc='sum').reset_index()
     df_pivoted['most_frequent_season'] = df_pivoted[['Winter', 'Spring', 'Summer', 'Fall']].idxmax(axis=1)    
     # Apply the function to each row
@@ -147,7 +148,7 @@ def determine_most_frequent_season_by_location(df):
 def seasonality_map_plot(spi_key, spi_time):
 
     # Load shapefile
-    directory_path = rf"C:\Users\thoma\Documents\GitHub\Drought-Research\Maps\SPI Maps - V1\Categorical\\{spi_time}M"
+    directory_path = rf"C:\Users\thoma\Documents\GitHub\Drought-Research\Maps\SPI Maps - V1\Relief Seasonality\\{spi_time}M"
     shapefile_path = r"C:\Users\thoma\Documents\GitHub\Drought-Research\MO_County_Boundaries.shp"
     counties = gpd.read_file(shapefile_path)
     counties_crs = counties.to_crs("EPSG:4326")
@@ -161,7 +162,7 @@ def seasonality_map_plot(spi_key, spi_time):
     fig, ax = plt.subplots(figsize=(10, 6))
 
     # Plot the map
-    counties_crs.plot(ax=ax, color='lightgray', edgecolor='black')
+    counties_crs.plot(ax=ax, color='lightgrey', edgecolor='black')
 
     season_to_int = {'Winter': 0, 'Spring': 1, 'Summer': 2, 'Fall': 3, 'Tie': 4}
     geoloc_gdf['season_int'] = geoloc_gdf['most_frequent_season'].replace(season_to_int)
@@ -186,24 +187,38 @@ def seasonality_map_plot(spi_key, spi_time):
     # Add custom legend labels
     plt.xlabel("Longitude")
     plt.ylabel("Latitude")
-    plt.title(f'SPI Values in Missouri (Spi Key: {spi_key} , SPI Time: {spi_time})', fontsize= 11)
+    plt.title(f'Drought Onset Seasonality (Spi Key: {spi_key} , SPI Time: {spi_time})', fontsize= 11)
 
     # Create the filename
-    filename = os.path.join(directory_path, f"spi_map_{spi_time}.jpg")
+    filename = os.path.join(directory_path, f"seasonality_map_{spi_key}_{spi_time}.jpg")
 
     # Save the plot
     #plt.savefig(filename)
     #plt.close()
-    print(season_to_int['Tie'])
+    #print(seasonality_df)
+    #print(geoloc_gdf)
     plt.show()
 
+def seasonality_map_loop(SPI_time):
+    f_key = 00
+
+    try:
+        # Iterate through possible SPI values
+        while f_key != -51:
+            # Call the frequency_map_plot function
+            seasonality_map_plot(f_key/10, SPI_time)
+            f_key -= 1
+    except:
+        return None
 
 #seasonality_df = determine_most_frequent_season_by_location(create_seasonality_dataframe(input_dir, '03', -0.3))
 
 #print(seasonality_df)
 
-#seasonality_map_plot(-1.0, '01')
-seasonality_table_loop('01')
-#seasonality_table_loop('03')
-#seasonality_table_loop('06')
-#seasonality_table_loop('12')
+seasonality_map_plot(-1.0, '01')
+#print(determine_most_frequent_season_by_location(create_seasonality_dataframe(input_dir, '01', -1.0)))
+#print(determine_most_frequent_season_by_location(create_seasonality_dataframe(input_dir, '01', -10/10)))
+#seasonality_map_loop('01')
+#seasonality_map_loop('03')
+#seasonality_map_loop('06')
+#seasonality_map_loop('12')

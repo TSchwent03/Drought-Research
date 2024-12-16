@@ -1,20 +1,20 @@
 location,Fall,Spring,Summer,Winter,most_frequent_season,has_equal_max_columns
-"Albany, Gentry County, MO",6,9,6,12,Winter,False
-"Auxvasse, Audrain County, MO",6,8,8,10,Winter,False
-"Brunswick, Carroll County, MO",10,10,4,13,Winter,False
-"Cardwell, Dunklin County, MO",6,11,9,10,Spring,False
-"Charleston, Mississippi County, MO",9,8,7,10,Winter,False
-"Clarkton, Dunklin County, MO",12,10,6,7,Fall,False
-"Columbia-Sanborn Field, Boone County, MO",6,6,8,9,Winter,False
-"Columbia-South Farms, Boone County, MO",5,8,6,12,Winter,False
-"Cook Station, Crawford County, MO",7,7,7,10,Winter,False
-"Corning, Atchison County, MO",9,9,9,11,Winter,False
-"Delta, Cape Girardeau County, MO",10,8,6,12,Winter,False
-"Glennonville, Dunklin County, MO",9,11,7,7,Spring,False
-"Hayward, Pemiscot County, MO",7,9,6,7,Spring,False
-"Lamar, Barton County, MO",9,7,8,8,Fall,False
-"Linneus, Linn County, MO",13,10,6,10,Fall,False
-"Monroe City, Monroe County, MO",10,8,6,10,Tie,True
-"Novelty, Knox County, MO",8,9,10,12,Winter,False
-"Portageville, Pemiscot County, MO",7,8,8,7,Tie,True
-"St. Joseph, Buchanan County, MO",8,9,7,10,Winter,False
+"Albany, Gentry County, MO",8,8,6,13,Winter,False
+"Auxvasse, Audrain County, MO",9,6,8,9,Tie,True
+"Brunswick, Carroll County, MO",9,10,3,13,Winter,False
+"Cardwell, Dunklin County, MO",6,11,10,9,Spring,False
+"Charleston, Mississippi County, MO",9,8,6,7,Fall,False
+"Clarkton, Dunklin County, MO",10,10,6,7,Tie,True
+"Columbia-Sanborn Field, Boone County, MO",5,7,8,10,Winter,False
+"Columbia-South Farms, Boone County, MO",5,8,7,12,Winter,False
+"Cook Station, Crawford County, MO",6,7,5,11,Winter,False
+"Corning, Atchison County, MO",7,8,9,11,Winter,False
+"Delta, Cape Girardeau County, MO",10,7,7,11,Winter,False
+"Glennonville, Dunklin County, MO",6,11,7,7,Spring,False
+"Hayward, Pemiscot County, MO",8,9,6,6,Spring,False
+"Lamar, Barton County, MO",6,7,7,7,Tie,True
+"Linneus, Linn County, MO",14,10,5,8,Fall,False
+"Monroe City, Monroe County, MO",9,8,6,11,Winter,False
+"Novelty, Knox County, MO",8,10,9,11,Winter,False
+"Portageville, Pemiscot County, MO",6,8,6,7,Spring,False
+"St. Joseph, Buchanan County, MO",8,7,7,6,Fall,False

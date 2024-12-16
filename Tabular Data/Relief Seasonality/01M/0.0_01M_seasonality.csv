@@ -1,0 +1,20 @@
+location,Fall,Spring,Summer,Winter,most_frequent_season,has_equal_max_columns
+"Albany, Gentry County, MO",21,22,18,15,Spring,False
+"Auxvasse, Audrain County, MO",16,19,14,20,Winter,False
+"Brunswick, Carroll County, MO",21,19,19,20,Fall,False
+"Cardwell, Dunklin County, MO",16,18,15,18,Tie,True
+"Charleston, Mississippi County, MO",19,18,16,18,Fall,False
+"Clarkton, Dunklin County, MO",19,19,15,20,Winter,False
+"Columbia-Sanborn Field, Boone County, MO",19,15,11,20,Winter,False
+"Columbia-South Farms, Boone County, MO",19,14,15,21,Winter,False
+"Cook Station, Crawford County, MO",21,14,18,20,Fall,False
+"Corning, Atchison County, MO",19,17,19,21,Winter,False
+"Delta, Cape Girardeau County, MO",20,15,15,21,Winter,False
+"Glennonville, Dunklin County, MO",18,20,13,18,Spring,False
+"Hayward, Pemiscot County, MO",19,21,14,18,Spring,False
+"Lamar, Barton County, MO",18,12,16,21,Winter,False
+"Linneus, Linn County, MO",19,18,21,20,Summer,False
+"Monroe City, Monroe County, MO",18,17,21,18,Summer,False
+"Novelty, Knox County, MO",20,18,15,18,Fall,False
+"Portageville, Pemiscot County, MO",19,22,9,19,Spring,False
+"St. Joseph, Buchanan County, MO",19,21,18,19,Spring,False

@@ -93,7 +93,7 @@ def create_frequency_dataframe(input_dir, spi_time, frequency_key):
                     #continue
 
             # Extract frequency value value
-            frequency_value = data['1'].mean()
+            frequency_value = data['1'].sum()
 
             # Append data to list
             frequency_data.append({'location': location, 'SPI': frequency_key, 'frequency': frequency_value})
@@ -119,8 +119,8 @@ def frequency_table_loop(SPI_time):
     while f_key != -51:
         # Call the frequency_map_plot function
         dfcsv = create_frequency_dataframe(input_dir, SPI_time, f_key/10)
-        f_key -= 1
-        dfcsv.to_csv(rf'C:\Users\thoma\Documents\GitHub\Drought-Research\Tabular Data\Raw Frequency\{SPI_time}M\{f_key/10}_{SPI_time}M_raw_frequency.csv', index=False)
+        dfcsv.to_csv(rf'C:\Users\thoma\Documents\GitHub\Drought-Research\Tabular Data\Cumulative Frequency\{SPI_time}M\{f_key/10}_{SPI_time}M_cumulative_frequency.csv', index=False)
+        f_key -= 1  
 
 frequency_table_loop('01')
 frequency_table_loop('03')

@@ -1,20 +1,18 @@
 location,Fall,Spring,Summer,Winter,most_frequent_season,has_equal_max_columns
-"Albany, Gentry County, MO",2,1,1,0,Fall,False
-"Auxvasse, Audrain County, MO",0,1,1,0,Tie,True
-"Brunswick, Carroll County, MO",1,2,1,1,Spring,False
-"Cardwell, Dunklin County, MO",2,2,2,2,Tie,True
-"Charleston, Mississippi County, MO",0,2,0,0,Spring,False
-"Clarkton, Dunklin County, MO",1,1,1,2,Winter,False
-"Columbia-Sanborn Field, Boone County, MO",0,2,0,0,Spring,False
-"Columbia-South Farms, Boone County, MO",0,1,0,2,Winter,False
+"Albany, Gentry County, MO",2,1,0,1,Fall,False
+"Auxvasse, Audrain County, MO",1,0,0,0,Fall,False
+"Brunswick, Carroll County, MO",1,1,1,1,Tie,True
+"Cardwell, Dunklin County, MO",2,1,1,2,Tie,True
+"Charleston, Mississippi County, MO",0,1,1,0,Tie,True
+"Clarkton, Dunklin County, MO",2,0,1,1,Fall,False
 "Cook Station, Crawford County, MO",2,1,0,0,Fall,False
 "Corning, Atchison County, MO",1,1,2,0,Summer,False
-"Delta, Cape Girardeau County, MO",1,1,0,1,Tie,True
-"Glennonville, Dunklin County, MO",0,1,3,2,Summer,False
-"Hayward, Pemiscot County, MO",1,2,1,2,Tie,True
-"Lamar, Barton County, MO",0,0,2,1,Summer,False
-"Linneus, Linn County, MO",0,1,1,0,Tie,True
-"Monroe City, Monroe County, MO",0,2,0,1,Spring,False
-"Novelty, Knox County, MO",0,1,1,2,Winter,False
-"Portageville, Pemiscot County, MO",0,2,0,1,Spring,False
-"St. Joseph, Buchanan County, MO",2,1,0,1,Fall,False
+"Delta, Cape Girardeau County, MO",1,0,1,0,Tie,True
+"Glennonville, Dunklin County, MO",1,0,3,1,Summer,False
+"Hayward, Pemiscot County, MO",1,0,1,2,Winter,False
+"Lamar, Barton County, MO",1,1,0,0,Tie,True
+"Linneus, Linn County, MO",1,1,0,0,Tie,True
+"Monroe City, Monroe County, MO",0,0,0,1,Winter,False
+"Novelty, Knox County, MO",0,1,0,1,Tie,True
+"Portageville, Pemiscot County, MO",0,0,2,1,Summer,False
+"St. Joseph, Buchanan County, MO",1,1,0,0,Tie,True

@@ -1,8 +1,8 @@
 location,Fall,Spring,Summer,Winter,most_frequent_season,has_equal_max_columns
-"Brunswick, Carroll County, MO",0,1,2,0,Summer,False
+"Brunswick, Carroll County, MO",1,0,1,0,Tie,True
 "Columbia-South Farms, Boone County, MO",0,0,1,0,Summer,False
-"Cook Station, Crawford County, MO",1,0,1,0,Tie,True
-"Hayward, Pemiscot County, MO",1,0,0,1,Tie,True
-"Linneus, Linn County, MO",0,0,1,0,Summer,False
-"Portageville, Pemiscot County, MO",0,0,1,1,Tie,True
+"Cook Station, Crawford County, MO",0,0,0,1,Winter,False
+"Hayward, Pemiscot County, MO",1,0,0,0,Fall,False
+"Linneus, Linn County, MO",1,0,0,0,Fall,False
+"Portageville, Pemiscot County, MO",0,0,1,0,Summer,False
 "St. Joseph, Buchanan County, MO",0,1,0,0,Spring,False

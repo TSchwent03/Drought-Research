@@ -1,20 +1,20 @@
 location,Fall,Spring,Summer,Winter,most_frequent_season,has_equal_max_columns
-"Albany, Gentry County, MO",3,2,5,3,Summer,False
-"Auxvasse, Audrain County, MO",4,4,4,3,Tie,True
-"Brunswick, Carroll County, MO",4,3,3,5,Winter,False
-"Cardwell, Dunklin County, MO",3,5,4,4,Spring,False
-"Charleston, Mississippi County, MO",2,9,4,2,Spring,False
-"Clarkton, Dunklin County, MO",6,6,1,4,Tie,True
-"Columbia-Sanborn Field, Boone County, MO",3,2,3,3,Tie,True
-"Columbia-South Farms, Boone County, MO",3,2,3,4,Winter,False
-"Cook Station, Crawford County, MO",6,6,4,5,Tie,True
-"Corning, Atchison County, MO",5,3,10,2,Summer,False
-"Delta, Cape Girardeau County, MO",4,8,3,2,Spring,False
-"Glennonville, Dunklin County, MO",6,4,1,3,Fall,False
-"Hayward, Pemiscot County, MO",7,5,4,5,Fall,False
+"Albany, Gentry County, MO",1,3,5,3,Summer,False
+"Auxvasse, Audrain County, MO",4,5,4,3,Spring,False
+"Brunswick, Carroll County, MO",6,3,2,4,Fall,False
+"Cardwell, Dunklin County, MO",3,4,5,2,Summer,False
+"Charleston, Mississippi County, MO",4,8,3,2,Spring,False
+"Clarkton, Dunklin County, MO",5,7,2,2,Spring,False
+"Columbia-Sanborn Field, Boone County, MO",4,3,2,2,Fall,False
+"Columbia-South Farms, Boone County, MO",2,3,3,3,Tie,True
+"Cook Station, Crawford County, MO",5,6,4,5,Spring,False
+"Corning, Atchison County, MO",3,3,8,3,Summer,False
+"Delta, Cape Girardeau County, MO",5,7,2,2,Spring,False
+"Glennonville, Dunklin County, MO",8,3,1,4,Fall,False
+"Hayward, Pemiscot County, MO",5,5,1,6,Winter,False
 "Lamar, Barton County, MO",4,3,1,0,Fall,False
-"Linneus, Linn County, MO",4,7,5,2,Spring,False
-"Monroe City, Monroe County, MO",2,3,2,3,Tie,True
-"Novelty, Knox County, MO",5,4,8,1,Summer,False
-"Portageville, Pemiscot County, MO",7,5,3,3,Fall,False
-"St. Joseph, Buchanan County, MO",4,3,7,1,Summer,False
+"Linneus, Linn County, MO",3,5,4,3,Spring,False
+"Monroe City, Monroe County, MO",2,2,3,5,Winter,False
+"Novelty, Knox County, MO",2,2,7,4,Summer,False
+"Portageville, Pemiscot County, MO",5,4,2,2,Fall,False
+"St. Joseph, Buchanan County, MO",4,3,5,3,Summer,False

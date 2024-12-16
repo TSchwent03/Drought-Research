@@ -1,12 +1,8 @@
 location,Fall,Spring,Summer,Winter,most_frequent_season,has_equal_max_columns
 "Brunswick, Carroll County, MO",0,1,0,0,Spring,False
-"Cardwell, Dunklin County, MO",0,1,1,0,Tie,True
-"Charleston, Mississippi County, MO",1,1,0,0,Tie,True
+"Charleston, Mississippi County, MO",1,0,0,0,Fall,False
 "Cook Station, Crawford County, MO",1,1,0,0,Tie,True
-"Corning, Atchison County, MO",0,2,0,0,Spring,False
-"Hayward, Pemiscot County, MO",1,0,1,0,Tie,True
+"Hayward, Pemiscot County, MO",1,0,0,0,Fall,False
 "Linneus, Linn County, MO",0,1,0,0,Spring,False
-"Monroe City, Monroe County, MO",1,0,0,0,Fall,False
 "Novelty, Knox County, MO",0,0,0,1,Winter,False
-"Portageville, Pemiscot County, MO",1,0,1,0,Tie,True
-"St. Joseph, Buchanan County, MO",0,2,0,1,Spring,False
+"St. Joseph, Buchanan County, MO",0,2,0,0,Spring,False
