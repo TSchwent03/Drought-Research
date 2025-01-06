@@ -1,0 +1,300 @@
+location,SPI,start_date,end_date,duration
+"Albany, Gentry County, MO",0.0,11,18,7
+"Albany, Gentry County, MO",0.0,25,27,2
+"Albany, Gentry County, MO",0.0,29,54,25
+"Albany, Gentry County, MO",0.0,64,85,21
+"Albany, Gentry County, MO",0.0,87,88,1
+"Albany, Gentry County, MO",0.0,94,97,3
+"Albany, Gentry County, MO",0.0,100,101,1
+"Albany, Gentry County, MO",0.0,137,175,38
+"Albany, Gentry County, MO",0.0,219,231,12
+"Albany, Gentry County, MO",0.0,248,250,2
+"Albany, Gentry County, MO",0.0,256,257,1
+"Albany, Gentry County, MO",0.0,258,268,10
+"Albany, Gentry County, MO",0.0,269,271,2
+"Albany, Gentry County, MO",0.0,273,277,4
+"Albany, Gentry County, MO",0.0,279,292,13
+"Auxvasse, Audrain County, MO",0.0,11,13,2
+"Auxvasse, Audrain County, MO",0.0,25,28,3
+"Auxvasse, Audrain County, MO",0.0,30,48,18
+"Auxvasse, Audrain County, MO",0.0,49,50,1
+"Auxvasse, Audrain County, MO",0.0,51,55,4
+"Auxvasse, Audrain County, MO",0.0,56,57,1
+"Auxvasse, Audrain County, MO",0.0,66,102,36
+"Auxvasse, Audrain County, MO",0.0,138,160,22
+"Auxvasse, Audrain County, MO",0.0,168,185,17
+"Auxvasse, Audrain County, MO",0.0,197,199,2
+"Auxvasse, Audrain County, MO",0.0,203,204,1
+"Auxvasse, Audrain County, MO",0.0,211,232,21
+"Brunswick, Carroll County, MO",0.0,11,16,5
+"Brunswick, Carroll County, MO",0.0,40,53,13
+"Brunswick, Carroll County, MO",0.0,72,76,4
+"Brunswick, Carroll County, MO",0.0,77,89,12
+"Brunswick, Carroll County, MO",0.0,90,102,12
+"Brunswick, Carroll County, MO",0.0,139,146,7
+"Brunswick, Carroll County, MO",0.0,148,182,34
+"Brunswick, Carroll County, MO",0.0,183,184,1
+"Brunswick, Carroll County, MO",0.0,189,190,1
+"Brunswick, Carroll County, MO",0.0,198,199,1
+"Brunswick, Carroll County, MO",0.0,203,207,4
+"Brunswick, Carroll County, MO",0.0,219,231,12
+"Brunswick, Carroll County, MO",0.0,247,257,10
+"Cardwell, Dunklin County, MO",0.0,11,24,13
+"Cardwell, Dunklin County, MO",0.0,25,27,2
+"Cardwell, Dunklin County, MO",0.0,29,30,1
+"Cardwell, Dunklin County, MO",0.0,35,40,5
+"Cardwell, Dunklin County, MO",0.0,54,55,1
+"Cardwell, Dunklin County, MO",0.0,56,58,2
+"Cardwell, Dunklin County, MO",0.0,64,68,4
+"Cardwell, Dunklin County, MO",0.0,69,84,15
+"Cardwell, Dunklin County, MO",0.0,86,98,12
+"Cardwell, Dunklin County, MO",0.0,102,103,1
+"Cardwell, Dunklin County, MO",0.0,105,114,9
+"Cardwell, Dunklin County, MO",0.0,126,137,11
+"Cardwell, Dunklin County, MO",0.0,138,139,1
+"Cardwell, Dunklin County, MO",0.0,148,163,15
+"Cardwell, Dunklin County, MO",0.0,164,167,3
+"Cardwell, Dunklin County, MO",0.0,168,172,4
+"Cardwell, Dunklin County, MO",0.0,179,181,2
+"Cardwell, Dunklin County, MO",0.0,184,186,2
+"Cardwell, Dunklin County, MO",0.0,188,190,2
+"Cardwell, Dunklin County, MO",0.0,206,207,1
+"Cardwell, Dunklin County, MO",0.0,212,217,5
+"Cardwell, Dunklin County, MO",0.0,220,223,3
+"Cardwell, Dunklin County, MO",0.0,252,256,4
+"Cardwell, Dunklin County, MO",0.0,261,264,3
+"Cardwell, Dunklin County, MO",0.0,265,284,19
+"Cardwell, Dunklin County, MO",0.0,287,288,1
+"Charleston, Mississippi County, MO",0.0,11,24,13
+"Charleston, Mississippi County, MO",0.0,25,26,1
+"Charleston, Mississippi County, MO",0.0,36,37,1
+"Charleston, Mississippi County, MO",0.0,38,43,5
+"Charleston, Mississippi County, MO",0.0,47,48,1
+"Charleston, Mississippi County, MO",0.0,49,80,31
+"Charleston, Mississippi County, MO",0.0,92,93,1
+"Charleston, Mississippi County, MO",0.0,94,95,1
+"Charleston, Mississippi County, MO",0.0,96,98,2
+"Charleston, Mississippi County, MO",0.0,105,117,12
+"Charleston, Mississippi County, MO",0.0,125,135,10
+"Charleston, Mississippi County, MO",0.0,147,167,20
+"Charleston, Mississippi County, MO",0.0,169,171,2
+"Charleston, Mississippi County, MO",0.0,175,186,11
+"Charleston, Mississippi County, MO",0.0,188,190,2
+"Charleston, Mississippi County, MO",0.0,202,207,5
+"Charleston, Mississippi County, MO",0.0,210,224,14
+"Charleston, Mississippi County, MO",0.0,273,278,5
+"Charleston, Mississippi County, MO",0.0,279,283,4
+"Charleston, Mississippi County, MO",0.0,290,292,2
+"Clarkton, Dunklin County, MO",0.0,12,23,11
+"Clarkton, Dunklin County, MO",0.0,40,43,3
+"Clarkton, Dunklin County, MO",0.0,47,81,34
+"Clarkton, Dunklin County, MO",0.0,92,117,25
+"Clarkton, Dunklin County, MO",0.0,128,141,13
+"Clarkton, Dunklin County, MO",0.0,147,163,16
+"Clarkton, Dunklin County, MO",0.0,164,165,1
+"Clarkton, Dunklin County, MO",0.0,169,171,2
+"Clarkton, Dunklin County, MO",0.0,175,176,1
+"Clarkton, Dunklin County, MO",0.0,179,182,3
+"Clarkton, Dunklin County, MO",0.0,183,191,8
+"Clarkton, Dunklin County, MO",0.0,206,207,1
+"Clarkton, Dunklin County, MO",0.0,210,217,7
+"Clarkton, Dunklin County, MO",0.0,219,224,5
+"Clarkton, Dunklin County, MO",0.0,260,261,1
+"Clarkton, Dunklin County, MO",0.0,273,276,3
+"Columbia-Sanborn Field, Boone County, MO",0.0,11,12,1
+"Columbia-Sanborn Field, Boone County, MO",0.0,40,41,1
+"Columbia-Sanborn Field, Boone County, MO",0.0,42,44,2
+"Columbia-Sanborn Field, Boone County, MO",0.0,45,47,2
+"Columbia-Sanborn Field, Boone County, MO",0.0,71,100,29
+"Columbia-Sanborn Field, Boone County, MO",0.0,138,177,39
+"Columbia-Sanborn Field, Boone County, MO",0.0,183,184,1
+"Columbia-Sanborn Field, Boone County, MO",0.0,189,190,1
+"Columbia-Sanborn Field, Boone County, MO",0.0,197,198,1
+"Columbia-Sanborn Field, Boone County, MO",0.0,202,207,5
+"Columbia-Sanborn Field, Boone County, MO",0.0,210,232,22
+"Columbia-South Farms, Boone County, MO",0.0,25,28,3
+"Columbia-South Farms, Boone County, MO",0.0,29,31,2
+"Columbia-South Farms, Boone County, MO",0.0,36,37,1
+"Columbia-South Farms, Boone County, MO",0.0,40,41,1
+"Columbia-South Farms, Boone County, MO",0.0,42,48,6
+"Columbia-South Farms, Boone County, MO",0.0,66,67,1
+"Columbia-South Farms, Boone County, MO",0.0,71,101,30
+"Columbia-South Farms, Boone County, MO",0.0,138,177,39
+"Columbia-South Farms, Boone County, MO",0.0,189,190,1
+"Columbia-South Farms, Boone County, MO",0.0,197,199,2
+"Columbia-South Farms, Boone County, MO",0.0,203,207,4
+"Columbia-South Farms, Boone County, MO",0.0,212,232,20
+"Columbia-South Farms, Boone County, MO",0.0,253,255,2
+"Cook Station, Crawford County, MO",0.0,11,27,16
+"Cook Station, Crawford County, MO",0.0,38,60,22
+"Cook Station, Crawford County, MO",0.0,62,68,6
+"Cook Station, Crawford County, MO",0.0,69,98,29
+"Cook Station, Crawford County, MO",0.0,116,117,1
+"Cook Station, Crawford County, MO",0.0,147,160,13
+"Cook Station, Crawford County, MO",0.0,170,190,20
+"Cook Station, Crawford County, MO",0.0,203,207,4
+"Cook Station, Crawford County, MO",0.0,212,217,5
+"Cook Station, Crawford County, MO",0.0,219,225,6
+"Corning, Atchison County, MO",0.0,11,12,1
+"Corning, Atchison County, MO",0.0,18,20,2
+"Corning, Atchison County, MO",0.0,24,28,4
+"Corning, Atchison County, MO",0.0,29,67,38
+"Corning, Atchison County, MO",0.0,76,88,12
+"Corning, Atchison County, MO",0.0,103,104,1
+"Corning, Atchison County, MO",0.0,112,115,3
+"Corning, Atchison County, MO",0.0,116,122,6
+"Corning, Atchison County, MO",0.0,123,124,1
+"Corning, Atchison County, MO",0.0,134,137,3
+"Corning, Atchison County, MO",0.0,140,143,3
+"Corning, Atchison County, MO",0.0,149,160,11
+"Corning, Atchison County, MO",0.0,162,176,14
+"Corning, Atchison County, MO",0.0,210,227,17
+"Corning, Atchison County, MO",0.0,248,257,9
+"Corning, Atchison County, MO",0.0,258,259,1
+"Corning, Atchison County, MO",0.0,260,261,1
+"Corning, Atchison County, MO",0.0,264,283,19
+"Corning, Atchison County, MO",0.0,288,291,3
+"Delta, Cape Girardeau County, MO",0.0,11,27,16
+"Delta, Cape Girardeau County, MO",0.0,39,79,40
+"Delta, Cape Girardeau County, MO",0.0,90,98,8
+"Delta, Cape Girardeau County, MO",0.0,110,119,9
+"Delta, Cape Girardeau County, MO",0.0,125,135,10
+"Delta, Cape Girardeau County, MO",0.0,148,161,13
+"Delta, Cape Girardeau County, MO",0.0,164,166,2
+"Delta, Cape Girardeau County, MO",0.0,170,171,1
+"Delta, Cape Girardeau County, MO",0.0,173,182,9
+"Delta, Cape Girardeau County, MO",0.0,183,190,7
+"Delta, Cape Girardeau County, MO",0.0,211,217,6
+"Delta, Cape Girardeau County, MO",0.0,219,221,2
+"Delta, Cape Girardeau County, MO",0.0,253,255,2
+"Delta, Cape Girardeau County, MO",0.0,256,258,2
+"Delta, Cape Girardeau County, MO",0.0,260,263,3
+"Delta, Cape Girardeau County, MO",0.0,270,283,13
+"Delta, Cape Girardeau County, MO",0.0,289,292,3
+"Glennonville, Dunklin County, MO",0.0,11,24,13
+"Glennonville, Dunklin County, MO",0.0,25,26,1
+"Glennonville, Dunklin County, MO",0.0,35,68,33
+"Glennonville, Dunklin County, MO",0.0,69,80,11
+"Glennonville, Dunklin County, MO",0.0,92,99,7
+"Glennonville, Dunklin County, MO",0.0,102,103,1
+"Glennonville, Dunklin County, MO",0.0,105,117,12
+"Glennonville, Dunklin County, MO",0.0,126,137,11
+"Glennonville, Dunklin County, MO",0.0,148,162,14
+"Glennonville, Dunklin County, MO",0.0,179,182,3
+"Glennonville, Dunklin County, MO",0.0,183,186,3
+"Glennonville, Dunklin County, MO",0.0,202,207,5
+"Glennonville, Dunklin County, MO",0.0,208,209,1
+"Glennonville, Dunklin County, MO",0.0,210,217,7
+"Glennonville, Dunklin County, MO",0.0,219,225,6
+"Glennonville, Dunklin County, MO",0.0,261,263,2
+"Glennonville, Dunklin County, MO",0.0,269,271,2
+"Glennonville, Dunklin County, MO",0.0,272,277,5
+"Glennonville, Dunklin County, MO",0.0,280,285,5
+"Hayward, Pemiscot County, MO",0.0,11,27,16
+"Hayward, Pemiscot County, MO",0.0,34,42,8
+"Hayward, Pemiscot County, MO",0.0,49,50,1
+"Hayward, Pemiscot County, MO",0.0,56,58,2
+"Hayward, Pemiscot County, MO",0.0,64,82,18
+"Hayward, Pemiscot County, MO",0.0,90,98,8
+"Hayward, Pemiscot County, MO",0.0,105,116,11
+"Hayward, Pemiscot County, MO",0.0,126,141,15
+"Hayward, Pemiscot County, MO",0.0,148,161,13
+"Hayward, Pemiscot County, MO",0.0,176,190,14
+"Hayward, Pemiscot County, MO",0.0,202,213,11
+"Hayward, Pemiscot County, MO",0.0,215,217,2
+"Hayward, Pemiscot County, MO",0.0,257,265,8
+"Hayward, Pemiscot County, MO",0.0,266,267,1
+"Hayward, Pemiscot County, MO",0.0,273,275,2
+"Hayward, Pemiscot County, MO",0.0,280,284,4
+"Lamar, Barton County, MO",0.0,11,13,2
+"Lamar, Barton County, MO",0.0,18,19,1
+"Lamar, Barton County, MO",0.0,20,21,1
+"Lamar, Barton County, MO",0.0,25,28,3
+"Lamar, Barton County, MO",0.0,29,50,21
+"Lamar, Barton County, MO",0.0,65,68,3
+"Lamar, Barton County, MO",0.0,69,89,20
+"Lamar, Barton County, MO",0.0,129,134,5
+"Lamar, Barton County, MO",0.0,137,147,10
+"Lamar, Barton County, MO",0.0,150,151,1
+"Lamar, Barton County, MO",0.0,169,190,21
+"Lamar, Barton County, MO",0.0,203,204,1
+"Lamar, Barton County, MO",0.0,219,232,13
+"Lamar, Barton County, MO",0.0,254,257,3
+"Linneus, Linn County, MO",0.0,11,15,4
+"Linneus, Linn County, MO",0.0,37,39,2
+"Linneus, Linn County, MO",0.0,40,54,14
+"Linneus, Linn County, MO",0.0,66,99,33
+"Linneus, Linn County, MO",0.0,100,101,1
+"Linneus, Linn County, MO",0.0,138,160,22
+"Linneus, Linn County, MO",0.0,162,177,15
+"Linneus, Linn County, MO",0.0,189,190,1
+"Linneus, Linn County, MO",0.0,197,199,2
+"Linneus, Linn County, MO",0.0,202,209,7
+"Linneus, Linn County, MO",0.0,211,232,21
+"Linneus, Linn County, MO",0.0,247,248,1
+"Linneus, Linn County, MO",0.0,249,257,8
+"Linneus, Linn County, MO",0.0,260,261,1
+"Linneus, Linn County, MO",0.0,264,265,1
+"Linneus, Linn County, MO",0.0,267,268,1
+"Linneus, Linn County, MO",0.0,269,271,2
+"Linneus, Linn County, MO",0.0,273,276,3
+"Monroe City, Monroe County, MO",0.0,11,16,5
+"Monroe City, Monroe County, MO",0.0,17,20,3
+"Monroe City, Monroe County, MO",0.0,26,27,1
+"Monroe City, Monroe County, MO",0.0,32,60,28
+"Monroe City, Monroe County, MO",0.0,66,99,33
+"Monroe City, Monroe County, MO",0.0,138,160,22
+"Monroe City, Monroe County, MO",0.0,171,176,5
+"Monroe City, Monroe County, MO",0.0,197,199,2
+"Monroe City, Monroe County, MO",0.0,202,207,5
+"Monroe City, Monroe County, MO",0.0,212,213,1
+"Monroe City, Monroe County, MO",0.0,219,224,5
+"Monroe City, Monroe County, MO",0.0,247,259,12
+"Monroe City, Monroe County, MO",0.0,273,274,1
+"Novelty, Knox County, MO",0.0,11,16,5
+"Novelty, Knox County, MO",0.0,25,27,2
+"Novelty, Knox County, MO",0.0,32,47,15
+"Novelty, Knox County, MO",0.0,56,57,1
+"Novelty, Knox County, MO",0.0,59,60,1
+"Novelty, Knox County, MO",0.0,64,65,1
+"Novelty, Knox County, MO",0.0,67,88,21
+"Novelty, Knox County, MO",0.0,90,101,11
+"Novelty, Knox County, MO",0.0,138,160,22
+"Novelty, Knox County, MO",0.0,169,176,7
+"Novelty, Knox County, MO",0.0,183,184,1
+"Novelty, Knox County, MO",0.0,198,199,1
+"Novelty, Knox County, MO",0.0,202,209,7
+"Novelty, Knox County, MO",0.0,210,217,7
+"Novelty, Knox County, MO",0.0,219,232,13
+"Novelty, Knox County, MO",0.0,245,257,12
+"Portageville, Pemiscot County, MO",0.0,11,24,13
+"Portageville, Pemiscot County, MO",0.0,25,26,1
+"Portageville, Pemiscot County, MO",0.0,34,46,12
+"Portageville, Pemiscot County, MO",0.0,47,48,1
+"Portageville, Pemiscot County, MO",0.0,49,51,2
+"Portageville, Pemiscot County, MO",0.0,53,54,1
+"Portageville, Pemiscot County, MO",0.0,56,58,2
+"Portageville, Pemiscot County, MO",0.0,64,82,18
+"Portageville, Pemiscot County, MO",0.0,90,99,9
+"Portageville, Pemiscot County, MO",0.0,105,116,11
+"Portageville, Pemiscot County, MO",0.0,128,141,13
+"Portageville, Pemiscot County, MO",0.0,148,163,15
+"Portageville, Pemiscot County, MO",0.0,164,165,1
+"Portageville, Pemiscot County, MO",0.0,179,182,3
+"Portageville, Pemiscot County, MO",0.0,183,191,8
+"Portageville, Pemiscot County, MO",0.0,202,217,15
+"Portageville, Pemiscot County, MO",0.0,221,224,3
+"Portageville, Pemiscot County, MO",0.0,259,263,4
+"Portageville, Pemiscot County, MO",0.0,273,278,5
+"Portageville, Pemiscot County, MO",0.0,279,283,4
+"St. Joseph, Buchanan County, MO",0.0,11,15,4
+"St. Joseph, Buchanan County, MO",0.0,29,54,25
+"St. Joseph, Buchanan County, MO",0.0,66,67,1
+"St. Joseph, Buchanan County, MO",0.0,76,88,12
+"St. Joseph, Buchanan County, MO",0.0,90,92,2
+"St. Joseph, Buchanan County, MO",0.0,137,145,8
+"St. Joseph, Buchanan County, MO",0.0,150,174,24
+"St. Joseph, Buchanan County, MO",0.0,211,230,19
+"St. Joseph, Buchanan County, MO",0.0,249,250,1
+"St. Joseph, Buchanan County, MO",0.0,258,261,3
+"St. Joseph, Buchanan County, MO",0.0,267,277,10

@@ -85,12 +85,10 @@ def create_frequency_dataframe(input_dir, spi_time, frequency_key):
             df = pd.read_csv(file_path)
 
             # Filter for frequency key
-            data = df[(df['0'] <= frequency_key) & (df['0'] != -99) & (df['1'].notnull())]
-            
+            #data = df[(df['0'] <= frequency_key) & (df['0'] != -99) & (df['1'].notnull())]
+            data = df[(df['0'] <= frequency_key) & (df['0'] != -99)]
 
-            #if data.empty:
-                    #frequency_data.append({'location': location, 'SPI': frequency_key, 'frequency': 0})
-                    #continue
+            print(data)
 
             # Extract frequency value value
             frequency_value = data['1'].sum()
@@ -119,10 +117,12 @@ def frequency_table_loop(SPI_time):
     while f_key != -51:
         # Call the frequency_map_plot function
         dfcsv = create_frequency_dataframe(input_dir, SPI_time, f_key/10)
-        dfcsv.to_csv(rf'C:\Users\thoma\Documents\GitHub\Drought-Research\Tabular Data\Cumulative Frequency\{SPI_time}M\{f_key/10}_{SPI_time}M_cumulative_frequency.csv', index=False)
+        dfcsv.to_csv(rf'C:\Users\thoma\Documents\GitHub\Drought-Research\Tabular Data\Test Frequency\{SPI_time}M\{f_key/10}_{SPI_time}M_cumulative_frequency.csv', index=False)
         f_key -= 1  
 
-frequency_table_loop('01')
-frequency_table_loop('03')
-frequency_table_loop('06')
-frequency_table_loop('12')
+#frequency_table_loop('01')
+#frequency_table_loop('03')
+#frequency_table_loop('06')
+#frequency_table_loop('12')
+
+create_frequency_dataframe(input_dir, '03', -5/10)
