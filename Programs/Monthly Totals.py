@@ -51,7 +51,7 @@ def process_folder(folder_path):
             output_path = os.path.join(folder_path, output_filename)
 
             with open(output_path, "w") as f:
-                f.write("Year,Month,Average\n")  # Write header
+                f.write("Year,Month,Total\n")  # Write header
                 for month, total in monthly_totals_data.items():
                     year = month[:10]
                     month = month[10:]
