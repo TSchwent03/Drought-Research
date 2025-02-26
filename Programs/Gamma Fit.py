@@ -58,18 +58,61 @@ def create_historical_rainfall_dict_from_csvs(csv_directory):
 
     return historical_rainfall_data
 
-historical_data_dict = create_historical_rainfall_dict_from_csvs(r"C:\Users\thoma\Documents\GitHub\Drought-Research\Precip Data\Dataset B-a\Monthly Tot CSV")
 
-gamma_params_by_location_month = {} # Dictionary to store gamma parameters by location and month
+def spi_gamma_params(spi_dict):
+    gamma_params_by_location_month = {} # Dictionary to store gamma parameters by location and month
 
-for location_name, monthly_data in historical_data_dict.items(): # Loop through locations
-    gamma_params_by_month_for_location = {} # Dictionary to store monthly params for THIS location
-    for month, rainfall_series in monthly_data.items(): # Loop through months for EACH location
-        params = stats.gamma.fit(rainfall_series, floc=-0.0000000001) # Fit gamma, fix location at 0
-        alpha, loc, beta = params
-        gamma_params_by_month_for_location[month] = {'alpha': alpha, 'beta': beta} # Store monthly params
-        print(f"Gamma fit for {location_name}, {month} rainfall: alpha={alpha:.4f}, beta={beta:.4f}")
-    gamma_params_by_location_month[location_name] = gamma_params_by_month_for_location # Store monthly params for LOCATION
+    for location_name, monthly_data in spi_dict.items(): # Loop through locations
+        gamma_params_by_month_for_location = {} # Dictionary to store monthly params for THIS location
+        for month, rainfall_series in monthly_data.items(): # Loop through months for EACH location
+            params = stats.gamma.fit(rainfall_series, floc=-0.0000000001) # Fit gamma, fix location at -0.0000000001
+            alpha, loc, beta = params
+            gamma_params_by_month_for_location[month] = {'alpha': alpha, 'beta': beta} # Store monthly params
+            print(f"Gamma fit for {location_name}, {month} rainfall: alpha={alpha:.4f}, beta={beta:.4f}")
+        gamma_params_by_location_month[location_name] = gamma_params_by_month_for_location # Store monthly params for LOCATION
+    
+    return gamma_params_by_location_month
+
+
+def calculate_cumulative_rainfall(historical_rainfall_data, timescale):
+    """
+    Calculates cumulative rainfall for a given timescale (in months) from historical monthly data.
+    Allows for unequal data lengths by considering available data for each cumulative period.
+
+    Args:
+        historical_rainfall_data (dict): Nested dictionary of historical rainfall data.
+        timescale (int): Timescale in months (e.g., 3, 6, 12).
+
+    Returns:
+        dict: Nested dictionary of cumulative rainfall data.
+    """
+    cumulative_rainfall_data = {}
+    for location_name, monthly_data in historical_rainfall_data.items():
+        cumulative_rainfall_data[location_name] = {}
+        months = list(monthly_data.keys())
+        month_order = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+        ordered_months = [m for m in month_order if m in months]
+
+        for start_month_index, start_month in enumerate(ordered_months):
+            cumulative_series = []
+            min_period_length = float('inf') # Initialize to infinity for shortest period length
+
+            # Determine shortest data length within the timescale window for this starting month
+            for month_offset in range(timescale):
+                month_name = ordered_months[(start_month_index + month_offset) % 12]
+                month_data = monthly_data[month_name]
+                min_period_length = min(min_period_length, len(month_data))
+
+            for i in range(min_period_length): # Loop up to the shortest length in the period
+                cumulative_sum = 0
+                for month_offset in range(timescale):
+                    month_name = ordered_months[(start_month_index + month_offset) % 12]
+                    month_data = monthly_data[month_name]
+                    cumulative_sum += month_data[i] # Use index 'i' - now valid for all months in period
+                cumulative_series.append(round(cumulative_sum, 2))
+            cumulative_rainfall_data[location_name][start_month] = cumulative_series
+    return cumulative_rainfall_data
+
 
 # --- Phase 2: Function to Calculate SPI from Rainfall using Fitted Gamma Distribution (RE-USED FOR NEW DATA) ---
 
@@ -93,23 +136,79 @@ def calculate_spi_from_rainfall(rainfall_amount, gamma_params):
 
 
 # --- Phase 3: Example - Calculate SPI for NEW rainfall data (using pre-calculated gamma parameters) ---
+def new_spi_calculation(gamma_params, new_rainfall_data):
+    calculated_spi_2025_locations = {} # Store SPI values by location
 
-# new_rainfall_data_2025_locations = { # New data now ALSO structured by location
-#     'Location1_Name': {
-#         'January': 2.1, # Inches of rainfall in January 2025 for Columbia, MO
-#         'February': 0.69
-#     }
-# }
+    for location_name, monthly_new_rainfall in new_rainfall_data.items(): # Loop through locations
+        calculated_spi_for_location = {} # Store monthly SPIs for THIS location
+        for month, new_rainfall in monthly_new_rainfall.items(): # Loop through months for EACH location
+            location_month_gamma_params = gamma_params[location_name][month] # Get location-MONTH specific parameters
+            spi_value = calculate_spi_from_rainfall(new_rainfall, (location_month_gamma_params['alpha'], 0, location_month_gamma_params['beta'])) # Use location-MONTH params
+            calculated_spi_for_location[month] = spi_value
+            print(f"For {location_name}, {month} 2025 rainfall of {new_rainfall:.2f} inches, SPI = {spi_value:.2f}")
+        calculated_spi_2025_locations[location_name] = calculated_spi_for_location # Store monthly SPIs for LOCATION
 
-# calculated_spi_2025_locations = {} # Store SPI values by location
+def calculate_rainfall_from_spi(spi_value, gamma_params):
+    """
+    Calculates the rainfall amount corresponding to a given SPI value,
+    using a fitted gamma distribution.
 
-# for location_name, monthly_new_rainfall in new_rainfall_data_2025_locations.items(): # Loop through locations
-#     calculated_spi_for_location = {} # Store monthly SPIs for THIS location
-#     for month, new_rainfall in monthly_new_rainfall.items(): # Loop through months for EACH location
-#         location_month_gamma_params = gamma_params_by_location_month[location_name][month] # Get location-MONTH specific parameters
-#         spi_value = calculate_spi_from_rainfall(new_rainfall, (location_month_gamma_params['alpha'], 0, location_month_gamma_params['beta'])) # Use location-MONTH params
-#         calculated_spi_for_location[month] = spi_value
-#         print(f"For {location_name}, {month} 2025 rainfall of {new_rainfall:.2f} inches, SPI = {spi_value:.4f}")
-#     calculated_spi_2025_locations[location_name] = calculated_spi_for_location # Store monthly SPIs for LOCATION
+    Args:
+        spi_value (float): The SPI value for which to calculate the rainfall amount.
+        gamma_params (tuple): A tuple containing the fitted gamma distribution parameters
+                              (alpha, loc, beta), where loc is assumed to be fixed at 0.
 
-# print("\nCalculated SPI values for 2025 (by location):", calculated_spi_2025_locations)
+    Returns:
+        float: The rainfall amount (in inches or the units of your historical data)
+               corresponding to the given SPI value.
+    """
+    alpha, loc, beta = gamma_params
+
+    # Convert SPI value back to cumulative probability (CDF) in standard normal distribution
+    cumulative_probability = stats.norm.cdf(spi_value)
+
+    # Handle edge cases (very low or very high SPIs - probabilities near 0 or 1)
+    if cumulative_probability <= 0:
+        return 0.0  # Or a very small rainfall value, or NaN if you prefer to indicate "no rainfall" for extreme SPI-
+    if cumulative_probability >= 1:
+        return np.inf # Or a very large rainfall value, or NaN if you prefer to indicate "effectively infinite rainfall" for extreme SPI+
+
+    # Calculate rainfall amount using the Percent Point Function (PPF, inverse CDF) of the gamma distribution
+    rainfall_amount = stats.gamma.ppf(cumulative_probability, a=alpha, loc=loc, scale=beta)
+
+    return rainfall_amount
+
+historical_data_dict = create_historical_rainfall_dict_from_csvs(r"C:\Users\thoma\Documents\GitHub\Drought-Research\Precip Data\Dataset B-a\Monthly Tot CSV")
+
+one_month_rainfall_dict = calculate_cumulative_rainfall(historical_data_dict, 1)
+three_month_rainfall_dict = calculate_cumulative_rainfall(historical_data_dict, 3)
+six_month_rainfall_dict = calculate_cumulative_rainfall(historical_data_dict, 6)
+twelve_month_rainfall_dict = calculate_cumulative_rainfall(historical_data_dict, 12)
+gamma_params_by_location_one_month = spi_gamma_params(one_month_rainfall_dict)
+gamma_params_by_location_three_month = spi_gamma_params(three_month_rainfall_dict)
+gamma_params_by_location_six_month = spi_gamma_params(six_month_rainfall_dict)
+gamma_params_by_location_twelve_month = spi_gamma_params(twelve_month_rainfall_dict)
+
+new_rainfall_data_2025_locations = { # New data now ALSO structured by location
+    'St. Joseph, Buchanan County, MO': {
+        'January': 2.1, # Inches of rainfall in January 2025 for Columbia, MO
+        'February': 0.69
+    }
+}
+
+# --- Example Usage (assuming you have gamma_params_by_location_month_timescale already calculated) ---
+# Example: Get gamma parameters for January, 1-month SPI, for 'Albany, Gentry County, MO'
+location_name_example = 'Albany, Gentry County, MO'
+month_example = 'January'
+gamma_params_example = (gamma_params_by_location_three_month[location_name_example][month_example]['alpha'],
+                        0, # loc is fixed at 0
+                        gamma_params_by_location_three_month[location_name_example][month_example]['beta'])
+
+# Example SPI values representing different drought severity levels (from SPI classification table)
+spi_values_to_check = [-2.0, -1.5, -1.0, -0.5, 0.0, 0.5, 1.0, 1.5, 2.0] # Example range, include more as needed
+severity_labels = ["Extreme Drought", "Severe Drought", "Moderate Drought", "Mild Drought", "Normal", "Mild Wet", "Moderate Wet", "Severe Wet", "Extreme Wet"]
+
+print(f"\nRainfall amounts corresponding to different SPI values for {location_name_example}, {month_example}, -month SPI:")
+for i, spi_val in enumerate(spi_values_to_check):
+    rainfall = calculate_rainfall_from_spi(spi_val, gamma_params_example)
+    print(f"SPI = {spi_val:.2f} ({severity_labels[i]}): Rainfall = {rainfall:.2f} inches") # Adjust units if needed
