@@ -70,7 +70,7 @@ def spi_gamma_params(spi_dict):
             gamma_params_by_month_for_location[month] = {'alpha': alpha, 'beta': beta} # Store monthly params
             print(f"Gamma fit for {location_name}, {month} rainfall: alpha={alpha:.4f}, beta={beta:.4f}")
         gamma_params_by_location_month[location_name] = gamma_params_by_month_for_location # Store monthly params for LOCATION
-    
+
     return gamma_params_by_location_month
 
 
@@ -156,11 +156,11 @@ def calculate_rainfall_from_spi(spi_value, gamma_params):
     Args:
         spi_value (float): The SPI value for which to calculate the rainfall amount.
         gamma_params (tuple): A tuple containing the fitted gamma distribution parameters
-                              (alpha, loc, beta), where loc is assumed to be fixed at 0.
+                                (alpha, loc, beta), where loc is assumed to be fixed at 0.
 
     Returns:
         float: The rainfall amount (in inches or the units of your historical data)
-               corresponding to the given SPI value.
+                corresponding to the given SPI value.
     """
     alpha, loc, beta = gamma_params
 
@@ -205,10 +205,49 @@ gamma_params_example = (gamma_params_by_location_three_month[location_name_examp
                         gamma_params_by_location_three_month[location_name_example][month_example]['beta'])
 
 # Example SPI values representing different drought severity levels (from SPI classification table)
-spi_values_to_check = [-2.0, -1.5, -1.0, -0.5, 0.0, 0.5, 1.0, 1.5, 2.0] # Example range, include more as needed
-severity_labels = ["Extreme Drought", "Severe Drought", "Moderate Drought", "Mild Drought", "Normal", "Mild Wet", "Moderate Wet", "Severe Wet", "Extreme Wet"]
+spi_values_to_check = [-2.0, -1.6, -1.3, -0.8, -0.5, 0.5, 0.8, 1.3, 1.6, 2.0] # Example range, include more as needed
+severity_labels = ["Exceptional Drought", "Extreme Drought", "Severe Drought", "Moderate Drought", "Abnormally Dry", "Abnormally Wet", "Moderate Wet", "Severe Wet", "Extreme Wet", "Exceptional Wet"]
 
-print(f"\nRainfall amounts corresponding to different SPI values for {location_name_example}, {month_example}, -month SPI:")
+print(f"\nRainfall amounts corresponding to different SPI values for {location_name_example}, {month_example}, 3-month SPI:")
 for i, spi_val in enumerate(spi_values_to_check):
     rainfall = calculate_rainfall_from_spi(spi_val, gamma_params_example)
     print(f"SPI = {spi_val:.2f} ({severity_labels[i]}): Rainfall = {rainfall:.2f} inches") # Adjust units if needed
+
+# --- Loop through all locations and timescales to calculate rainfall from SPI ---
+gamma_params_by_timescale = {
+    1: gamma_params_by_location_one_month,
+    3: gamma_params_by_location_three_month,
+    6: gamma_params_by_location_six_month,
+    12: gamma_params_by_location_twelve_month
+}
+
+print("\n--- Rainfall Amounts for Different SPI Values Across Locations and Timescales ---")
+
+for timescale, gamma_params_for_ts in gamma_params_by_timescale.items():
+    print(f"\n--- Timescale: {timescale}-Month SPI ---")
+    for location_name, gamma_params_by_month in gamma_params_for_ts.items():
+        print(f"\n-- Location: {location_name} --")
+        for month, params in gamma_params_by_month.items():
+            print(f"\n--- Month: {month} ---")
+            for i, spi_val in enumerate(spi_values_to_check):
+                gamma_params_tuple = (params['alpha'], 0, params['beta'])
+                rainfall = calculate_rainfall_from_spi(spi_val, gamma_params_tuple)
+                print(f"  SPI = {spi_val:.2f} ({severity_labels[i]}): Rainfall = {rainfall:.2f} inches")
+
+# Assuming you have gamma_params_by_location_month_timescale and spi_values_to_check, severity_labels defined
+
+output_file_path = r"C:\Users\thoma\Documents\GitHub\Drought-Research\Extension Paper\spi_to_rainfall_conversion.txt"
+
+with open(output_file_path, 'w') as f:
+    for timescale, gamma_params_for_ts in gamma_params_by_timescale.items():
+        f.write(f"--- Timescale: {timescale}-Month SPI ---\n")
+        for location_name, gamma_params_by_month in gamma_params_for_ts.items():
+            f.write(f"\n-- Location: {location_name} --\n")
+            for month, params in gamma_params_by_month.items():
+                f.write(f"\n--- Month: {month} ---\n")
+                for i, spi_val in enumerate(spi_values_to_check):
+                    gamma_params_tuple = (params['alpha'], 0, params['beta'])
+                    rainfall = calculate_rainfall_from_spi(spi_val, gamma_params_tuple)
+                    f.write(f"  SPI = {spi_val:.2f} ({severity_labels[i]}): Rainfall = {rainfall:.2f} inches\n")
+
+print(f"SPI to rainfall conversion data has been saved to: {output_file_path}")
