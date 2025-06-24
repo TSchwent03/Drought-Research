@@ -62,7 +62,7 @@ def create_duration_dataframe(input_dir, spi_time, drought_threshold):
                 else:
                     if drought_start is not None:
                         drought_end = index
-                        duration = ((drought_end - drought_start)/293) * 100
+                        duration = drought_end - drought_start
                         duration_data.append({'location': location, 'SPI': drought_threshold, 'start_date': drought_start, 'end_date': drought_end, 'duration': duration})
                         drought_start = None
 
@@ -70,20 +70,28 @@ def create_duration_dataframe(input_dir, spi_time, drought_threshold):
     duration_df = pd.DataFrame(duration_data)
 
     # Group the DataFrame by location and calculate the average duration
-    cumulative_durations = duration_df.groupby('location')['duration'].mean().reset_index()
+    cumulative_durations = duration_df.groupby('location')['duration'].sum().reset_index()
+
+    # Calculate the total number of months in the observation period.
+    # The full period is Jan 2000 - May 2024 (293 months).
+    # We subtract (spi_time - 1) because the first N-1 SPI values are undefined for an N-month SPI.
+    total_observation_months = 293 - (int(spi_time) - 1)
+
+    # Calculate the duration as a percentage of the total observation time
+    cumulative_durations['duration'] = (cumulative_durations['duration'] / total_observation_months) * 100
 
     return cumulative_durations
 
 def duration_map_plot(spi_key, spi_time):
 
     # Load shapefile
-    directory_path = rf"C:\Users\thoma\Documents\GitHub\Drought-Research\Maps\SPI Maps - V2\Longest Duration\\{spi_time}M"
+    directory_path = rf"C:\Users\thoma\Documents\GitHub\Drought-Research\Maps\SPI Maps - V2\Frequency\\{spi_time}M"
     shapefile_path = r"C:\Users\thoma\Documents\GitHub\Drought-Research\MO_County_Boundaries.shp"
     counties = gpd.read_file(shapefile_path)
     counties_crs = counties.to_crs("EPSG:4326")
     duration_df = create_duration_dataframe(input_dir, spi_time, spi_key)
     geoloc_call = pd.concat([duration_df, geoloc['latitude'], geoloc['longitude']], axis=1, join='outer')
-    geoloc_call['county_name'] = duration_df['location'].apply(lambda x: re.sub(r' County$', '', x.split(',')[1]).strip())
+    geoloc_call['county_name'] = duration_df['location'].apply(lambda x: re.sub(r' County$', '', x.split(',')[0]).strip())
     # Extract latitude and longitude from the latlon column
     geoloc_gdf = gpd.GeoDataFrame(geoloc_call, geometry=gpd.points_from_xy(geoloc_call['longitude'], geoloc_call['latitude']))
 
@@ -104,9 +112,9 @@ def duration_map_plot(spi_key, spi_time):
     filename = os.path.join(directory_path, f"spi_map_{spi_key}_{spi_time}.jpg")
 
     # Save the plot
-    #plt.savefig(filename)
-    #plt.close()
-    plt.show()
+    plt.savefig(filename)
+    plt.close()
+    #plt.show()
 
 def duration_map_loop(SPI_time):
     spi_key = 00
@@ -133,5 +141,5 @@ def duration_table_loop(SPI_time):
     except:
         return None
     
-#duration_map_loop('12')
-duration_map_plot(-0.5, '01')
+duration_map_loop('12')
+#duration_map_plot(-0.5, '01')

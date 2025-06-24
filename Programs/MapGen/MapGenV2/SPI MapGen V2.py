@@ -18,7 +18,7 @@ def spi_map_plot(month, spi_time):
     # Replace forward slashes with hyphens in the month
     month_formatted = re.sub('/', '-', month)
     # Load shapefile
-    directory_path = rf"C:\Users\thoma\Documents\GitHub\Drought-Research\Maps\SPI Maps - V2\Graduated SPI\\{spi_time}M"
+    directory_path = rf"C:\Users\thoma\Documents\GitHub\Drought-Research\Maps\SPI Maps - V2\Percentile SPI\\{spi_time}M"
     shapefile_path = r"C:\Users\thoma\Documents\GitHub\Drought-Research\MO_County_Boundaries.shp"
     counties = gpd.read_file(shapefile_path)
     counties_crs = counties.to_crs("EPSG:4326")
@@ -34,32 +34,32 @@ def spi_map_plot(month, spi_time):
     # Plot the map
     counties_crs.plot(ax=ax, color='lightgray', edgecolor='black')
     # Plots Graduated Color Mapping
-    geoloc_gdf.plot(ax=ax ,column='spi', cmap='BrBG', vmin=-2, vmax=2, legend=True, markersize=75, edgecolor='black', linewidth=1)
+    #geoloc_gdf.plot(ax=ax ,column='spi', cmap='BrBG', vmin=-2, vmax=2, legend=True, markersize=77, edgecolor='black', linewidth=1)
 
     # Plots Categorical Color Mapping
     # Define thresholds and corresponding hex codes
-    #ranges = [(-np.inf, -2), (-1.99, -1.6), (-1.59, -1.3), (-1.29, -0.8), (-0.79, -0.5), (-0.49, 0.49), (0.5, 0.79), (0.8, 1.29), (1.3, 1.59), (1.6, 1.99), (2, np.inf)]
-    #hex_codes = ['#730000', '#E60000', '#E69800', '#FED37F', '#FEFE00', '#FFFFFF', '#AAF596', '#4CE600', '#38A800', '#145A00', '#002673']
+    ranges = [(-np.inf, -2), (-1.99, -1.6), (-1.59, -1.3), (-1.29, -0.8), (-0.79, -0.5), (-0.49, 0.49), (0.5, 0.79), (0.8, 1.29), (1.3, 1.59), (1.6, 1.99), (2, np.inf)]
+    hex_codes = ['#730000', '#E60000', '#E69800', '#FED37F', '#FEFE00', '#FFFFFF', '#AAF596', '#4CE600', '#38A800', '#145A00', '#002673']
     # Create a ListedColormap from the ranges, hex codes, and labels
-    #cmap = mcolors.ListedColormap(hex_codes, N=len(ranges))
+    cmap = mcolors.ListedColormap(hex_codes, N=len(ranges))
     # Plot the map with the custom colormap
-    #geoloc_gdf.plot(ax=ax, column='spi', marker='o', cmap=cmap, vmin=-2, vmax=2, markersize=77, edgecolor='black', linewidth=1)
-    # legend_elements = [Patch(edgecolor='black', label='D4', facecolor='#730000'), 
-    #                    Patch(edgecolor='black', label='D3', facecolor='#E60000'), 
-    #                    Patch(edgecolor='black', label='D2', facecolor='#E69800'), 
-    #                    Patch(edgecolor='black', label='D1', facecolor='#FED37F'), 
-    #                    Patch(edgecolor='black', label='D0', facecolor='#FEFE00'), 
-    #                    Patch(edgecolor='black', label='N', facecolor='#FFFFFF'), 
-    #                    Patch(edgecolor='black', label='W0', facecolor='#AAF596'), 
-    #                    Patch(edgecolor='black', label='W1', facecolor='#4CE600'), 
-    #                    Patch(edgecolor='black', label='W2', facecolor='#38A800'), 
-    #                    Patch(edgecolor='black', label='W3', facecolor='#145A00'), 
-    #                    Patch(edgecolor='black', label='W4', facecolor='#002673')]
+    geoloc_gdf.plot(ax=ax, column='spi', marker='o', cmap=cmap, vmin=-2, vmax=2, markersize=77, edgecolor='black', linewidth=1)
+    legend_elements = [Patch(edgecolor='black', label='2%', facecolor='#730000'), 
+                        Patch(edgecolor='black', label='5%', facecolor='#E60000'), 
+                        Patch(edgecolor='black', label='10%', facecolor='#E69800'), 
+                        Patch(edgecolor='black', label='20%', facecolor='#FED37F'), 
+                        Patch(edgecolor='black', label='30%', facecolor='#FEFE00'), 
+                        Patch(edgecolor='black', label='50%', facecolor='#FFFFFF'), 
+                        Patch(edgecolor='black', label='70%', facecolor='#AAF596'), 
+                        Patch(edgecolor='black', label='80%', facecolor='#4CE600'), 
+                        Patch(edgecolor='black', label='90%', facecolor='#38A800'), 
+                        Patch(edgecolor='black', label='95%', facecolor='#145A00'), 
+                        Patch(edgecolor='black', label='98%', facecolor='#002673')]
 
     # Add legend
 
 
-    #ax.legend(handles=legend_elements, bbox_to_anchor=(1, 1), loc='upper left')
+    ax.legend(handles=legend_elements, bbox_to_anchor=(1, 1), loc='upper left')
 
     # Add custom legend labels
     plt.xlabel("Longitude")
@@ -68,7 +68,7 @@ def spi_map_plot(month, spi_time):
     date_obj = datetime.strptime(month, "%m/%d/%Y")
     # Format month for title display (e.g., "January 2000")
     month_display = f"{date_obj.strftime('%B')} {date_obj.year}"
-    plt.title(f'{month_display} | {spi_time} Month SPI', fontsize= 13)
+    plt.title(f'{month_display} | {spi_time}M Rainfall Percentile', fontsize= 13)
 
     # Create the filename
     filename = os.path.join(directory_path, f"spi_map_{month_display}_{spi_time}.jpg")
