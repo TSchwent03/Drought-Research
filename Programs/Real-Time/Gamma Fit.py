@@ -205,8 +205,8 @@ gamma_params_example = (gamma_params_by_location_three_month[location_name_examp
                         gamma_params_by_location_three_month[location_name_example][month_example]['beta'])
 
 # Example SPI values representing different drought severity levels (from SPI classification table)
-spi_values_to_check = [-2.0, -1.6, -1.3, -0.8, -0.5, 0.5, 0.8, 1.3, 1.6, 2.0] # Example range, include more as needed
-severity_labels = ["Exceptional Drought", "Extreme Drought", "Severe Drought", "Moderate Drought", "Abnormally Dry", "Abnormally Wet", "Moderate Wet", "Severe Wet", "Extreme Wet", "Exceptional Wet"]
+spi_values_to_check = [-2.0, -1.6, -1.3, -0.8, -0.5, 0, 0.5, 0.8, 1.3, 1.6, 2.0] # Example range, include more as needed
+severity_labels = ["Exceptional Drought", "Extreme Drought", "Severe Drought", "Moderate Drought", "Abnormally Dry", "Annual Average", "Abnormally Wet", "Moderate Wet", "Severe Wet", "Extreme Wet", "Exceptional Wet"]
 
 print(f"\nRainfall amounts corresponding to different SPI values for {location_name_example}, {month_example}, 3-month SPI:")
 for i, spi_val in enumerate(spi_values_to_check):
@@ -236,7 +236,7 @@ for timescale, gamma_params_for_ts in gamma_params_by_timescale.items():
 
 # Assuming you have gamma_params_by_location_month_timescale and spi_values_to_check, severity_labels defined
 
-output_file_path = r"C:\Users\thoma\Documents\GitHub\Drought-Research\Extension Paper\spi_to_rainfall_conversion.txt"
+output_file_path = r"C:\Users\thoma\Documents\GitHub\Drought-Research\Extension Paper\spi_to_rainfall_conversion1.txt"
 
 with open(output_file_path, 'w') as f:
     for timescale, gamma_params_for_ts in gamma_params_by_timescale.items():
