@@ -1,99 +1,180 @@
 import cdsapi
+import os
 import xarray as xr
 import matplotlib.pyplot as plt
 import cartopy.crs as ccrs
-import cartopy.feature as cfeature
-import os
-import calendar
+import cartopy
 import numpy as np
+import pandas as pd
 
-# --- Configuration ---
-# Bounding box for Missouri
-AREA_BOUNDS = [40.6, -95.8, 36.5, -89.1] # [North, West, South, East]
+# --- Define the download directory and filename ---
+download_dir = r"C:\Users\thoma\Documents\GitHub\Drought-Research\Real-Time\ECMWF\SEAS"
+filename = "seas5_total_precipitation_2025_10.grib"
+full_path = os.path.join(download_dir, filename)
 
-# Forecast settings
-FORECAST_YEAR = '2024' # Use a year for which data exists
-FORECAST_MONTH = '09' # A September forecast...
-TARGET_MONTHS = ['10', '11', '12'] # ...for the Oct-Nov-Dec season
-OUTPUT_FILE = f'missouri_precip_OND_{FORECAST_YEAR}_from_{FORECAST_MONTH}.nc' # More descriptive filename
+def SEASdata():
+    # --- Create the directory if it does not exist ---
+    os.makedirs(download_dir, exist_ok=True)
 
-# --- Helper Functions ---
-def calculate_lead_times(forecast_month_str, target_months_str):
-    """Calculates lead times, handling year boundaries."""
-    forecast_month = int(forecast_month_str)
-    # A more robust formula that correctly handles all month combinations
-    # and always produces a lead time between 1 and 12.
-    return [str(((int(m) - forecast_month - 1 + 12) % 12) + 1) for m in target_months_str]
+    dataset = "seasonal-monthly-single-levels"
+    request = {
+        "originating_centre": "ecmwf",
+        "system": "51",
+        "variable": ["total_precipitation"],
+        "year": ["2025"],
+        "month": ["10"],
+        "leadtime_month": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6"
+        ],
+        "data_format": "grib",
+        "product_type": [
+            "ensemble_mean",
+            "monthly_mean",
+            "monthly_maximum",
+            "monthly_standard_deviation"
+        ],
+        "area": [41, -96, 35, -88]
+    }
 
-LEAD_TIMES = calculate_lead_times(FORECAST_MONTH, TARGET_MONTHS)
+    client = cdsapi.Client()
+    client.retrieve(dataset, request, full_path)
 
-# --- Step 1: Request a Geographic Subset from the CDS API ---
-if not os.path.exists(OUTPUT_FILE):
-    print("Requesting regional subset from Copernicus CDS...")
-    c = cdsapi.Client()
-    c.retrieve(
-        # For forecast anomalies, we use a different dataset
-        'seasonal-monthly-single-levels',
-        {
-            'originating_centre': 'ecmwf',
-            'system': '5',
-            # The long name can fail. The short name 'tpara' is more reliable
-            # and matches the variable name inside the resulting NetCDF file.
-            'variable': 'tpara',
-            'product_type': 'monthly_mean_anomalies',
-            'year': FORECAST_YEAR,
-            'month': FORECAST_MONTH,
-            'leadtime_month': LEAD_TIMES,
-            'area': AREA_BOUNDS, # <-- This is the key change!
-            'format': 'netcdf',
-        },
-        OUTPUT_FILE)
-    print(f"Download of small regional file is complete.")
-else:
-    print(f"Using existing file: {OUTPUT_FILE}")
+def SEASmap():
+    # --- Step 1: Open the GRIB file using xarray ---
+    try:
+        # Use backend_kwargs to specify which data field to open (monthly_mean = fcmean)
+        ds = xr.open_dataset(
+            full_path, 
+            engine='cfgrib',
+            backend_kwargs={'filter_by_keys': {'dataType': 'fcmean'}}
+        )
+    except Exception as e:
+        print(f"Error opening GRIB file: {e}")
+        exit()
 
-# --- Step 2: Open the Subset and Process for Plotting ---
-print("Processing data...")
-with xr.open_dataset(OUTPUT_FILE) as ds:
-    # Average the anomaly across the three lead months to get a seasonal value
-    seasonal_anomaly = ds['tpara'].mean(dim='leadtime_month')
-    
-    # Average across all the ensemble members to get the mean forecast anomaly
-    mean_seasonal_anomaly = seasonal_anomaly.mean(dim='number')
-    
-    # Calculate a more accurate days/month average for the target season
-    days_in_months = [calendar.monthrange(int(FORECAST_YEAR), int(m))[1] for m in TARGET_MONTHS]
-    avg_days_in_month = np.mean(days_in_months)
+    # --- Step 2: Sum the monthly precipitation over 6 months ---
+    # The variable is 'tprate', representing a rate in m/s.
+    tprate_data = ds['tprate']
 
-    # Convert from meters/day to inches/month for a more intuitive map label
-    mean_seasonal_anomaly_in_per_month = mean_seasonal_anomaly * avg_days_in_month * 39.3701
+    # The `step` coordinate corresponds to the lead month.
+    # The forecast is for Oct 2025 (leadtime 1) to Mar 2026 (leadtime 6).
+    # For simplicity, we use a static list for the number of seconds in each month.
+    # (days * 24 hours/day * 60 min/hour * 60 sec/min)
+    monthly_seconds = [
+        31 * 24 * 60 * 60,  # October
+        30 * 24 * 60 * 60,  # November
+        31 * 24 * 60 * 60,  # December
+        31 * 24 * 60 * 60,  # January
+        28 * 24 * 60 * 60,  # February (non-leap year)
+        31 * 24 * 60 * 60   # March
+    ]
 
-# --- Step 3: Create the Map with Cartopy ---
-print("Creating map...")
-fig = plt.figure(figsize=(12, 10))
-ax = fig.add_subplot(1, 1, 1, projection=ccrs.Mercator())
+    # Calculate the total precipitation for each month
+    # `isel` is used here to select each step (0 to 5) corresponding to the 6 lead months.
+    # We also use `number=0` to select the ensemble mean, since your request included it.
+    monthly_totals = [
+        tprate_data.isel(number=0, step=i) * monthly_seconds[i]
+        for i in range(len(monthly_seconds))
+    ]
 
-# Plot the data
-# Use a divergent colormap (e.g., BrBG) for anomalies
-plot = mean_seasonal_anomaly_in_per_month.plot(
-    ax=ax,
-    transform=ccrs.PlateCarree(), # Tell Cartopy the data is in lat/lon coordinates
-    cmap='BrBG',
-    add_colorbar=False # We'll add a custom one
-)
+    # Sum the monthly totals to get the 6-month total
+    total_6_month_precip = sum(monthly_totals)
 
-# Add a proper colorbar
-cbar = plt.colorbar(plot, ax=ax, orientation='vertical', shrink=0.7)
-cbar.set_label('Precipitation Anomaly (inches/month)', fontsize=12)
+    # Convert meters to inches for easier interpretation (1 inch = 25.4 mm)
+    total_6_month_precip_in = total_6_month_precip * 1000 / 25.4
 
-# Add geographic features
-ax.add_feature(cfeature.COASTLINE)
-ax.add_feature(cfeature.BORDERS, linestyle=':')
-ax.add_feature(cfeature.STATES, edgecolor='black', linewidth=1.5)
+    # --- Step 3: Create the map and plot the data ---
+    fig = plt.figure(figsize=(10, 8))
+    ax = fig.add_subplot(1, 1, 1, projection=ccrs.PlateCarree())
 
-# Set map extent to our requested area with a little buffer
-ax.set_extent([AREA_BOUNDS[1], AREA_BOUNDS[3], AREA_BOUNDS[2], AREA_BOUNDS[0]], crs=ccrs.PlateCarree())
+    # Plot the data using pcolormesh
+    total_6_month_precip_in.plot.pcolormesh(
+        ax=ax,
+        cmap='Greens',
+        transform=ccrs.PlateCarree(),
+        x='longitude',
+        y='latitude',
+        cbar_kwargs={'label': 'Total 6-Month Precipitation (in)'}
+    )
 
-ax.set_title(f'Mean Seasonal Precipitation Anomaly Forecast\n(Oct-Nov-Dec {FORECAST_YEAR}, Forecast from {calendar.month_name[int(FORECAST_MONTH)]})', fontsize=16)
+    # Add map features
+    ax.coastlines('10m')
+    ax.add_feature(cartopy.feature.BORDERS)
+    ax.add_feature(cartopy.feature.STATES, linestyle='-')
+    ax.set_title('6-Month Total Precipitation Forecast (Oct 2025 - Mar 2026)')
+
+    # Set the extent to match your request area
+    ax.set_extent([-96, -88, 35, 41], crs=ccrs.PlateCarree())
+
+    plt.show()
+
+try:
+    # Open the GRIB file, filtering for ensemble members ('em')
+    ds = xr.open_dataset(
+        full_path, 
+        engine='cfgrib',
+        backend_kwargs={'filter_by_keys': {'dataType': 'em'}}
+    )
+except Exception as e:
+    print(f"Error opening GRIB file: {e}")
+    exit()
+
+# --- Step 2: Define station location and extract data ---
+station_name = 'Columbia'
+lat, lon = 38.9517, -92.3341 # Coordinates for Columbia, MO
+
+# Extract the precipitation rate data ('tprate') for the nearest grid point
+tprate_station = ds['tprate'].sel(latitude=lat, longitude=lon, method='nearest')
+
+# --- Step 3: Accumulate precipitation for lead times ---
+# The forecast starts in Oct 2025 (leadtime 1), so leadtimes 1-6 cover Oct-Mar.
+monthly_seconds = np.array([
+    31, 30, 31, 31, 28, 31 # Number of days for Oct 2025 - Mar 2026
+]) * 24 * 60 * 60
+
+# Monthly totals (m) for each ensemble member
+monthly_totals_m = tprate_station * monthly_seconds
+
+# 1-month total: First month
+precip_1m = monthly_totals_m.isel(step=0)
+
+# 3-month total: Sum of first 3 months
+precip_3m = monthly_totals_m.isel(step=slice(0, 3)).sum(dim='step')
+
+# 6-month total: Sum of all 6 months
+precip_6m = monthly_totals_m.sum(dim='step')
+
+# Convert to millimeters for readability
+precip_1m_mm = precip_1m * 1000
+precip_3m_mm = precip_3m * 1000
+precip_6m_mm = precip_6m * 1000
+
+# --- Step 4: Prepare data for plotting and create the plot ---
+data_to_plot = [
+    precip_1m_mm.values,
+    precip_3m_mm.values,
+    precip_6m_mm.values
+]
+
+labels = ['1-Month Total', '3-Month Total', '6-Month Total']
+positions = [1, 3, 6] # Corrected: positions must match the number of datasets
+
+fig, ax = plt.subplots(figsize=(10, 8))
+
+# The data list and positions list now have the same length (3)
+ax.boxplot(data_to_plot, positions=positions, widths=0.6, patch_artist=True)
+
+ax.set_title(f'Ensemble Precipitation Meteogram for {station_name} (Oct 2025 Start)', fontsize=16)
+ax.set_xlabel('Lead Time (Months)', fontsize=12)
+ax.set_ylabel('Total Precipitation (mm)', fontsize=12)
+ax.set_xticks(positions)
+ax.set_xticklabels(labels)
+ax.set_xlim(0, 7)
+ax.grid(True, linestyle=':', alpha=0.6)
 
 plt.show()
