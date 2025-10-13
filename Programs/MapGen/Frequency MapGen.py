@@ -12,7 +12,7 @@ import re
 
 path = r"C:\Users\thoma\Documents\GitHub\Drought-Research\MO_County_Boundaries.shp"
 input_dir = r"C:\Users\thoma\Documents\GitHub\Drought-Research\Precip Data\Dataset B-a\Monthly Tot SPI w Drgt Stats CSV"
-api_key = "***REMOVED***"
+api_key = "REVOKED"
 # Create a Google Maps client
 gmaps = googlemaps.Client(key=api_key)
 geoloc = pd.read_csv(r"C:\Users\thoma\Documents\GitHub\Drought-Research\output.csv")
