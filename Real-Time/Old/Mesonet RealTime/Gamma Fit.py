@@ -178,7 +178,7 @@ def calculate_rainfall_from_spi(spi_value, gamma_params):
 
     return rainfall_amount
 
-historical_data_dict = create_historical_rainfall_dict_from_csvs(r"C:\Users\thoma\Documents\GitHub\Drought-Research\Precip Data\Dataset B-a\Monthly Tot CSV")
+historical_data_dict = create_historical_rainfall_dict_from_csvs(r"D:\Drought-Research\Precip Data\Dataset B-a\Monthly Tot CSV")
 
 one_month_rainfall_dict = calculate_cumulative_rainfall(historical_data_dict, 1)
 three_month_rainfall_dict = calculate_cumulative_rainfall(historical_data_dict, 3)
@@ -206,10 +206,10 @@ def save_gamma_params_to_csv(gamma_params, file_path, timescale):
     print(f"Gamma parameters for {timescale}-month timescale saved to {file_path}")
 
 # Example usage:
-save_gamma_params_to_csv(gamma_params_by_location_one_month, r'C:\Users\thoma\Documents\GitHub\Drought-Research\Real-Time\Mesonet RealTime\gamma_params_1month.csv', 1)
-save_gamma_params_to_csv(gamma_params_by_location_three_month, r'C:\Users\thoma\Documents\GitHub\Drought-Research\Real-Time\Mesonet RealTime\gamma_params_3month.csv', 3)
-save_gamma_params_to_csv(gamma_params_by_location_six_month, r'C:\Users\thoma\Documents\GitHub\Drought-Research\Real-Time\Mesonet RealTime\gamma_params_6month.csv', 6)
-save_gamma_params_to_csv(gamma_params_by_location_twelve_month, r'C:\Users\thoma\Documents\GitHub\Drought-Research\Real-Time\Mesonet RealTime\gamma_params_12month.csv', 12)
+save_gamma_params_to_csv(gamma_params_by_location_one_month, r'D:\Drought-Research\Real-Time\Old\Mesonet RealTime\gamma_params_1month.csv', 1)
+save_gamma_params_to_csv(gamma_params_by_location_three_month, r'D:\Drought-Research\Real-Time\Old\Mesonet RealTime\gamma_params_3month.csv', 3)
+save_gamma_params_to_csv(gamma_params_by_location_six_month, r'D:\Drought-Research\Real-Time\Old\Mesonet RealTime\gamma_params_6month.csv', 6)
+save_gamma_params_to_csv(gamma_params_by_location_twelve_month, r'D:\Drought-Research\Real-Time\Old\Mesonet RealTime\gamma_params_12month.csv', 12)
 
 new_rainfall_data_2025_locations = { # New data now ALSO structured by location
     'St. Joseph, Buchanan County, MO': {
@@ -258,18 +258,39 @@ for timescale, gamma_params_for_ts in gamma_params_by_timescale.items():
 
 # Assuming you have gamma_params_by_location_month_timescale and spi_values_to_check, severity_labels defined
 
-output_file_path = r"C:\Users\thoma\Documents\GitHub\Drought-Research\Extension Paper\spi_to_rainfall_conversion.txt"
+output_file_path = r"D:\Drought-Research\Real-Time\spi_to_rainfall_conversion.txt"
 
-with open(output_file_path, 'w') as f:
-    for timescale, gamma_params_for_ts in gamma_params_by_timescale.items():
-        f.write(f"--- Timescale: {timescale}-Month SPI ---\n")
-        for location_name, gamma_params_by_month in gamma_params_for_ts.items():
-            f.write(f"\n-- Location: {location_name} --\n")
-            for month, params in gamma_params_by_month.items():
-                f.write(f"\n--- Month: {month} ---\n")
-                for i, spi_val in enumerate(spi_values_to_check):
-                    gamma_params_tuple = (params['alpha'], 0, params['beta'])
-                    rainfall = calculate_rainfall_from_spi(spi_val, gamma_params_tuple)
-                    f.write(f"  SPI = {spi_val:.2f} ({severity_labels[i]}): Rainfall = {rainfall:.2f} inches\n")
+# --- NEW: Save SPI Thresholds to CSV for Visualization ---
 
-print(f"SPI to rainfall conversion data has been saved to: {output_file_path}")
+spi_threshold_data = []
+
+print("\nCalculating SPI thresholds and preparing CSV...")
+
+for timescale, gamma_params_for_ts in gamma_params_by_timescale.items():
+    for location_name, gamma_params_by_month in gamma_params_for_ts.items():
+        for month, params in gamma_params_by_month.items():
+            for i, spi_val in enumerate(spi_values_to_check):
+                # Calculate rainfall for this specific threshold
+                gamma_params_tuple = (params['alpha'], 0, params['beta'])
+                rainfall = calculate_rainfall_from_spi(spi_val, gamma_params_tuple)
+                
+                # Append standard row data
+                spi_threshold_data.append({
+                    'Timescale_Months': timescale,
+                    'Location': location_name,
+                    'Month': month,
+                    'SPI_Value': spi_val,
+                    'Severity_Label': severity_labels[i],
+                    'Rainfall_Threshold_in': round(rainfall, 4) # Round for cleaner data
+                })
+
+# Create a DataFrame from the collected data
+spi_threshold_df = pd.DataFrame(spi_threshold_data)
+
+# Define the new output path with a .csv extension
+output_csv_path = r"D:\Drought-Research\Real-Time\spi_to_rainfall_conversion.csv"
+
+# Save to CSV (index=False prevents it from adding an unnecessary row number column)
+spi_threshold_df.to_csv(output_csv_path, index=False)
+
+print(f"Success! SPI to rainfall conversion data saved to: {output_csv_path}")
