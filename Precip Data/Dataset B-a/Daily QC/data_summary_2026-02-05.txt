@@ -1,0 +1,116 @@
+Data Summary
+
+File: Albany, Gentry County, MO.txt
+First Date: 2000-01-01
+Last Date: 2024-05-31
+Highest Value: 6.89
+Lowest Value: 0.00
+
+File: Auxvasse, Audrain County, MO.txt
+First Date: 2000-01-01
+Last Date: 2024-05-31
+Highest Value: 4.40
+Lowest Value: 0.00
+
+File: Brunswick, Carroll County, MO.txt
+First Date: 2000-01-01
+Last Date: 2024-05-31
+Highest Value: 6.68
+Lowest Value: 0.00
+
+File: Cardwell, Dunklin County, MO.txt
+First Date: 2000-01-01
+Last Date: 2024-05-31
+Highest Value: 5.56
+Lowest Value: 0.00
+
+File: Charleston, Mississippi County, MO.txt
+First Date: 2000-01-01
+Last Date: 2024-05-31
+Highest Value: 6.44
+Lowest Value: 0.00
+
+File: Clarkton, Dunklin County, MO.txt
+First Date: 2000-01-01
+Last Date: 2024-05-31
+Highest Value: 6.46
+Lowest Value: 0.00
+
+File: Columbia-Sanborn Field, Boone County, MO.txt
+First Date: 2000-01-01
+Last Date: 2024-05-31
+Highest Value: 5.78
+Lowest Value: 0.00
+
+File: Columbia-South Farms, Boone County, MO.txt
+First Date: 2000-01-01
+Last Date: 2024-05-31
+Highest Value: 5.72
+Lowest Value: 0.00
+
+File: Cook Station, Crawford County, MO.txt
+First Date: 2000-01-01
+Last Date: 2024-05-31
+Highest Value: 4.63
+Lowest Value: 0.00
+
+File: Corning, Atchison County, MO.txt
+First Date: 2000-01-01
+Last Date: 2024-05-31
+Highest Value: 5.11
+Lowest Value: 0.00
+
+File: Delta, Cape Girardeau County, MO.txt
+First Date: 2000-01-01
+Last Date: 2024-05-31
+Highest Value: 11.23
+Lowest Value: 0.00
+
+File: Glennonville, Dunklin County, MO.txt
+First Date: 2000-01-01
+Last Date: 2024-05-31
+Highest Value: 7.17
+Lowest Value: 0.00
+
+File: Hayward, Pemiscot County, MO.txt
+First Date: 2000-01-01
+Last Date: 2024-05-31
+Highest Value: 5.42
+Lowest Value: 0.00
+
+File: Lamar, Barton County, MO.txt
+First Date: 2000-01-01
+Last Date: 2024-05-31
+Highest Value: 4.25
+Lowest Value: 0.00
+
+File: Linneus, Linn County, MO.txt
+First Date: 2000-01-01
+Last Date: 2024-05-31
+Highest Value: 7.17
+Lowest Value: 0.00
+
+File: Monroe City, Monroe County, MO.txt
+First Date: 2000-01-01
+Last Date: 2024-05-31
+Highest Value: 4.00
+Lowest Value: 0.00
+
+File: Novelty, Knox County, MO.txt
+First Date: 2000-01-01
+Last Date: 2024-05-31
+Highest Value: 4.64
+Lowest Value: 0.00
+
+File: Portageville, Pemiscot County, MO.txt
+First Date: 2000-01-01
+Last Date: 2024-05-31
+Highest Value: 6.64
+Lowest Value: 0.00
+
+File: St. Joseph, Buchanan County, MO.txt
+First Date: 2000-01-01
+Last Date: 2024-05-31
+Highest Value: 5.44
+Lowest Value: 0.00
+

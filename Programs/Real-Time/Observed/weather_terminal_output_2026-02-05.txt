@@ -1,0 +1,92 @@
+Report generated on: 2026-02-05 14:24:46
+
+
+Past Month:
+Period Range: 2026-01-01 to 2026-01-31
+  Albany, Gentry County, MO (alb): 0.80
+  Auxvasse, Audrain County, MO (aux): 0.81
+  Brunswick, Carroll County, MO (bwk): 0.80
+  Cardwell, Dunklin County, MO (crd): 0.91
+  Charleston, Mississippi County, MO (chs): 2.06
+  Clarkton, Dunklin County, MO (clk): 1.27
+  Columbia-Sanborn Field, Boone County, MO (san): 0.81
+  Columbia-South Farms, Boone County, MO (sfm): 0.70
+  Cook Station, Crawford County, MO (wur): 0.29
+  Corning, Atchison County, MO (crn): 0.85
+  Delta, Cape Girardeau County, MO (del): 0.71
+  Glennonville, Dunklin County, MO (gln): 0.94
+  Hayward, Pemiscot County, MO (lee): 0.94
+  Lamar, Barton County, MO (lam): 1.13
+  Linneus, Linn County, MO (lin): 0.82
+  Monroe City, Monroe County, MO (mon): 0.73
+  Novelty, Knox County, MO (nov): 0.37
+  Portageville, Pemiscot County, MO (pvl): 1.05
+  St. Joseph, Buchanan County, MO (stj): 0.98
+
+Past 3 Months:
+Period Range: 2025-11-01 to 2026-01-31
+  Albany, Gentry County, MO (alb): 2.85
+  Auxvasse, Audrain County, MO (aux): 4.08
+  Brunswick, Carroll County, MO (bwk): 4.18
+  Cardwell, Dunklin County, MO (crd): 3.10
+  Charleston, Mississippi County, MO (chs): 5.99
+  Clarkton, Dunklin County, MO (clk): 4.33
+  Columbia-Sanborn Field, Boone County, MO (san): 4.08
+  Columbia-South Farms, Boone County, MO (sfm): 3.84
+  Cook Station, Crawford County, MO (wur): 3.49
+  Corning, Atchison County, MO (crn): 2.01
+  Delta, Cape Girardeau County, MO (del): 4.27
+  Glennonville, Dunklin County, MO (gln): 3.48
+  Hayward, Pemiscot County, MO (lee): 3.94
+  Lamar, Barton County, MO (lam): 4.45
+  Linneus, Linn County, MO (lin): 4.59
+  Monroe City, Monroe County, MO (mon): 3.04
+  Novelty, Knox County, MO (nov): 3.44
+  Portageville, Pemiscot County, MO (pvl): 4.84
+  St. Joseph, Buchanan County, MO (stj): 3.85
+
+Past 6 Months:
+Period Range: 2025-08-01 to 2026-01-31
+  Albany, Gentry County, MO (alb): 8.87
+  Auxvasse, Audrain County, MO (aux): 9.66
+  Brunswick, Carroll County, MO (bwk): 9.24
+  Cardwell, Dunklin County, MO (crd): 10.62
+  Charleston, Mississippi County, MO (chs): 13.31
+  Clarkton, Dunklin County, MO (clk): 14.70
+  Columbia-Sanborn Field, Boone County, MO (san): 8.52
+  Columbia-South Farms, Boone County, MO (sfm): 8.50
+  Cook Station, Crawford County, MO (wur): 12.33
+  Corning, Atchison County, MO (crn): 11.21
+  Delta, Cape Girardeau County, MO (del): 13.82
+  Glennonville, Dunklin County, MO (gln): 12.26
+  Hayward, Pemiscot County, MO (lee): 14.19
+  Lamar, Barton County, MO (lam): 11.48
+  Linneus, Linn County, MO (lin): 9.48
+  Monroe City, Monroe County, MO (mon): 6.24
+  Novelty, Knox County, MO (nov): 9.76
+  Portageville, Pemiscot County, MO (pvl): 16.15
+  St. Joseph, Buchanan County, MO (stj): 7.86
+
+Past 12 Months:
+Period Range: 2025-02-01 to 2026-01-31
+  Albany, Gentry County, MO (alb): 33.54
+  Auxvasse, Audrain County, MO (aux): 31.63
+  Brunswick, Carroll County, MO (bwk): 28.32
+  Cardwell, Dunklin County, MO (crd): 41.13
+  Charleston, Mississippi County, MO (chs): 45.94
+  Clarkton, Dunklin County, MO (clk): 48.52
+  Columbia-Sanborn Field, Boone County, MO (san): 29.40
+  Columbia-South Farms, Boone County, MO (sfm): 31.78
+  Cook Station, Crawford County, MO (wur): 44.64
+  Corning, Atchison County, MO (crn): 29.39
+  Delta, Cape Girardeau County, MO (del): 41.88
+  Glennonville, Dunklin County, MO (gln): 41.98
+  Hayward, Pemiscot County, MO (lee): 49.54
+  Lamar, Barton County, MO (lam): 41.51
+  Linneus, Linn County, MO (lin): 35.01
+  Monroe City, Monroe County, MO (mon): 30.00
+  Novelty, Knox County, MO (nov): 32.23
+  Portageville, Pemiscot County, MO (pvl): 57.31
+  St. Joseph, Buchanan County, MO (stj): 30.57
+
+--- End of Report ---

@@ -1,0 +1,77 @@
+Period,Start Date,End Date,Station Name,Station Code,Total Precipitation (in)
+Past Month,2026-01-01,2026-01-31,"Albany, Gentry County, MO",alb,0.80
+Past Month,2026-01-01,2026-01-31,"Auxvasse, Audrain County, MO",aux,0.81
+Past Month,2026-01-01,2026-01-31,"Brunswick, Carroll County, MO",bwk,0.80
+Past Month,2026-01-01,2026-01-31,"Cardwell, Dunklin County, MO",crd,0.91
+Past Month,2026-01-01,2026-01-31,"Charleston, Mississippi County, MO",chs,2.06
+Past Month,2026-01-01,2026-01-31,"Clarkton, Dunklin County, MO",clk,1.27
+Past Month,2026-01-01,2026-01-31,"Columbia-Sanborn Field, Boone County, MO",san,0.81
+Past Month,2026-01-01,2026-01-31,"Columbia-South Farms, Boone County, MO",sfm,0.70
+Past Month,2026-01-01,2026-01-31,"Cook Station, Crawford County, MO",wur,0.29
+Past Month,2026-01-01,2026-01-31,"Corning, Atchison County, MO",crn,0.85
+Past Month,2026-01-01,2026-01-31,"Delta, Cape Girardeau County, MO",del,0.71
+Past Month,2026-01-01,2026-01-31,"Glennonville, Dunklin County, MO",gln,0.94
+Past Month,2026-01-01,2026-01-31,"Hayward, Pemiscot County, MO",lee,0.94
+Past Month,2026-01-01,2026-01-31,"Lamar, Barton County, MO",lam,1.13
+Past Month,2026-01-01,2026-01-31,"Linneus, Linn County, MO",lin,0.82
+Past Month,2026-01-01,2026-01-31,"Monroe City, Monroe County, MO",mon,0.73
+Past Month,2026-01-01,2026-01-31,"Novelty, Knox County, MO",nov,0.37
+Past Month,2026-01-01,2026-01-31,"Portageville, Pemiscot County, MO",pvl,1.05
+Past Month,2026-01-01,2026-01-31,"St. Joseph, Buchanan County, MO",stj,0.98
+Past 3 Months,2025-11-01,2026-01-31,"Albany, Gentry County, MO",alb,2.85
+Past 3 Months,2025-11-01,2026-01-31,"Auxvasse, Audrain County, MO",aux,4.08
+Past 3 Months,2025-11-01,2026-01-31,"Brunswick, Carroll County, MO",bwk,4.18
+Past 3 Months,2025-11-01,2026-01-31,"Cardwell, Dunklin County, MO",crd,3.10
+Past 3 Months,2025-11-01,2026-01-31,"Charleston, Mississippi County, MO",chs,5.99
+Past 3 Months,2025-11-01,2026-01-31,"Clarkton, Dunklin County, MO",clk,4.33
+Past 3 Months,2025-11-01,2026-01-31,"Columbia-Sanborn Field, Boone County, MO",san,4.08
+Past 3 Months,2025-11-01,2026-01-31,"Columbia-South Farms, Boone County, MO",sfm,3.84
+Past 3 Months,2025-11-01,2026-01-31,"Cook Station, Crawford County, MO",wur,3.49
+Past 3 Months,2025-11-01,2026-01-31,"Corning, Atchison County, MO",crn,2.01
+Past 3 Months,2025-11-01,2026-01-31,"Delta, Cape Girardeau County, MO",del,4.27
+Past 3 Months,2025-11-01,2026-01-31,"Glennonville, Dunklin County, MO",gln,3.48
+Past 3 Months,2025-11-01,2026-01-31,"Hayward, Pemiscot County, MO",lee,3.94
+Past 3 Months,2025-11-01,2026-01-31,"Lamar, Barton County, MO",lam,4.45
+Past 3 Months,2025-11-01,2026-01-31,"Linneus, Linn County, MO",lin,4.59
+Past 3 Months,2025-11-01,2026-01-31,"Monroe City, Monroe County, MO",mon,3.04
+Past 3 Months,2025-11-01,2026-01-31,"Novelty, Knox County, MO",nov,3.44
+Past 3 Months,2025-11-01,2026-01-31,"Portageville, Pemiscot County, MO",pvl,4.84
+Past 3 Months,2025-11-01,2026-01-31,"St. Joseph, Buchanan County, MO",stj,3.85
+Past 6 Months,2025-08-01,2026-01-31,"Albany, Gentry County, MO",alb,8.87
+Past 6 Months,2025-08-01,2026-01-31,"Auxvasse, Audrain County, MO",aux,9.66
+Past 6 Months,2025-08-01,2026-01-31,"Brunswick, Carroll County, MO",bwk,9.24
+Past 6 Months,2025-08-01,2026-01-31,"Cardwell, Dunklin County, MO",crd,10.62
+Past 6 Months,2025-08-01,2026-01-31,"Charleston, Mississippi County, MO",chs,13.31
+Past 6 Months,2025-08-01,2026-01-31,"Clarkton, Dunklin County, MO",clk,14.70
+Past 6 Months,2025-08-01,2026-01-31,"Columbia-Sanborn Field, Boone County, MO",san,8.52
+Past 6 Months,2025-08-01,2026-01-31,"Columbia-South Farms, Boone County, MO",sfm,8.50
+Past 6 Months,2025-08-01,2026-01-31,"Cook Station, Crawford County, MO",wur,12.33
+Past 6 Months,2025-08-01,2026-01-31,"Corning, Atchison County, MO",crn,11.21
+Past 6 Months,2025-08-01,2026-01-31,"Delta, Cape Girardeau County, MO",del,13.82
+Past 6 Months,2025-08-01,2026-01-31,"Glennonville, Dunklin County, MO",gln,12.26
+Past 6 Months,2025-08-01,2026-01-31,"Hayward, Pemiscot County, MO",lee,14.19
+Past 6 Months,2025-08-01,2026-01-31,"Lamar, Barton County, MO",lam,11.48
+Past 6 Months,2025-08-01,2026-01-31,"Linneus, Linn County, MO",lin,9.48
+Past 6 Months,2025-08-01,2026-01-31,"Monroe City, Monroe County, MO",mon,6.24
+Past 6 Months,2025-08-01,2026-01-31,"Novelty, Knox County, MO",nov,9.76
+Past 6 Months,2025-08-01,2026-01-31,"Portageville, Pemiscot County, MO",pvl,16.15
+Past 6 Months,2025-08-01,2026-01-31,"St. Joseph, Buchanan County, MO",stj,7.86
+Past 12 Months,2025-02-01,2026-01-31,"Albany, Gentry County, MO",alb,33.54
+Past 12 Months,2025-02-01,2026-01-31,"Auxvasse, Audrain County, MO",aux,31.63
+Past 12 Months,2025-02-01,2026-01-31,"Brunswick, Carroll County, MO",bwk,28.32
+Past 12 Months,2025-02-01,2026-01-31,"Cardwell, Dunklin County, MO",crd,41.13
+Past 12 Months,2025-02-01,2026-01-31,"Charleston, Mississippi County, MO",chs,45.94
+Past 12 Months,2025-02-01,2026-01-31,"Clarkton, Dunklin County, MO",clk,48.52
+Past 12 Months,2025-02-01,2026-01-31,"Columbia-Sanborn Field, Boone County, MO",san,29.40
+Past 12 Months,2025-02-01,2026-01-31,"Columbia-South Farms, Boone County, MO",sfm,31.78
+Past 12 Months,2025-02-01,2026-01-31,"Cook Station, Crawford County, MO",wur,44.64
+Past 12 Months,2025-02-01,2026-01-31,"Corning, Atchison County, MO",crn,29.39
+Past 12 Months,2025-02-01,2026-01-31,"Delta, Cape Girardeau County, MO",del,41.88
+Past 12 Months,2025-02-01,2026-01-31,"Glennonville, Dunklin County, MO",gln,41.98
+Past 12 Months,2025-02-01,2026-01-31,"Hayward, Pemiscot County, MO",lee,49.54
+Past 12 Months,2025-02-01,2026-01-31,"Lamar, Barton County, MO",lam,41.51
+Past 12 Months,2025-02-01,2026-01-31,"Linneus, Linn County, MO",lin,35.01
+Past 12 Months,2025-02-01,2026-01-31,"Monroe City, Monroe County, MO",mon,30.00
+Past 12 Months,2025-02-01,2026-01-31,"Novelty, Knox County, MO",nov,32.23
+Past 12 Months,2025-02-01,2026-01-31,"Portageville, Pemiscot County, MO",pvl,57.31
+Past 12 Months,2025-02-01,2026-01-31,"St. Joseph, Buchanan County, MO",stj,30.57

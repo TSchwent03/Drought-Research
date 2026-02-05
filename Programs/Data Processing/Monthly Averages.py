@@ -1,5 +1,4 @@
 import os
-from itertools import islice
 
 def calculate_monthly_averages(filename):
   """
