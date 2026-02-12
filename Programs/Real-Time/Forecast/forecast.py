@@ -86,25 +86,28 @@ def create_spi_interpolators(spi_df):
     """
     Loads 1-month SPI thresholds and creates an interpolation function
     (rainfall -> SPI) for each station and month.
+    Now supports 1, 3, and 6 month timescales.
     """
     print("Creating SPI interpolation functions...")
     interpolators = {}
+    timescales = [1, 3, 6]
     
-    # Filter for 1-month SPI, as we are forecasting month-by-month
-    spi_1mo = spi_df[spi_df['Timescale_Months'] == 1]
-    
-    for location in spi_1mo['Location'].unique():
-        interpolators[location] = {}
-        for month in spi_1mo['Month'].unique():
-            loc_month_data = spi_1mo[(spi_1mo['Location'] == location) & (spi_1mo['Month'] == month)].sort_values('SPI_Value')
-            if not loc_month_data.empty:
-                # Create the function: x=Rainfall, y=SPI
-                interpolators[location][month] = interp1d(
-                    loc_month_data['Rainfall_Threshold_in'],
-                    loc_month_data['SPI_Value'],
-                    kind='linear',
-                    fill_value="extrapolate" # Extrapolate for extreme forecast values
-                )
+    for ts in timescales:
+        interpolators[ts] = {}
+        spi_subset = spi_df[spi_df['Timescale_Months'] == ts]
+        
+        for location in spi_subset['Location'].unique():
+            interpolators[ts][location] = {}
+            for month in spi_subset['Month'].unique():
+                loc_month_data = spi_subset[(spi_subset['Location'] == location) & (spi_subset['Month'] == month)].sort_values('SPI_Value')
+                if not loc_month_data.empty:
+                    # Create the function: x=Rainfall, y=SPI
+                    interpolators[ts][location][month] = interp1d(
+                        loc_month_data['Rainfall_Threshold_in'],
+                        loc_month_data['SPI_Value'],
+                        kind='linear',
+                        fill_value="extrapolate" # Extrapolate for extreme forecast values
+                    )
     print("SPI interpolators created.")
     return interpolators
 
@@ -117,17 +120,15 @@ def generate_spi_forecasts(station_df, interpolators):
     print(f"Opening NetCDF file: {NETCDF_FULL_PATH}")
     try:
         ds = xr.open_dataset(NETCDF_FULL_PATH)
+        print(ds)
     except Exception as e:
         print(f"CRITICAL ERROR: Could not open {NETCDF_FULL_PATH}. Was download successful?")
         print(f"Error: {e}")
         exit()
 
-    # Get the calendar month names for each lead time
-    # This is crucial for matching with the correct interpolator
-    print(ds)
-    start_month = int(FORECAST_MONTH)
-    month_names = [calendar.month_name[(start_month + i - 1) % 12 + 1] for i in ds.forecastMonth.values]
-    
+    start_month_idx = int(FORECAST_MONTH)
+    start_year = int(FORECAST_YEAR)
+
     all_spi_forecasts = []
 
     print("Processing forecasts for all stations...")
@@ -136,49 +137,75 @@ def generate_spi_forecasts(station_df, interpolators):
         lat = station['Latitude']
         lon = station['Longitude']
         
-        if station_name not in interpolators:
-            print(f"Warning: No interpolator for {station_name}. Skipping.")
-            continue
-
         # Extract the time series for this station from the xarray dataset
         station_ds = ds.sel(latitude=lat, longitude=lon, method='nearest')
-        for i, lead_month in enumerate(ds.forecastMonth.values):
-            month_name = month_names[i] # e.g., 'November'
-            
-            if month_name not in interpolators[station_name]:
-                print(f"Warning: No 1-mo SPI data for {station_name} in {month_name}. Skipping.")
-                continue
+        
+        # Pre-calculate monthly precipitation (in inches) for all leads
+        # Shape: (n_leads, n_members)
+        monthly_precip_in = []
+        valid_month_names = []
 
+        for i, lead_month in enumerate(ds.forecastMonth.values):
+            # Calculate correct month and year for this lead
+            # lead_month is 1-based index from start
+            # i is 0-based index
+            
+            # Calculate absolute month index (0-11) and year offset
+            curr_month_abs = (start_month_idx + lead_month - 2) 
+            curr_year = start_year + (curr_month_abs // 12)
+            curr_month = (curr_month_abs % 12) + 2
+            month_name = calendar.month_name[curr_month]
+            valid_month_names.append(month_name)
+            
             # Get rainfall rate (m/s) for all ensemble members
-            # 'tpr' is the typical variable name for total precipitation rate
             precip_rate_members = station_ds['tprate'].sel(forecastMonth=lead_month)
             
             # Convert m/s to total inches for the month
-            days_in_month = calendar.monthrange(int(FORECAST_YEAR), (start_month + i - 1) % 12 + 1)[1]
+            days_in_month = calendar.monthrange(curr_year, curr_month)[1]
             seconds_in_month = days_in_month * 24 * 60 * 60
             
             # Convert from rate (m/s) to total accumulation (m)
             precip_m_members = precip_rate_members * seconds_in_month
             # Convert meters to inches (1 meter = 39.3701 inches)
             precip_in_members = precip_m_members * 39.3701
+            monthly_precip_in.append(precip_in_members.values)
+
+        monthly_precip_in = np.array(monthly_precip_in) # Shape: (6, 51)
+
+        # Calculate SPI for each timescale (1, 3, 6)
+        for ts in [1, 3, 6]:
+            if ts not in interpolators or station_name not in interpolators[ts]:
+                continue
             
-            # Get the correct interpolation function
-            f_interp = interpolators[station_name][month_name]
-            
-            # Vectorized SPI calculation: Apply function to all 51 members at once
-            spi_members = f_interp(precip_in_members.values)
-            
-            # Store results
-            for member_num, spi_val in enumerate(spi_members):
-                all_spi_forecasts.append({
-                    'Station Name': station_name,
-                    'Latitude': lat,
-                    'Longitude': lon,
-                    'Lead_Month': lead_month,
-                    'Forecast_Month': month_name,
-                    'Ensemble_Member': member_num,
-                    'Forecast_SPI': spi_val
-                })
+            for i, lead_month in enumerate(ds.forecastMonth.values):
+                # Check if we have enough forecast history for this timescale
+                # We need 'ts' months of data ending at index 'i'
+                start_idx = i - ts + 1
+                if start_idx < 0:
+                    continue # Cannot calculate e.g. 3-month SPI at Lead 1 without antecedent data
+                
+                # Sum precipitation over the window [start_idx, i]
+                window_precip = np.sum(monthly_precip_in[start_idx : i+1, :], axis=0)
+                
+                month_name = valid_month_names[i]
+                
+                if month_name not in interpolators[ts][station_name]:
+                    continue
+
+                f_interp = interpolators[ts][station_name][month_name]
+                spi_members = f_interp(window_precip)
+                
+                for member_num, spi_val in enumerate(spi_members):
+                    all_spi_forecasts.append({
+                        'Station Name': station_name,
+                        'Latitude': lat,
+                        'Longitude': lon,
+                        'Lead_Month': lead_month,
+                        'Forecast_Month': month_name,
+                        'Timescale': ts,
+                        'Ensemble_Member': member_num,
+                        'Forecast_SPI': spi_val
+                    })
                 
     ds.close()
     print("SPI forecast calculation complete.")
@@ -232,12 +259,12 @@ def plot_forecast_map(gdf, plot_date, lead_month, timescale, output_path):
     print(f"Map saved: {output_path}")
 
 # --- 5. Plotting Function (Meteograms) ---
-def plot_station_meteogram(station_name, station_data, output_path):
+def plot_station_meteogram(station_name, station_data, timescale, output_path):
     """
     Creates a box-and-whisker plot for a single station, showing SPI
     uncertainty across all 6 lead months.
     """
-    fig, ax = plt.subplots(figsize=(12, 7))
+    fig, ax = plt.subplots(figsize=(14, 8))
     
     # Prepare data for boxplot: a list of arrays, one for each lead month
     data_to_plot = []
@@ -246,19 +273,48 @@ def plot_station_meteogram(station_name, station_data, output_path):
         spi_members = station_data[station_data['Lead_Month'] == lead_month]['Forecast_SPI']
         data_to_plot.append(spi_members.dropna())
         month_labels.append(f"Lead {lead_month}\n({station_data[station_data['Lead_Month'] == lead_month]['Forecast_Month'].iloc[0]})")
-        
-    ax.boxplot(data_to_plot, labels=month_labels, patch_artist=True,
-               boxprops=dict(facecolor='lightblue', color='black'),
-               medianprops=dict(color='red', linewidth=2),
-               whiskerprops=dict(color='black', linestyle='--'),
-               capprops=dict(color='black'))
 
-    ax.axhline(0, color='gray', linestyle='--', linewidth=1, zorder=0) # Zero line
-    ax.set_title(f"6-Month SPI Forecast Ensemble\n{station_name}", fontsize=16, fontweight='bold')
+    # Define SPI Categories and Colors (Same as Map)
+    spi_bins = [-np.inf, -2.0, -1.6, -1.3, -0.8, -0.5, 0.5, 0.8, 1.3, 1.6, 2.0, np.inf]
+    spi_colors = [
+        '#730000', '#E60000', '#E69800', '#FED37F', '#FEFE00', 
+        '#FFFFFF', '#AAF596', '#4CE600', '#38A800', '#145A00', '#002673'
+    ]
+    spi_labels = [
+        'D4 Exceptional Drought', 'D3 Extreme Drought', 'D2 Severe Drought',
+        'D1 Moderate Drought', 'D0 Abnormally Dry', 'Near Normal',
+        'W0 Abnormally Wet', 'W1 Moderately Wet', 'W2 Severely Wet',
+        'W3 Extremely Wet', 'W4 Exceptionally Wet'
+    ]
+
+    legend_elements = []
+    for i in range(len(spi_colors)):
+        low = spi_bins[i]
+        high = spi_bins[i+1]
+        color = spi_colors[i]
+        
+        # Handle infinity for plotting bounds
+        plot_low = -10 if low == -np.inf else low
+        plot_high = 10 if high == np.inf else high
+        
+        ax.axhspan(plot_low, plot_high, facecolor=color, alpha=0.3, zorder=0)
+        legend_elements.append(Patch(facecolor=color, edgecolor='black', label=spi_labels[i], alpha=0.3))
+
+    ax.boxplot(data_to_plot, labels=month_labels, patch_artist=True,
+               boxprops=dict(facecolor='white', color='black'),
+               medianprops=dict(color='black', linewidth=2),
+               whiskerprops=dict(color='black', linestyle='--'),
+               capprops=dict(color='black'), zorder=3)
+
+    ax.axhline(0, color='black', linestyle='--', linewidth=1, zorder=2) # Zero line
+    ax.set_title(f"{timescale}-Month SPI Forecast Ensemble\n{station_name}", fontsize=16, fontweight='bold')
     ax.set_ylabel("Forecast SPI Value")
     ax.set_xlabel("Forecast Lead Time")
-    ax.set_ylim(-4, 4) # Standard SPI range
-    ax.grid(axis='y', linestyle=':', color='gray', alpha=0.7)
+    ax.set_ylim(-2.5, 2.5)
+    ax.grid(axis='y', linestyle=':', color='black', alpha=0.3, zorder=1)
+    
+    # Add Legend
+    ax.legend(handles=legend_elements, title="SPI Categories", fontsize=10, title_fontsize=11, loc='upper left', bbox_to_anchor=(1, 1))
     
     plt.savefig(output_path, dpi=150, bbox_inches='tight')
     plt.close(fig)
@@ -305,33 +361,41 @@ def main():
     # 5. Generate Products
     print("\n--- Generating All Forecast Products ---")
     
-    # Generate Maps (one for each lead month)
-    for lead_month in sorted(spi_forecasts_df['Lead_Month'].unique()):
-        # Get data for this lead month
-        lm_data = spi_forecasts_df[spi_forecasts_df['Lead_Month'] == lead_month]
+    # Loop through timescales to generate products for each
+    for timescale in [1, 3, 6]:
+        print(f"\nGenerating products for {timescale}-Month SPI...")
+        ts_data = spi_forecasts_df[spi_forecasts_df['Timescale'] == timescale]
         
-        # Calculate the ensemble mean SPI for each station
-        mean_spi_by_station = lm_data.groupby('Station Name')['Forecast_SPI'].mean().reset_index()
-        mean_spi_by_station = mean_spi_by_station.rename(columns={'Forecast_SPI': 'Mean_SPI'})
-        
-        # Merge with station locations
-        gdf = pd.merge(station_df, mean_spi_by_station, on="Station Name")
-        gdf = gpd.GeoDataFrame(gdf, geometry=gpd.points_from_xy(gdf.Longitude, gdf.Latitude), crs="EPSG:4326")
-        
-        plot_date = lm_data['Forecast_Month'].iloc[0]
-        output_path = MAP_OUTPUT_DIR / f"spi_map_lead_{lead_month:02d}_{plot_date}.png"
-        plot_forecast_map(gdf, plot_date, lead_month, 1, output_path)
-
-    # Generate Meteograms (one for each station)
-    for station_name in station_df['Station Name']:
-        station_data = spi_forecasts_df[spi_forecasts_df['Station Name'] == station_name]
-        if station_data.empty:
+        if ts_data.empty:
+            print(f"No data for {timescale}-Month SPI (likely due to lead time constraints).")
             continue
+
+        # Generate Maps (one for each valid lead month)
+        for lead_month in sorted(ts_data['Lead_Month'].unique()):
+            lm_data = ts_data[ts_data['Lead_Month'] == lead_month]
             
-        # Clean station name for filename
-        safe_filename = re.sub(r'[^a-zA-Z0-9_-]', '_', station_name) + ".png"
-        output_path = METEOGRAM_OUTPUT_DIR / safe_filename
-        plot_station_meteogram(station_name, station_data, output_path)
+            # Calculate the ensemble mean SPI for each station
+            mean_spi_by_station = lm_data.groupby('Station Name')['Forecast_SPI'].mean().reset_index()
+            mean_spi_by_station = mean_spi_by_station.rename(columns={'Forecast_SPI': 'Mean_SPI'})
+            
+            # Merge with station locations
+            gdf = pd.merge(station_df, mean_spi_by_station, on="Station Name")
+            gdf = gpd.GeoDataFrame(gdf, geometry=gpd.points_from_xy(gdf.Longitude, gdf.Latitude), crs="EPSG:4326")
+            
+            plot_date = lm_data['Forecast_Month'].iloc[0]
+            output_path = MAP_OUTPUT_DIR / f"spi_{timescale}mo_map_lead_{lead_month:02d}_{plot_date}.png"
+            plot_forecast_map(gdf, plot_date, lead_month, timescale, output_path)
+
+        # Generate Meteograms (one for each station)
+        for station_name in station_df['Station Name']:
+            station_data = ts_data[ts_data['Station Name'] == station_name]
+            if station_data.empty:
+                continue
+                
+            # Clean station name for filename
+            safe_filename = re.sub(r'[^a-zA-Z0-9_-]', '_', station_name) + f"_spi_{timescale}mo.png"
+            output_path = METEOGRAM_OUTPUT_DIR / safe_filename
+            plot_station_meteogram(station_name, station_data, timescale, output_path)
 
     print("\n--- All Forecast Products Generated Successfully! ---")
 
